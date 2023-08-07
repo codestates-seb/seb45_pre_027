@@ -1,0 +1,15 @@
+.main_display {
+  display: flex;
+  width: 1100px;
+  max-width: 1100px;
+  padding: 24px 24px 24px 25px;
+  align-items: flex-start;
+}
+
+.box {
+  display: flex;
+  width: 18px;
+  height: 18px;
+  padding: 4px 1px 6px 1px;
+  align-items: flex-start;
+}
