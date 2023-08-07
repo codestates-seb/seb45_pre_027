@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 // 스타일된 컴포넌트 생성
 export const AskButton = styled.button`
