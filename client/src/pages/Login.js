@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import SmallLogo from "../components/SmallLogo";
+import SmallLogo from "../components/login-components/SmallLogo";
 import logo from "../img/small-logo.svg";
 import facebookLogo from "../img/facebook-logo.svg";
 import googleLogo from "../img/google-logo.svg";
 import githubLogo from "../img/github-logo.svg";
-import LoginForm from "../components/LoginForm";
-import SocialButton from "../components/SocialButton";
+import LoginForm from "../components/login-components/LoginForm";
+import SocialButton from "../components/login-components/SocialButton";
 import { BiLinkExternal } from "react-icons/bi";
 const Container = styled.div`
   display: flex;
