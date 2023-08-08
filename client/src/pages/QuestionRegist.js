@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Qrsection from "../components/Qrsection";
+import Qrsection from "../components/Cqsection/Qrsection";
 
 const colors = {
   backgroundColor: "rgba(248, 249, 249, 1)",
