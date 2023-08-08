@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import robot from "../images/robot.svg";
+import Qrsection from "../components/Qrsection";
 
 const colors = {
   backgroundColor: "rgba(248, 249, 249, 1)",
@@ -7,42 +7,45 @@ const colors = {
   contentBackground: "rgba(235, 244, 251, 1)",
 };
 
-const QuestionCreatePage = styled.section`
+const QCPage = styled.section`
   width: 100%;
   padding-top: 50px;
   display: flex;
   justify-content: center;
+  background-color: ${colors.backgroundColor};
 
   .robot {
     width: 550px;
     height: 300px;
+    margin-left: 70px;
   }
 
-  .question-container {
+  .container {
     width: 100%;
     max-width: 1264px;
     padding: 0 24px 24px;
 
-    .question-description {
+    .description {
       display: flex;
       flex-direction: column;
       width: 100%;
 
-      .question-title {
+      .title {
         display: flex;
         align-items: center;
         width: 100%;
         height: 130px;
 
         > h2 {
-          margin-right: 350px;
+          margin-right: 300px;
           font-size: 29px;
           font-weight: bold;
         }
       }
 
-      .question-description-box {
+      .description-box {
         margin-top: 16px;
+        margin-bottom: 10px;
         display: flex;
         border: 1px solid ${colors.borderColor};
         width: 70%;
@@ -70,7 +73,7 @@ const QuestionCreatePage = styled.section`
           }
 
           > p {
-            font-size: 15px;
+            font-size: 16px;
             margin-bottom: 15px;
           }
 
@@ -98,14 +101,14 @@ const QuestionCreatePage = styled.section`
 
 const QuestionRegist = () => {
   return (
-    <QuestionCreatePage>
-      <div className="question-container">
-        <div className="question-description">
-          <div className="question-title">
+    <QCPage>
+      <div className="container">
+        <div className="description">
+          <div className="title">
             <h2>Ask a public question</h2>
-            <img className="robot" src={robot} alt="Robot" />
+            <img className="robot" src="robot.svg" alt="Robot" />
           </div>
-          <div className="question-description-box">
+          <div className="description-box">
             <div>
               <h3>Writing a good question</h3>
               <p>
@@ -129,9 +132,10 @@ const QuestionRegist = () => {
               </ul>
             </div>
           </div>
+          <Qrsection />
         </div>
       </div>
-    </QuestionCreatePage>
+    </QCPage>
   );
 };
 
