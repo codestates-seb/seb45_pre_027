@@ -1,18 +1,14 @@
 package com.example.tset.board.dto;
 
 
+import lombok.Builder;
 import lombok.Getter;
 
+@Builder
 @Getter
-public class BroadPatchDto {
-
+public class BoardReponseDto {
     private long broadId;
-
     private String title;
-
     private String content;
-
-    public void setBroadId(long broadId) {
-        this.broadId = broadId;
-    }
+//    private LocalDateTime localDateTime;
 }

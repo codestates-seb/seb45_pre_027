@@ -7,14 +7,12 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-public class BroadEntity {
+public class BoardEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +22,7 @@ public class BroadEntity {
 
     private String content;
 
-//    private LocalDateTime localDateTime;
+    private LocalDateTime localDateTime;
 
 //    @ManyToOne
 //      @JoinColumn(name = "member-id")
