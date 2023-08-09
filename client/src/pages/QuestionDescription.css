@@ -13,3 +13,11 @@
   padding: 4px 1px 6px 1px;
   align-items: flex-start;
 }
+
+.UpDownButton {
+  display: flex;
+  width: 18px;
+  height: 18px;
+  padding: 4px 1px 6px 1px;
+  align-items: flex-start;
+}
