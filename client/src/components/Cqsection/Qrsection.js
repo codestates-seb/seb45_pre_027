@@ -95,7 +95,8 @@ const SectionForm = styled.div`
     border-radius: 6px;
     font-size: 13px;
     color: white;
-    margin-top: 7px;
+    margin: 7px 0px;
+    padding: 10px;
   }
   .tags-btn {
     width: 50px;
@@ -131,7 +132,7 @@ const SectionForm = styled.div`
       }
       .review-body {
         width: 100%;
-        height: 90px;
+        height: 50px;
       }
       .review-label {
         margin-bottom: 10px;
@@ -204,18 +205,6 @@ const Qrsection = () => {
     false,
   ]);
 
-  const handleNextClick = () => {
-    if (activeSection < 3) {
-      setActiveSection(activeSection + 1);
-      setShowNextButton((prev) => {
-        const newState = [...prev];
-        newState[activeSection] = false;
-        newState[activeSection + 1] = true;
-        return newState;
-      });
-    }
-  };
-
   const handleInputClick = (index) => {
     if (!showNextButton[index]) {
       return;
@@ -229,6 +218,17 @@ const Qrsection = () => {
     });
   };
 
+  const handleNextClick = () => {
+    if (activeSection < 4) {
+      setActiveSection(activeSection + 1);
+      setShowNextButton((prev) => {
+        const newState = [...prev];
+        newState[activeSection] = false;
+        newState[activeSection + 1] = true;
+        return newState;
+      });
+    }
+  };
   return (
     <>
       <SectionForm>
@@ -450,12 +450,17 @@ const Qrsection = () => {
             <div className="section-body">
               <input className="review-body" type="text" />
             </div>
-            <button className="review-btn">Review your question</button>
+            <button
+              className={`review-btn ${showNextButton[4] ? "" : "hidden"}`}
+              onClick={handleNextClick}
+            >
+              Review your question
+            </button>
           </div>
         </div>
       </SectionForm>
       <LastBtn
-        className={`last-btn ${showNextButton[4] ? "" : "hidden"}`}
+        className={`last-btn ${showNextButton[5] ? "" : "hidden"}`}
         onClick={handleNextClick}
       >
         Discard draft
