@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import React, { useState } from "react";
+import { postQuestionToServer } from "./Cqpost.js";
 
 const LastBtn = styled.button`
   color: red;
