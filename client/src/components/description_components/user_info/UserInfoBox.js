@@ -7,6 +7,8 @@ import {
   UserDetails,
 } from './UserInfo';
 
+import handSVG from '../../../assets/hand.svg'; // SVG 파일 경로 수정
+
 function UserInfoBox() {
   const time = ['3', '2', '1'];
   const img = [
@@ -43,7 +45,10 @@ function UserInfoBox() {
     line-height: 17px; /* 141.667% */
   `;
 
-  const Text = styled.text``;
+  const Text = styled.text`
+    width: auto;
+    height: auto;
+  `;
 
   const NewContributorIndicator = styled.div`
     display: flex;
@@ -57,9 +62,36 @@ function UserInfoBox() {
   `;
 
   const Vector = styled.div`
-    width: 16.058px;
+    display: flex;
+    flex-direction: row;
+    /* width: 16.058px; */
     height: 16.779px;
     flex-shrink: 0;
+
+    color: #3b4045;
+    font-family: Inter;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 17px; /* 154.545% */
+  `;
+
+  const PostSignatureImg = styled.img`
+    height: 15.999px;
+    flex-shrink: 0;
+
+    /* background-color: #3b4045; */
+  `;
+
+  const NewContributor = styled.div`
+    color: #3b4045;
+    font-family: Inter;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 17px; /* 154.545% */
+    width: 88px;
+    height: 17px;
   `;
 
   return (
@@ -79,7 +111,10 @@ function UserInfoBox() {
         </UserInfo>
       </Box>
       <NewContributorIndicator>
-        <Vector></Vector>
+        <Vector>
+          <PostSignatureImg src={handSVG} />
+          <NewContributor> New contributor</NewContributor>
+        </Vector>
       </NewContributorIndicator>
     </PostSignature>
   );
