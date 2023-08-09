@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import React, { useState } from "react";
 
 const LastBtn = styled.button`
   color: red;
@@ -18,6 +19,7 @@ const SectionForm = styled.div`
     margin-left: 10px;
     border-radius: 6px;
     box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.2);
+    display: none;
   }
   .side-section3 {
     border: 1px solid rgba(214, 217, 220, 1);
@@ -27,6 +29,7 @@ const SectionForm = styled.div`
     margin-left: 10px;
     border-radius: 6px;
     box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.2);
+    display: none;
   }
   .side-section4 {
     border: 1px solid rgba(214, 217, 220, 1);
@@ -36,6 +39,10 @@ const SectionForm = styled.div`
     margin-left: 10px;
     border-radius: 6px;
     box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.2);
+    display: none;
+  }
+  .active {
+    display: block;
   }
   .side-title {
     background-color: #f8f9f9;
@@ -185,6 +192,16 @@ const SectionForm = styled.div`
 `;
 
 const Qrsection = () => {
+  const [activeSection, setActiveSection] = useState(null);
+
+  const handleInputClick = (index) => {
+    if (activeSection === index) {
+      setActiveSection(null);
+    } else {
+      setActiveSection(index);
+    }
+  };
+
   return (
     <>
       <SectionForm>
@@ -200,13 +217,16 @@ const Qrsection = () => {
               </label>
             </div>
             <input
+              onClick={() => handleInputClick(0)}
               type="text"
               className="section-input"
               placeholder="e.g is there an R function for finding the index of an element in a vector?"
             ></input>
             <button className="section-btn">Next</button>
           </div>
-          <div className="side-section">
+          <div
+            className={`side-section ${activeSection === 0 ? "active" : ""}`}
+          >
             <div className="side-title">Writing a good title</div>
             <div className="side-form">
               <img
@@ -239,11 +259,17 @@ const Qrsection = () => {
               </label>
             </div>
             <div className="section-body">
-              <input className="section-body-input" type="text" />
+              <input
+                className="section-body-input"
+                onClick={() => handleInputClick(1)}
+                type="text"
+              />
             </div>
             <button className="section-btn">Next</button>
           </div>
-          <div className="side-section">
+          <div
+            className={`side-section ${activeSection === 1 ? "active" : ""}`}
+          >
             <div className="side-title">Introduce the problem</div>
             <div className="side-form">
               <img
@@ -275,11 +301,17 @@ const Qrsection = () => {
               </label>
             </div>
             <div className="section-body">
-              <input className="section-body-input" type="text" />
+              <input
+                className="section-body-input"
+                onClick={() => handleInputClick(2)}
+                type="text"
+              />
             </div>
             <button className="section-btn">Next</button>
           </div>
-          <div className="side-section3">
+          <div
+            className={`side-section3 ${activeSection === 2 ? "active" : ""}`}
+          >
             <div className="side-title">Expand on the problem</div>
             <div className="side-form">
               <img
@@ -320,10 +352,16 @@ const Qrsection = () => {
                 typing to see suggestions.
               </label>
             </div>
-            <input type="text" className="section-input"></input>
+            <input
+              type="text"
+              className="section-input"
+              onClick={() => handleInputClick(3)}
+            ></input>
             <button className="section-btn">Next</button>
           </div>
-          <div className="side-section4">
+          <div
+            className={`side-section4 ${activeSection === 3 ? "active" : ""}`}
+          >
             <div className="side-title">Adding tags</div>
             <div className="side-form">
               <img
