@@ -3,6 +3,8 @@ package com.example.tset.board.dto;
 
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+
 @Getter
 public class BoardPostDto {
 
@@ -10,5 +12,6 @@ public class BoardPostDto {
 
     private String content;
 
-//    private LocalDateTime localDateTime;
+    private String expecting;
+
 }

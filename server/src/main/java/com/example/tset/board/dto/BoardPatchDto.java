@@ -2,8 +2,10 @@ package com.example.tset.board.dto;
 
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class BoardPatchDto {
 
     private long broadId;
@@ -15,4 +17,5 @@ public class BoardPatchDto {
     public void setBroadId(long broadId) {
         this.broadId = broadId;
     }
+
 }

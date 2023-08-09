@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @NoArgsConstructor
 @Getter
@@ -22,10 +22,19 @@ public class BoardEntity {
 
     private String content;
 
-    private LocalDateTime localDateTime;
+    private Timestamp createdat;
 
-//    @ManyToOne
-//      @JoinColumn(name = "member-id")
+    private Timestamp deletedat;
+
+    private Timestamp updatedat;
+
+    private int view;
+
+
+
+
+    //    @ManyToOne
+//    @JoinColumn(name = "member-id")
 //    private List<MemberBroad> memberBroads = new ArrayList<>();
 
 }
