@@ -73,9 +73,9 @@ function LoginForm() {
           <LoginButton
             color="#FFF"
             background="#0A95FF"
-            borderColor="hsl(206,96%,90%)"
-            hoverColor="hsl(206,100%,40%)"
-            activeColor="hsl(209,100%,37.5%)"
+            bordercolor="hsl(206,96%,90%)"
+            hovercolor="hsl(206,100%,40%)"
+            activecolor="hsl(209,100%,37.5%)"
           >
             Log In
           </LoginButton>

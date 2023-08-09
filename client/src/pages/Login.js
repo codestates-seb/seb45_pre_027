@@ -82,9 +82,9 @@ function Login() {
           <SocialButton
             color="#3B4045"
             background="#FFF"
-            borderColor="#d6d9dc"
-            hoverColor="hsl(210, 8%, 97.5%)"
-            activeColor="hsl(210,8%,95%)"
+            bordercolor="#d6d9dc"
+            hovercolor="hsl(210, 8%, 97.5%)"
+            activecolor="hsl(210,8%,95%)"
           >
             <SmallLogo logo={googleLogo} />
             <span>Log In with Google</span>
@@ -92,9 +92,9 @@ function Login() {
           <SocialButton
             color="#FFF"
             background="#2F3337"
-            borderColor="hsl(210,8%,85%)"
-            hoverColor="hsl(210,8%,15%)"
-            activeColor="hsl(210,8%,5%)"
+            bordercolor="hsl(210,8%,85%)"
+            hovercolor="hsl(210,8%,15%)"
+            activecolor="hsl(210,8%,5%)"
           >
             <SmallLogo logo={githubLogo} />
             <span>Log In with GitHub</span>
@@ -102,9 +102,10 @@ function Login() {
           <SocialButton
             color="#FFF"
             background="#385499"
-            borderColor="hsl(206,93%,83.5%)"
-            hoverColor="#314a86"
-            activeColor="#2a4074"
+            bordercolor="hsl(206,93%,83.5%)"
+            hovercolor="#314a86"
+            activecolor="#2a4074"
+            disabled
           >
             <SmallLogo logo={facebookLogo} />
             <span>Log In with Facebook</span>
