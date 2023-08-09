@@ -41,6 +41,9 @@ const SectionForm = styled.div`
     box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.2);
     display: none;
   }
+  .hidden {
+    display: none;
+  }
   .active {
     display: block;
   }
@@ -193,13 +196,37 @@ const SectionForm = styled.div`
 
 const Qrsection = () => {
   const [activeSection, setActiveSection] = useState(null);
+  const [showNextButton, setShowNextButton] = useState([
+    true,
+    false,
+    false,
+    false,
+    false,
+  ]);
+
+  const handleNextClick = () => {
+    if (activeSection < 3) {
+      setActiveSection(activeSection + 1);
+      setShowNextButton((prev) => {
+        const newState = [...prev];
+        newState[activeSection] = false;
+        newState[activeSection + 1] = true;
+        return newState;
+      });
+    }
+  };
 
   const handleInputClick = (index) => {
-    if (activeSection === index) {
-      setActiveSection(null);
-    } else {
-      setActiveSection(index);
+    if (!showNextButton[index]) {
+      return;
     }
+
+    setActiveSection(index);
+    setShowNextButton((prev) => {
+      const newState = [...prev];
+      newState[index] = true;
+      return newState;
+    });
   };
 
   return (
@@ -222,7 +249,12 @@ const Qrsection = () => {
               className="section-input"
               placeholder="e.g is there an R function for finding the index of an element in a vector?"
             ></input>
-            <button className="section-btn">Next</button>
+            <button
+              className={`section-btn ${showNextButton[0] ? "" : "hidden"}`}
+              onClick={handleNextClick}
+            >
+              Next
+            </button>
           </div>
           <div
             className={`side-section ${activeSection === 0 ? "active" : ""}`}
@@ -265,7 +297,12 @@ const Qrsection = () => {
                 type="text"
               />
             </div>
-            <button className="section-btn">Next</button>
+            <button
+              className={`section-btn ${showNextButton[1] ? "" : "hidden"}`}
+              onClick={handleNextClick}
+            >
+              Next
+            </button>
           </div>
           <div
             className={`side-section ${activeSection === 1 ? "active" : ""}`}
@@ -307,7 +344,12 @@ const Qrsection = () => {
                 type="text"
               />
             </div>
-            <button className="section-btn">Next</button>
+            <button
+              className={`section-btn ${showNextButton[2] ? "" : "hidden"}`}
+              onClick={handleNextClick}
+            >
+              Next
+            </button>
           </div>
           <div
             className={`side-section3 ${activeSection === 2 ? "active" : ""}`}
@@ -357,7 +399,12 @@ const Qrsection = () => {
               className="section-input"
               onClick={() => handleInputClick(3)}
             ></input>
-            <button className="section-btn">Next</button>
+            <button
+              className={`section-btn ${showNextButton[3] ? "" : "hidden"}`}
+              onClick={handleNextClick}
+            >
+              Next
+            </button>
           </div>
           <div
             className={`side-section4 ${activeSection === 3 ? "active" : ""}`}
@@ -407,7 +454,12 @@ const Qrsection = () => {
           </div>
         </div>
       </SectionForm>
-      <LastBtn className="last-btn">Discard draft</LastBtn>
+      <LastBtn
+        className={`last-btn ${showNextButton[4] ? "" : "hidden"}`}
+        onClick={handleNextClick}
+      >
+        Discard draft
+      </LastBtn>
     </>
   );
 };
