@@ -12,7 +12,9 @@ public class BoardPatchDto {
 
     private String title;
 
-    private String content;
+    private String problem;
+
+    private String expecting;
 
     public void setBroadId(long broadId) {
         this.broadId = broadId;

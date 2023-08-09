@@ -30,7 +30,7 @@ public class BoardService {
 
         return boardRepository.save(boardEntity);
     }
-    @Transactional
+
     public BoardEntity updateBoard(BoardEntity boardEntity) {
         Optional<BoardEntity> findBoard = boardRepository.findById(boardEntity.getBroadId());
 
@@ -44,7 +44,8 @@ public class BoardService {
         });
 
         Optional.ofNullable(boardEntity.getTitle()).ifPresent(title -> findBoard.get().setTitle(title));
-        Optional.ofNullable(boardEntity.getContent()).ifPresent(content -> findBoard.get().setContent(content));
+        Optional.ofNullable(boardEntity.getProblem()).ifPresent(problem -> findBoard.get().setProblem(problem));
+        Optional.ofNullable(boardEntity.getExpecting()).ifPresent(expecting -> findBoard.get().setExpecting(expecting));
 
         return boardRepository.save(findBoard.get());
     }

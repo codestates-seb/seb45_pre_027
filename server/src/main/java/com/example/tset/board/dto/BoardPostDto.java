@@ -10,7 +10,7 @@ public class BoardPostDto {
 
     private String title;
 
-    private String content;
+    private String problem;
 
     private String expecting;
 

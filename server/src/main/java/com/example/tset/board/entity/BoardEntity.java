@@ -20,7 +20,9 @@ public class BoardEntity {
 
     private String title;
 
-    private String content;
+    private String problem;
+
+    private String expecting;
 
     private Timestamp createdat;
 
@@ -29,8 +31,6 @@ public class BoardEntity {
     private Timestamp updatedat;
 
     private int view;
-
-
 
 
     //    @ManyToOne

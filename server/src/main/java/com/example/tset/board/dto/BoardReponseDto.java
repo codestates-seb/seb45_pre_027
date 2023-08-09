@@ -12,6 +12,10 @@ import java.time.LocalDateTime;
 @Setter
 public class BoardReponseDto {
     private long broadId;
+
     private String title;
-    private String content;
+
+    private String problem;
+
+    private String expecting;
 }
