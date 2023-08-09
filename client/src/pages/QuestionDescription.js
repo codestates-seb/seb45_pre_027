@@ -12,6 +12,7 @@ import UpButton from '../components/description_components/button/UpButton';
 import './QuestionDescription.css';
 import UserInfoBox from '../components/description_components/user_info/UserInfoBox';
 import BannerImg from '../components/description_components/banner/Banner';
+import ButtonList from '../components/description_components/button/Button';
 
 const QuestionDescription = () => {
   const tag = ['firefox', 'proxy'];
@@ -23,6 +24,7 @@ const QuestionDescription = () => {
       <LinkButton>{tag[0]}</LinkButton>
       <UserInfoBox></UserInfoBox>
       <BannerImg></BannerImg>
+      <ButtonList />
       <BookButton />
     </div>
   );

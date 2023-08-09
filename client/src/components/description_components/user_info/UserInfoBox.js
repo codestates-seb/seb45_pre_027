@@ -7,7 +7,8 @@ import {
   UserDetails,
 } from './UserInfo';
 
-import handSVG from '../../../assets/hand.svg'; // SVG 파일 경로 수정
+import hand from '../../../assets/images/hand.svg'; // SVG 파일 경로 수정
+import handS from '../../../assets/images/handS.svg'; // 두 번째 SVG 이미지 파일 경로
 
 function UserInfoBox() {
   const time = ['3', '2', '1'];
@@ -61,12 +62,33 @@ function UserInfoBox() {
     background: #d0e3f1;
   `;
 
+  //  손 인사 이미지 <손>
   const Vector = styled.div`
     display: flex;
     flex-direction: row;
     /* width: 16.058px; */
     height: 16.779px;
     flex-shrink: 0;
+
+    position: relative; //포지션 앞으로
+
+    color: #3b4045;
+    font-family: Inter;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 17px; /* 154.545% */
+  `;
+
+  // 손인사 이지지 <흔들거리는 모션>
+  const Vector2 = styled.div`
+    display: flex;
+    flex-direction: row;
+    /* width: 16.058px; */
+    height: 16.779px;
+    flex-shrink: 0;
+
+    position: absolute; //포지션 뒤로
 
     color: #3b4045;
     font-family: Inter;
@@ -77,12 +99,21 @@ function UserInfoBox() {
   `;
 
   const PostSignatureImg = styled.img`
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 15.999px;
     flex-shrink: 0;
-
-    /* background-color: #3b4045; */
   `;
 
+  // 부모 컨테이너 스타일
+  const CenteredContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `;
+
+  // New contributor
   const NewContributor = styled.div`
     color: #3b4045;
     font-family: Inter;
@@ -92,6 +123,7 @@ function UserInfoBox() {
     line-height: 17px; /* 154.545% */
     width: 88px;
     height: 17px;
+    padding-left: 4%;
   `;
 
   return (
@@ -111,10 +143,17 @@ function UserInfoBox() {
         </UserInfo>
       </Box>
       <NewContributorIndicator>
-        <Vector>
-          <PostSignatureImg src={handSVG} />
-          <NewContributor> New contributor</NewContributor>
-        </Vector>
+        <CenteredContainer>
+          <Vector>
+            {/* 첫 번째 SVG 이미지 */}
+            <PostSignatureImg src={hand} />
+            <Vector2>
+              {/* 두 번째 SVG 이미지 */}
+              <PostSignatureImg src={handS} />
+            </Vector2>
+            <NewContributor> New contributor</NewContributor>
+          </Vector>
+        </CenteredContainer>
       </NewContributorIndicator>
     </PostSignature>
   );
