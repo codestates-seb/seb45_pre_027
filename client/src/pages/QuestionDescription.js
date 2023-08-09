@@ -16,12 +16,10 @@ const QuestionDescription = () => {
   const tag = ['firefox', 'proxy'];
   return (
     <div className="main_display">
-      {/* <AskButton>Ask Question</AskButton>
       <UpButton></UpButton>
       <DownButton></DownButton>
-      <LinkButton>{tag[0]}</LinkButton> */}
+      <LinkButton>{tag[0]}</LinkButton>
       <UserInfoBox></UserInfoBox>
-      {/* <BookButton /> */}
     </div>
   );
 };
