@@ -1,5 +1,7 @@
 import { styled } from "styled-components";
 import SocialButton from "./SocialButton";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
 
 const Container = styled.div`
   display: inline-flex;
@@ -58,16 +60,23 @@ const LoginButton = styled(SocialButton)`
 `;
 
 function LoginForm() {
+  const { register, handleSubmit } = useForm();
+  const [data, setData] = useState("");
   return (
     <Container>
-      <Form>
+      <Form
+        onSubmit={handleSubmit((data) => {
+          setData(JSON.stringify(data));
+          console.log(data);
+        })}
+      >
         <div>
           <p>Email</p>
-          <input type="text" />
+          <input {...register("email")} type="text" />
         </div>
         <div>
           <p>Password</p>
-          <input type="password" />
+          <input {...register("password")} type="password" />
         </div>
         <div>
           <LoginButton
@@ -80,6 +89,7 @@ function LoginForm() {
             Log In
           </LoginButton>
         </div>
+        <p>{data}</p>
       </Form>
     </Container>
   );
