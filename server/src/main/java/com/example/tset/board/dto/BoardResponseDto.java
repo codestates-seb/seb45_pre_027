@@ -5,17 +5,16 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Builder
 @Getter
 @Setter
-public class BoardReponseDto {
-    private long broadId;
+public class BoardResponseDto {
+    private long boardId;
 
     private String title;
 
     private String problem;
 
     private String expecting;
+
 }

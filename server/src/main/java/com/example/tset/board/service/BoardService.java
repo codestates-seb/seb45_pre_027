@@ -1,7 +1,7 @@
 package com.example.tset.board.service;
 
 
-import com.example.tset.board.entity.BoardEntity;
+import com.example.tset.board.entity.Board;
 import com.example.tset.board.exception.BusinessLogicException;
 import com.example.tset.board.exception.ExceptionCode;
 import com.example.tset.board.repository.BoardRepository;
@@ -24,55 +24,55 @@ public class BoardService {
     }
 
     @Transactional
-    public BoardEntity createBoard(BoardEntity boardEntity) {
+    public Board createBoard(Board board) {
 
-        BoardEntity savedBoard = boardRepository.save(boardEntity);
+        Board savedBoard = boardRepository.save(board);
 
-        return boardRepository.save(boardEntity);
+        return boardRepository.save(board);
     }
 
-    public BoardEntity updateBoard(BoardEntity boardEntity) {
-        Optional<BoardEntity> findBoard = boardRepository.findById(boardEntity.getBroadId());
+    public Board updateBoard(Board board) {
+        Optional<Board> findBoard = boardRepository.findById(board.getBoardId());
 
-        String originalTitle = findBoard.map(BoardEntity::getTitle).orElse(null);
+        String originalTitle = findBoard.map(Board::getTitle).orElse(null);
 
-        Optional.ofNullable(boardEntity.getTitle()).ifPresent(updatedTitle -> {
+        Optional.ofNullable(board.getTitle()).ifPresent(updatedTitle -> {
 
             if (!updatedTitle.equals(originalTitle)) {
                 findBoard.get().setTitle(updatedTitle);
             }
         });
 
-        Optional.ofNullable(boardEntity.getTitle()).ifPresent(title -> findBoard.get().setTitle(title));
-        Optional.ofNullable(boardEntity.getProblem()).ifPresent(problem -> findBoard.get().setProblem(problem));
-        Optional.ofNullable(boardEntity.getExpecting()).ifPresent(expecting -> findBoard.get().setExpecting(expecting));
+        Optional.ofNullable(board.getTitle()).ifPresent(title -> findBoard.get().setTitle(title));
+        Optional.ofNullable(board.getProblem()).ifPresent(problem -> findBoard.get().setProblem(problem));
+        Optional.ofNullable(board.getExpecting()).ifPresent(expecting -> findBoard.get().setExpecting(expecting));
 
         return boardRepository.save(findBoard.get());
     }
 
-    public BoardEntity readBoard(long broadId) {
+    public Board readBoard(long broadId) {
         return findVerifiedBoard(broadId);
     }
 
-    public Page<BoardEntity> readBoards(int page, int size) {
+    public Page<Board> readBoards(int page, int size) {
         return boardRepository.findAll(PageRequest.of(page, size,
                 Sort.by("boardId").descending()));
     }
 
     public void deleteBoard(long broadId) {
-        BoardEntity boardEntity = findVerifiedBoard(broadId);
-        boardRepository.delete(boardEntity);
+        Board board = findVerifiedBoard(broadId);
+        boardRepository.delete(board);
     }
 
     @Transactional(readOnly = true)
-    public BoardEntity findVerifiedBoard(long broadId) {
-        Optional<BoardEntity> optionalBoard = boardRepository.findById(broadId);
-        BoardEntity findBoard = optionalBoard.orElseThrow(() -> new BusinessLogicException(ExceptionCode.TITLE_NOT_FOUND));
+    public Board findVerifiedBoard(long broadId) {
+        Optional<Board> optionalBoard = boardRepository.findById(broadId);
+        Board findBoard = optionalBoard.orElseThrow(() -> new BusinessLogicException(ExceptionCode.TITLE_NOT_FOUND));
 
         return findBoard;
     }
     private void verifyExistsTitle(String tilte) {
-        Optional<BoardEntity> borad = boardRepository.findByTitle(tilte);
+        Optional<Board> borad = boardRepository.findByTitle(tilte);
         if (borad.isPresent())
             throw new BusinessLogicException(ExceptionCode.TITLE_NOT_FOUND);
     }

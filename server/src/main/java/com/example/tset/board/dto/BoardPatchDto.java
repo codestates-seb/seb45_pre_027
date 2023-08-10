@@ -4,11 +4,13 @@ package com.example.tset.board.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Timestamp;
+
 @Getter
 @Setter
 public class BoardPatchDto {
 
-    private long broadId;
+    private long boardId;
 
     private String title;
 
@@ -16,8 +18,10 @@ public class BoardPatchDto {
 
     private String expecting;
 
-    public void setBroadId(long broadId) {
-        this.broadId = broadId;
+    private Timestamp updatedat;
+
+    public void setBroadId(long boardId) {
+        this.boardId = boardId;
     }
 
 }
