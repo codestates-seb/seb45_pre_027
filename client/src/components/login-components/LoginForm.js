@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { ErrorMessage } from "@hookform/error-message";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setIsLogin } from "../../store/loginSlice";
 
 const Container = styled.div`
   display: inline-flex;
@@ -67,6 +69,9 @@ const LoginButton = styled(SocialButton)`
 `;
 
 function LoginForm() {
+  const isLogin = useSelector((state) => state.isLogin.value);
+  const dispatch = useDispatch();
+  console.log(isLogin);
   const navigate = useNavigate();
   const {
     register,
@@ -84,7 +89,7 @@ function LoginForm() {
     }).then((res) => {
       if (res.status === 200) {
         sessionStorage.setItem("user_id", res.data);
-        // setIsLogin(true);
+        dispatch(setIsLogin(res.data));
         navigate("/");
       } else if (res.status === 403) {
         setErrorMsg("로그인 실패");
