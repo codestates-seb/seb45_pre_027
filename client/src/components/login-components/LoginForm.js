@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 import SocialButton from "./SocialButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { ErrorMessage } from "@hookform/error-message";
 
 const Container = styled.div`
   display: inline-flex;
@@ -17,66 +18,101 @@ const Container = styled.div`
 `;
 const Form = styled.form`
   display: flex;
+  width: 100%;
   padding: 6px 0px;
   flex-direction: column;
   align-items: flex-start;
   gap: 6px;
   div {
+    width: 100%;
+  }
+  label {
     display: flex;
-    flex-direction: column;
+    padding: 0px 226px 4px 2px;
     align-items: flex-start;
-    p {
-      display: flex;
-      padding: 0px 226px 4px 2px;
-      align-items: flex-start;
-      color: rgba(12, 13, 14, 1);
-      color: #0c0d0e;
-      font-family: Inter;
-      font-size: 15px;
-      font-style: normal;
-      font-weight: 600;
-    }
-    input {
-      padding: 0.6em 0.7em;
-      width: 240px;
-      height: 32.59px;
-      border-radius: 6px;
-      border: 1px solid #babfc4;
-      background: #fff;
-      font-weight: 300;
+    color: rgba(12, 13, 14, 1);
+    color: #0c0d0e;
+    font-family: Inter;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+  }
+  input {
+    padding: 0.6em 0.7em;
+    width: 240px;
+    height: 32.59px;
+    border-radius: 6px;
+    border: 1px solid #babfc4;
+    background: #fff;
+    font-weight: 300;
 
-      &:focus {
-        outline: none;
-        border-color: hsl(206, 90%, 69.5%);
-        box-shadow: 0px 0px 5px 1px hsl(206, 90%, 69.5%);
-      }
+    &:focus {
+      outline: none;
+      border-color: hsl(206, 90%, 69.5%);
+      box-shadow: 0px 0px 5px 1px hsl(206, 90%, 69.5%);
     }
   }
 `;
-
+const ErrorContainer = styled.div`
+  width: 100%;
+  padding-top: 0.5rem;
+  color: red;
+  text-align: center;
+  font-size: 0.7rem;
+`;
 const LoginButton = styled(SocialButton)`
   margin-top: 10px;
   width: 240px;
 `;
 
 function LoginForm() {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [data, setData] = useState("");
+  const handleLogin = (data) => {
+    setData(JSON.stringify(data));
+    console.log(data);
+  };
   return (
     <Container>
-      <Form
-        onSubmit={handleSubmit((data) => {
-          setData(JSON.stringify(data));
-          console.log(data);
-        })}
-      >
+      <Form onSubmit={handleSubmit(handleLogin)}>
         <div>
-          <p>Email</p>
-          <input {...register("email")} type="text" />
+          <label>Email</label>
+          <input
+            {...register("email", {
+              required: "Email is required",
+              pattern: {
+                value: /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm,
+                message: "Please input a valid email format",
+              },
+            })}
+          />
+          <ErrorContainer>
+            <ErrorMessage
+              errors={errors}
+              name="email"
+              render={({ message }) => <p>{message}</p>}
+            />
+          </ErrorContainer>
         </div>
         <div>
-          <p>Password</p>
-          <input {...register("password")} type="password" />
+          <label>Password</label>
+          <input
+            {...register("password", {
+              required: "Password is required",
+            })}
+            type="password"
+          />
+          <ErrorContainer>
+            <ErrorMessage
+              errors={errors}
+              name="password"
+              render={({ message }) => <p>{message}</p>}
+            />
+          </ErrorContainer>
         </div>
         <div>
           <LoginButton
@@ -89,7 +125,6 @@ function LoginForm() {
             Log In
           </LoginButton>
         </div>
-        <p>{data}</p>
       </Form>
     </Container>
   );
