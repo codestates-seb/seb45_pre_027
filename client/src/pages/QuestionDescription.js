@@ -15,6 +15,7 @@ import ButtonList from '../components/DescriptionComponents/ButtonComponents/Tex
 import { CommentBUT } from '../components/DescriptionComponents/ButtonComponents/AddComment';
 import BalloonApp from '../components/Balloon/BalloonBox';
 import UpButton from '../components/DescriptionComponents/ButtonComponents/UpButton';
+import AddRelatedQuestionItem from '../components/DescriptionComponents/RelatedQuestions/RelatedQuestionItem';
 
 const DescriptionBox = styled.div`
   display: flex;
@@ -35,6 +36,7 @@ const QuestionDescription = () => {
         <ButtonList />
         <CommentBUT />
         <BookButton />
+        <AddRelatedQuestionItem></AddRelatedQuestionItem>
       </DescriptionBox>
     </div>
   );
