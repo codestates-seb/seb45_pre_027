@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import RelatedQuestions from './RelatedQuestionsBox'; // 파일 경로는 프로젝트에 맞게 변경해야 합니다.
 import styled from 'styled-components';
+
+const jsonData = require('./data.json'); // JSON 데이터 파일 경로로 변경해야 함
 
 const BorderBox = styled.div`
   border: 1.5px solid #c8ccd0;
@@ -60,24 +62,26 @@ const RelatedQuestionsText = styled.text`
   font-weight: 400;
   line-height: 17px; /* 141.667% */
 `;
+
+const Num = ({ idList }) => (
+  <div>
+    {idList.map((id, index) => (
+      <NumItemBox key={index}>
+        <ItemBoxA>{id}</ItemBoxA>
+      </NumItemBox>
+    ))}
+  </div>
+);
+
 const AddRelatedQuestionItem = () => {
-  const relatedQuestions = [
-    'How do I style components in React?',
-    'What is the purpose of JSX?',
-    'How can I pass props between components?',
-  ];
+  // const [questions, setQuestions] = useState([]);
 
-  const NumItemList = [1, 2, 3];
-
-  const Num = ({ numList, index }) => (
-    <div>
-      {numList.map((numList, index) => (
-        <NumItemBox key={index}>
-          <ItemBoxA>{numList}</ItemBoxA>
-        </NumItemBox>
-      ))}
-    </div>
-  );
+  useEffect(() => {
+    // 데이터를 state로 가져오는 부분은 주석 처리
+    // fetch('/RelatedQuestions/RelatedQuestionsBox.json') // JSON 데이터 파일 경로로 변경해야 함
+    //   .then((response) => response.json())
+    //   .then((data) => setQuestions(data));
+  }, []);
 
   return (
     <div>
@@ -87,11 +91,11 @@ const AddRelatedQuestionItem = () => {
         {/* 내부 아이템 */}
         <ItemBox>
           <NumItemBox>
-            <Num numList={NumItemList} />
+            <Num idList={jsonData.map((item) => item.id)} /> {/* 수정된 부분 */}
           </NumItemBox>
           <RelatedQuestionsText>
-            <RelatedQuestions questions={relatedQuestions} />
-          </RelatedQuestionsText>
+            <RelatedQuestions questions={jsonData} />
+          </RelatedQuestionsText>{' '}
         </ItemBox>
       </BorderBox>
     </div>
