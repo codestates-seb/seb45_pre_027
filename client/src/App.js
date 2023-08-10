@@ -8,14 +8,16 @@ import QuestionDescription from "./pages/QuestionDescription";
 import QuestionList from "./pages/QuestionList";
 import QuestionRegist from "./pages/QuestionRegist";
 import SignUp from "./pages/SignUp";
+import { useState } from "react";
 
 function App() {
+  const [isLogin, setIsLogin] = useState(false);
   return (
     <>
       <Header />
       <SideBar />
       <Routes>
-        <Route path="/log-in" element={<Login />} />
+        <Route path="/log-in" element={<Login setIsLogin={setIsLogin} />} />
         <Route path="/log-out" element={<LogOut />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/questions" element={<QuestionList />} />

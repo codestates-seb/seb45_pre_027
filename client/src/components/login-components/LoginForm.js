@@ -3,6 +3,7 @@ import SocialButton from "./SocialButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { ErrorMessage } from "@hookform/error-message";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: inline-flex;
@@ -65,16 +66,30 @@ const LoginButton = styled(SocialButton)`
   width: 240px;
 `;
 
-function LoginForm() {
+function LoginForm({ setIsLogin }) {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [data, setData] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
   const handleLogin = (data) => {
-    setData(JSON.stringify(data));
-    console.log(data);
+    fetch("http:localhost:3000", {
+      method: "POST",
+      body: JSON.stringify({
+        email: data.email,
+        password: data.password,
+      }),
+    }).then((res) => {
+      if (res.status === 200) {
+        sessionStorage.setItem("user_id", res.data);
+        setIsLogin(true);
+        navigate("/");
+      } else if (res.status === 403) {
+        setErrorMsg("로그인 실패");
+      }
+    });
   };
   return (
     <Container>
@@ -124,6 +139,9 @@ function LoginForm() {
           >
             Log In
           </LoginButton>
+          <ErrorContainer>
+            <p>{errorMsg}</p>
+          </ErrorContainer>
         </div>
       </Form>
     </Container>
