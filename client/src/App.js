@@ -8,8 +8,11 @@ import QuestionDescription from "./pages/QuestionDescription";
 import QuestionList from "./pages/QuestionList";
 import QuestionRegist from "./pages/QuestionRegist";
 import SignUp from "./pages/SignUp";
+import { useSelector } from "react-redux";
 
 function App() {
+  const isLogin = useSelector((state) => state.isLogin.value);
+  console.log(isLogin);
   return (
     <>
       <Header />
