@@ -13,19 +13,22 @@ import './QuestionDescription.css';
 import UserInfoBox from '../components/description_components/user_info/UserInfoBox';
 import BannerImg from '../components/description_components/banner/Banner';
 import ButtonList from '../components/description_components/button/Button';
+import { CommentBUT } from '../components/description_components/button/AddComment';
+import BalloonApp from '../components/balloon/Balloon';
 
 const QuestionDescription = () => {
   const tag = ['firefox', 'proxy'];
   return (
     <div className="main_display">
-      <AskButton>Ask Question</AskButton>
+      {/* <AskButton>Ask Question</AskButton>
       <UpButton></UpButton>
       <DownButton></DownButton>
       <LinkButton>{tag[0]}</LinkButton>
       <UserInfoBox></UserInfoBox>
       <BannerImg></BannerImg>
-      <ButtonList />
-      <BookButton />
+      <ButtonList /> */}
+      <CommentBUT />
+      {/* <BookButton /> */}
     </div>
   );
 };
