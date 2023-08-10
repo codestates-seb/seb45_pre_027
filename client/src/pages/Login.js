@@ -73,7 +73,7 @@ const HelperContainer = styled.div`
 `;
 
 // 로그인 페이지
-function Login({ setIsLogin }) {
+function Login() {
   return (
     <Container>
       <InnerContainer>
@@ -111,7 +111,7 @@ function Login({ setIsLogin }) {
             <span>Log In with Facebook</span>
           </SocialButton>
         </ButtonContainer>
-        <LoginForm setIsLogin={setIsLogin} />
+        <LoginForm />
         <HelperContainer>
           <span>
             Don't have an account?<a>Sign up</a>

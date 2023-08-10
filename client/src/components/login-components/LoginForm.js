@@ -66,7 +66,7 @@ const LoginButton = styled(SocialButton)`
   width: 240px;
 `;
 
-function LoginForm({ setIsLogin }) {
+function LoginForm() {
   const navigate = useNavigate();
   const {
     register,
@@ -75,7 +75,7 @@ function LoginForm({ setIsLogin }) {
   } = useForm();
   const [errorMsg, setErrorMsg] = useState("");
   const handleLogin = (data) => {
-    fetch("http:localhost:3000", {
+    fetch("http:localhost:3000/members/log-in", {
       method: "POST",
       body: JSON.stringify({
         email: data.email,
@@ -84,7 +84,7 @@ function LoginForm({ setIsLogin }) {
     }).then((res) => {
       if (res.status === 200) {
         sessionStorage.setItem("user_id", res.data);
-        setIsLogin(true);
+        // setIsLogin(true);
         navigate("/");
       } else if (res.status === 403) {
         setErrorMsg("로그인 실패");
