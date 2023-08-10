@@ -3,6 +3,10 @@ import styled from 'styled-components';
 // 스타일된 컴포넌트 생성
 export const AskButton = styled.button`
   background-color: #0a95ff;
+
+  width: 100.11px;
+  height: 37.78px;
+
   color: white;
   padding: 10px 20px;
   border: none;

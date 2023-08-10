@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+// 태그 버튼
 // 스타일된 컴포넌트 생성
 export const LinkButton = styled.button`
   display: flex;
@@ -8,6 +8,9 @@ export const LinkButton = styled.button`
   border-radius: 4px;
   background: #e1ecf4;
   border: none;
+
+  width: auto;
+  max-width: max-content;
 
   color: #39739d;
   text-align: center;

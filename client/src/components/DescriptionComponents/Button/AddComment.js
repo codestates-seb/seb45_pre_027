@@ -2,7 +2,7 @@
 
 import { styled } from 'styled-components';
 import React, { useState } from 'react';
-import { Balloon } from '../../balloon/Balloon';
+import { Balloon } from '../../Balloon/BalloonBox.js';
 
 const Container = styled.div`
   display: flex;

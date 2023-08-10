@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 // 스타일된 컴포넌트 생성
 const StyledButton = styled.button`
+  height: 40.78px;
+  width: 40.78px;
   background-color: white;
   display: flex;
   padding: 11.39px;
