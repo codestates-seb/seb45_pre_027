@@ -6,6 +6,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsLogin } from "../../store/loginSlice";
+import { setUserInfo } from "../../store/userInfoSlice";
 
 const Container = styled.div`
   display: inline-flex;
@@ -71,7 +72,6 @@ const LoginButton = styled(SocialButton)`
 function LoginForm() {
   const isLogin = useSelector((state) => state.isLogin.value);
   const userInfo = useSelector((state) => state.userInfo.value);
-  console.log(userInfo);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
@@ -100,6 +100,7 @@ function LoginForm() {
         }
       })
       .then((res) => {
+        dispatch(setUserInfo(res.data));
         navigate("/");
       });
   };
