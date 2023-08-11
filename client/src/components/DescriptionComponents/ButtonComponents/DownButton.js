@@ -3,6 +3,8 @@ import styled from 'styled-components';
 const StyledButton = styled.button`
   height: 40.78px;
   width: 40.78px;
+  margin-top: 1rem;
+
   background-color: white;
   display: flex;
   padding: 11.39px;

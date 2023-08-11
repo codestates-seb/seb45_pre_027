@@ -5,17 +5,25 @@ import BannerImg from '../components/DescriptionComponents/Banner/BannerComponen
 import QuestionContent from '../components/DescriptionComponents/QuestionContent/QuestionContentBox';
 import UserInfoBox from '../components/DescriptionComponents/user_info/UserInfoBox';
 import AddRelatedQuestionItem from '../components/DescriptionComponents/RelatedQuestions/RelatedQuestionItem';
+import TextEditor from '../components/DescriptionComponents/TextEditor/TextEditorComponent';
+import UpButton from '../components/DescriptionComponents/ButtonComponents/UpButton';
+import { LinkButton } from '../components/DescriptionComponents/ButtonComponents/TagButton';
+import DownButton from '../components/DescriptionComponents/ButtonComponents/DownButton';
+import BookButton from '../components/DescriptionComponents/ButtonComponents/BookButton';
+import AskButton from '../components/DescriptionComponents/ButtonComponents/AskButton';
+import TheOverflowBlogList from '../components/DescriptionComponents/BlogItemList/BlogItem';
 
 // 질문 설명 상자를 위한 스타일 컴포넌트
 const DescriptionBox = styled.div`
   display: flex;
   flex-direction: row;
+  margin-top: 1rem;
 `;
 
 //TopContent
 const TopContent = styled.div`
   flex: 1;
-  margin-right: 20px;
+  border-bottom: 1px solid #e0e0e0;
 `;
 
 //타이틀 하단 조회수 , 게시 시점 , 조회수
@@ -26,6 +34,12 @@ const Container = styled.div`
   padding: 20px;
   display: flex;
   flex-direction: column;
+
+  display: flex;
+  width: 1100px;
+  max-width: 1100px;
+  padding: 24px 24px 24px 25px;
+  /* align-items: flex-start; */
 `;
 
 // 메인 컨텐츠 영역 스타일
@@ -37,10 +51,15 @@ const MainContent = styled.div`
 // 사이드바 영역 스타일
 const SideBar = styled.div`
   flex: 1;
+  /* background-color: antiquewhite; */
+  width: 300px;
 `;
 
 // 타이틀 섹션 스타일
 const TitleSection = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   font-size: 28px;
   font-weight: bold;
   margin-bottom: 20px;
@@ -67,11 +86,12 @@ const ButtonSection = styled.div`
   display: flex;
   align-items: center;
   margin-right: 20px;
+  flex-direction: column;
 `;
 
 // 내용 상세 영역 스타일
 const ContentDetail = styled.div`
-  background-color: aliceblue;
+  /* background-color: aliceblue; */
   padding: 2rem;
   flex: 1;
 `;
@@ -81,6 +101,15 @@ const UserInfoSection = styled.div`
   margin-bottom: 20px;
   display: flex;
   justify-content: flex-end;
+`;
+
+//태그 영역
+
+const TagSection = styled.div`
+  display: inline-flex;
+  padding: 2px 6px 2px 0px;
+  align-items: flex-start;
+  gap: 6px;
 `;
 
 // 관련 질문 섹션 스타일
@@ -102,16 +131,100 @@ const CommentSectionFrom = styled.div`
   margin-top: 1rem;
 `;
 
+const P = styled.div`
+  color: #232629;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 23.8px; /* 148.75% */
+
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+`;
+
+const S = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 76.77px;
+`;
+
 // 블로그 리스트 박스 스타일
 const BlogListBox = styled.div`
   border: 1px solid #e0e0e0;
-  padding: 10px;
+  background-color: #f9f0d5;
+  /* padding: 10px; */
 `;
 
 // 블로그 항목 스타일
 const BlogListItem = styled.div`
   margin-bottom: 10px;
 `;
+
+const BlogListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0px 0px 0px 1px;
+  align-items: flex-start;
+`;
+
+const BlogTitle = styled.h2`
+  display: flex;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 24px;
+  /* padding: 12px 183px 13.69px 15px; */
+  align-items: flex-start;
+
+  border-radius: 4px 4px 0px 0px;
+  border-top: 1px solid #f1e5bc;
+  border-bottom: 1px solid #f1e5bc;
+  background: #fbf3d5;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: stretch;
+
+  color: #525960;
+  font-family: Inter;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 15.692px; /* 142.657% */
+`;
+const MiddleContent = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const blogPosts = [
+  {
+    id: 1,
+    title: 'How engineering teams at a large org can move at startup speed',
+    link: '#',
+  },
+  {
+    id: 2,
+    title: 'The fine line between product and engineering (Ep. 596)',
+    link: '#',
+  },
+  // ... 추가 포스트
+];
+
+const MetaPosts = [
+  {
+    id: 1,
+    title: 'Moderation strike: Results of negotiations',
+    link: '#',
+  },
+  {
+    id: 2,
+    title:
+      'Our Design Vision for Stack Overflow and the Stack Exchange network',
+    link: '#',
+  },
+  // ... 추가 포스트
+];
 
 // 블로그 리스트가 포함된 레이아웃
 const LayoutWithBlogList = () => {
@@ -121,6 +234,7 @@ const LayoutWithBlogList = () => {
         {/*타이틀 영역*/}
         <TitleSection>
           <LayoutWithFetchTitle />
+          <AskButton />
         </TitleSection>
         {/*베너 영역*/}
         <AdBannerSection>
@@ -128,43 +242,65 @@ const LayoutWithBlogList = () => {
         </AdBannerSection>
       </TopContent>
 
-      <DescriptionBox>
-        <MainContent>
-          {/*질문 조회 영역*/}
-          <ContentSection>
-            <ButtonSection>
-              {/* 여기에 버튼을 삽입 */}
-              <button>Button</button>
-            </ButtonSection>
-            <ContentDetail>
-              {/* 질문 내용 추가 영역 */}
-              <QuestionContent />
-            </ContentDetail>
-          </ContentSection>
-          {/* 유저 프로필 영역 */}
-          <UserInfoSection>
-            <UserInfoBox />
-          </UserInfoSection>
-          <RelatedQuestionsSection>
-            <AddRelatedQuestionItem />
-          </RelatedQuestionsSection>
-          <CommentSection>
-            Know someone who can answer? Share a link to this question via
-            email, Twitter, or Facebook. Your Answer
-            <CommentSectionFrom>
-              <QuestionContent />
-            </CommentSectionFrom>
-          </CommentSection>
-        </MainContent>
-        <SideBar>
-          <BlogListBox>
-            <BlogListItem>Blog Post 1</BlogListItem>
-            <BlogListItem>Blog Post 2</BlogListItem>
-            <BlogListItem>Blog Post 3</BlogListItem>
-            <BlogListItem>Blog Post 4</BlogListItem>
-          </BlogListBox>
-        </SideBar>
-      </DescriptionBox>
+      <MiddleContent>
+        <DescriptionBox>
+          <MainContent>
+            {/*질문 조회 영역*/}
+            {/* 여기에 버튼을 삽입 */}
+            <ContentSection>
+              <ButtonSection>
+                <UpButton />
+                <p>0</p>
+                <DownButton />
+                <BookButton />
+              </ButtonSection>
+              <ContentDetail>
+                {/* 질문 내용 추가 영역 */}
+                <QuestionContent />
+              </ContentDetail>
+            </ContentSection>
+            <S>
+              <TagSection>
+                <LinkButton>uikit</LinkButton>
+                <LinkButton>nsundomanager</LinkButton>
+                <LinkButton>uikit</LinkButton>
+                <LinkButton>uikit</LinkButton>
+              </TagSection>
+            </S>
+            {/* 유저 프로필 영역 */}
+            <UserInfoSection>
+              <UserInfoBox />
+            </UserInfoSection>
+            <RelatedQuestionsSection>
+              <AddRelatedQuestionItem />
+            </RelatedQuestionsSection>
+            <P>
+              Know someone who can answer? Share a link to this question via
+              email, Twitter, or Facebook.
+            </P>
+            <P>Your Answer</P>
+            <TextEditor>
+              <CommentSectionFrom>
+                <QuestionContent />
+              </CommentSectionFrom>
+            </TextEditor>
+          </MainContent>
+          <SideBar>
+            <BlogListContainer>
+              <BlogTitle>The Overflow Blog</BlogTitle>
+              <BlogListBox>
+                <TheOverflowBlogList posts={blogPosts} />
+              </BlogListBox>
+            </BlogListContainer>
+            <BlogListContainer>
+              <BlogTitle>Featured on Meta</BlogTitle>
+              <BlogListBox>
+                <TheOverflowBlogList posts={MetaPosts} />
+              </BlogListBox>
+            </BlogListContainer>
+          </SideBar>
+        </DescriptionBox>
+      </MiddleContent>
     </Container>
   );
 };
