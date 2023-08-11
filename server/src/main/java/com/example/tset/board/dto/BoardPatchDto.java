@@ -20,8 +20,6 @@ public class BoardPatchDto {
     @NotBlank(message = "expecting는 비어 있으면 안됩니다")
     private String expecting;
 
-    private Timestamp updatedat;
-
     public void setBroadId(long boardId) {
         this.boardId = boardId;
     }

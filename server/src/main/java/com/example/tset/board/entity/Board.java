@@ -31,8 +31,6 @@ public class Board extends Auditable {
     @Column(length = 1000, nullable = false)
     private String expecting;
 
-
-
     private int view;
 
     public void incrementView() {

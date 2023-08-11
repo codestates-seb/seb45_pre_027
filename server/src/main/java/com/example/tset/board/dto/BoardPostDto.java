@@ -17,7 +17,6 @@ public class BoardPostDto {
     @NotBlank(message = "expecting는 비어 있으면 안됩니다")
     private String expecting;
 
-    private Timestamp createdat;
 }
 
 

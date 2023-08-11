@@ -19,16 +19,9 @@ import java.time.LocalDateTime;
 @Setter
 public abstract class Auditable {
 
-    @CreatedBy
-    @Column(updatable = false)
-    private String createdBy;
-
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
-
-    @LastModifiedBy
-    private String lastModifiedBy;
 
     @LastModifiedDate
     private LocalDateTime lastModifiedAt;
