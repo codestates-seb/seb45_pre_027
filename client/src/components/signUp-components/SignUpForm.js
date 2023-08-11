@@ -108,6 +108,7 @@ function SignUpForm() {
   } = useForm();
   const [errorMsg, setErrorMsg] = useState("");
   const handleLogin = async (data) => {
+    console.log(data);
     await fetch(`${process.env.REACT_APP_SERVER_URL}/members/log-in/`, {
       method: "POST",
       body: JSON.stringify({
@@ -134,6 +135,10 @@ function SignUpForm() {
   return (
     <Container>
       <Form onSubmit={handleSubmit(handleLogin)}>
+        <div>
+          <label>Display name</label>
+          <input {...register("name")} />
+        </div>
         <div>
           <label>Email</label>
           <input
