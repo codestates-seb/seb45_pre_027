@@ -51,8 +51,13 @@ public class BoardService {
     }
 
     public Board readBoard(long broadId) {
-        return findVerifiedBoard(broadId);
+        Board board = findVerifiedBoard(broadId);
+
+        increamentView(broadId);
+
+        return board;
     }
+
 
     public Page<Board> readBoards(int page, int size) {
         return boardRepository.findAll(PageRequest.of(page, size,
