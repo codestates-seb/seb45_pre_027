@@ -70,8 +70,9 @@ const LoginButton = styled(SocialButton)`
 
 function LoginForm() {
   const isLogin = useSelector((state) => state.isLogin.value);
+  const userInfo = useSelector((state) => state.userInfo.value);
+  console.log(userInfo);
   const dispatch = useDispatch();
-  console.log(isLogin);
   const navigate = useNavigate();
   const {
     register,
@@ -79,22 +80,28 @@ function LoginForm() {
     formState: { errors },
   } = useForm();
   const [errorMsg, setErrorMsg] = useState("");
-  const handleLogin = (data) => {
-    fetch("http:localhost:3000/members/log-in", {
+  const handleLogin = async (data) => {
+    await fetch(`${process.env.REACT_APP_SERVER_URL}/members/log-in/`, {
       method: "POST",
       body: JSON.stringify({
         email: data.email,
         password: data.password,
       }),
-    }).then((res) => {
-      if (res.status === 200) {
-        sessionStorage.setItem("user_id", res.data);
-        dispatch(setIsLogin(res.data));
+    })
+      .then(async (res) => {
+        if (res.status === 200) {
+          sessionStorage.setItem("user_id", res.data);
+          dispatch(setIsLogin(res.data));
+          return await fetch(
+            `${process.env.REACT_APP_SERVER_URL}/members/${res.data}`
+          );
+        } else if (res.status === 403) {
+          setErrorMsg("로그인 실패");
+        }
+      })
+      .then((res) => {
         navigate("/");
-      } else if (res.status === 403) {
-        setErrorMsg("로그인 실패");
-      }
-    });
+      });
   };
   return (
     <Container>
