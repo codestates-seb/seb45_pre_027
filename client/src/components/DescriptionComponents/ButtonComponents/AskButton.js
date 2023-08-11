@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 // 스타일된 컴포넌트 생성
-export const AskButton = styled.button`
+const Button = styled.button`
   background-color: #0a95ff;
 
   width: 100.11px;
@@ -24,3 +24,8 @@ export const AskButton = styled.button`
     background-color: hsl(209, 100%, 32%);
   }
 `;
+
+function AskButton() {
+  return <Button>Ask Question</Button>;
+}
+export default AskButton;

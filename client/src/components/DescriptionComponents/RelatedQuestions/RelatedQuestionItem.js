@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import RelatedQuestions from './RelatedQuestionsBox'; // 파일 경로는 프로젝트에 맞게 변경해야 합니다.
 import styled from 'styled-components';
 
