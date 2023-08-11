@@ -72,4 +72,10 @@ public class BoardController {
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @PostMapping("/{board-id}/click")
+    public ResponseEntity<String> incrementView(@PathVariable("board-id") @Positive long boardId) {
+        boardService.increamentView(boardId);
+        return ResponseEntity.ok("Wiew count incremented.");
+    }
 }

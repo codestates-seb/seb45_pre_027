@@ -64,6 +64,13 @@ public class BoardService {
         boardRepository.delete(board);
     }
 
+    @Transactional
+    public void increamentView(long boardId) {
+        Board board = findVerifiedBoard(boardId);
+        board.incrementView();
+        boardRepository.save(board);
+    }
+
     @Transactional(readOnly = true)
     public Board findVerifiedBoard(long broadId) {
         Optional<Board> optionalBoard = boardRepository.findById(broadId);
