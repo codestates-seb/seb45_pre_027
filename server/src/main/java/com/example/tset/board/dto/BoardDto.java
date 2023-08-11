@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 
 public class BoardDto {
@@ -11,10 +12,11 @@ public class BoardDto {
     @Getter
     @AllArgsConstructor
     public static class Post {
+        @NotBlank(message = "title은 비어 있으면 안됩니다")
         private String title;
-
+        @NotBlank(message = "problem은 비어 있으면 안됩니다")
         private String problem;
-
+        @NotBlank(message = "expecting는 비어 있으면 안됩니다")
         private String expecting;
 
         private Timestamp createdat;
@@ -24,10 +26,11 @@ public class BoardDto {
     public static class Patch {
         private long boardId;
 
+        @NotBlank(message = "title은 비어 있으면 안됩니다")
         private String title;
-
+        @NotBlank(message = "problem은 비어 있으면 안됩니다")
         private String problem;
-
+        @NotBlank(message = "expecting는 비어 있으면 안됩니다")
         private String expecting;
 
         private Timestamp updatedat;

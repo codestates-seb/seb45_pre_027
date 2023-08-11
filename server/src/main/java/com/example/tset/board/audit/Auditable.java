@@ -2,27 +2,41 @@ package com.example.tset.board.audit;
 
 
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
+import java.security.Timestamp;
 import java.time.LocalDateTime;
 
-@Getter
-@MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
+@MappedSuperclass
+@Getter
+@Setter
 public abstract class Auditable {
 
+    @CreatedBy
+    @Column(updatable = false)
+    private String createdBy;
+
     @CreatedDate
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;      //  Entity가 생성된 날짜를 나타내는 필드에 추가합니다.
+    @Column(nullable = false, updatable = false)
+    private Timestamp createdAt;
+
+    @LastModifiedBy
+    private String lastModifiedBy;
 
     @LastModifiedDate
-    @Column(name = "LAST_MODIFIED_AT")
-    private LocalDateTime modifiedAt;    // Entity가 마지막으로 수정된 날짜를 나타내는 필드에 추가합니다.
+    private Timestamp lastModifiedAt;
+
+    @Column(insertable = false)
+    private Timestamp deletedAt;
 
 }
+
