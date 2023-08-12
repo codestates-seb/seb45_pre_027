@@ -34,14 +34,14 @@ const TopContent = styled.div`
 const Container = styled.div`
   font-family: Arial, sans-serif;
   padding: 20px;
+  margin: 10px;
   display: flex;
   flex-direction: column;
-
   display: flex;
   width: 1100px;
   max-width: 1100px;
-  padding: 24px 24px 24px 25px;
-  /* align-items: flex-start; */
+  /* background-color: aqua; */
+  /* align-items: center; */
 `;
 
 // 메인 컨텐츠 영역 스타일
@@ -54,9 +54,7 @@ const MainContent = styled.div`
 // 사이드바 영역 스타일
 const SideBar = styled.div`
   flex: 1;
-  /* background-color: antiquewhite; */
   width: 300px;
-  /* background-color: aqua; */
 `;
 
 // 타이틀 섹션 스타일
@@ -71,7 +69,6 @@ const TitleSection = styled.div`
 
 // 광고 배너 섹션 스타일
 const AdBannerSection = styled.div`
-  /* background-color: #e0e0e0; */
   height: 90px;
   margin-bottom: 20px;
   text-align: center;
@@ -95,7 +92,6 @@ const ButtonSection = styled.div`
 
 // 내용 상세 영역 스타일
 const ContentDetail = styled.div`
-  /* background-color: aliceblue; */
   padding: 2rem;
   flex: 1;
 `;
@@ -256,7 +252,6 @@ const LayoutWithBlogList = () => {
         </TitleSection>
         <Information posts={samplePosts} />
       </TopContent>
-
       <MiddleContent>
         <DescriptionBox>
           <MainContent>
@@ -264,7 +259,6 @@ const LayoutWithBlogList = () => {
             <AdBannerSection>
               <BannerImg />
             </AdBannerSection>
-
             {/*질문 조회 영역*/}
             {/* 여기에 버튼을 삽입 */}
             <ContentSection>
@@ -283,7 +277,7 @@ const LayoutWithBlogList = () => {
             <S>
               <TagSection>
                 <LinkButton>uikit</LinkButton>
-                <LinkButton>nsundomanager</LinkButton>
+                <LinkButton>sun do manager</LinkButton>
                 <LinkButton>uikit</LinkButton>
                 <LinkButton>uikit</LinkButton>
               </TagSection>
@@ -301,6 +295,7 @@ const LayoutWithBlogList = () => {
               email, Twitter, or Facebook.
             </P>
             <P1>Your Answer</P1>
+
             <TextEditor>
               <CommentSectionFrom>
                 <QuestionContent />
