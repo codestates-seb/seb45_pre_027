@@ -3,9 +3,12 @@ import styled from 'styled-components';
 
 // 타이틀을 위한 스타일 컴포넌트
 const TitleStyled = styled.div`
-  font-size: 28px;
-  font-weight: bold;
-  margin-bottom: 20px;
+  color: #3b4045;
+  font-family: Inter;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 36.45px; /* 145.8% */
 `;
 
 // 주어진 타이틀을 표시하는 TitleComponent

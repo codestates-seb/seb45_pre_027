@@ -12,12 +12,16 @@ import DownButton from '../components/DescriptionComponents/ButtonComponents/Dow
 import BookButton from '../components/DescriptionComponents/ButtonComponents/BookButton';
 import AskButton from '../components/DescriptionComponents/ButtonComponents/AskButton';
 import TheOverflowBlogList from '../components/DescriptionComponents/BlogItemList/BlogItem';
+import Information from '../components/DescriptionComponents/TitleComponents/AskedModifideViewed';
+import ResetButton from '../components/DescriptionComponents/ButtonComponents/Reset';
+import ButtonList from '../components/DescriptionComponents/ButtonComponents/TextButton';
 
 // 질문 설명 상자를 위한 스타일 컴포넌트
 const DescriptionBox = styled.div`
   display: flex;
   flex-direction: row;
   margin-top: 1rem;
+  /* background-color: brown; */
 `;
 
 //TopContent
@@ -25,8 +29,6 @@ const TopContent = styled.div`
   flex: 1;
   border-bottom: 1px solid #e0e0e0;
 `;
-
-//타이틀 하단 조회수 , 게시 시점 , 조회수
 
 // 페이지 전체 컨테이너 스타일
 const Container = styled.div`
@@ -46,6 +48,7 @@ const Container = styled.div`
 const MainContent = styled.div`
   flex: 3;
   margin-right: 20px;
+  /* background-color: aquamarine; */
 `;
 
 // 사이드바 영역 스타일
@@ -53,6 +56,7 @@ const SideBar = styled.div`
   flex: 1;
   /* background-color: antiquewhite; */
   width: 300px;
+  /* background-color: aqua; */
 `;
 
 // 타이틀 섹션 스타일
@@ -67,7 +71,7 @@ const TitleSection = styled.div`
 
 // 광고 배너 섹션 스타일
 const AdBannerSection = styled.div`
-  background-color: #e0e0e0;
+  /* background-color: #e0e0e0; */
   height: 90px;
   margin-bottom: 20px;
   text-align: center;
@@ -110,6 +114,7 @@ const TagSection = styled.div`
   padding: 2px 6px 2px 0px;
   align-items: flex-start;
   gap: 6px;
+  margin-bottom: 2rem;
 `;
 
 // 관련 질문 섹션 스타일
@@ -117,13 +122,7 @@ const RelatedQuestionsSection = styled.div`
   margin-bottom: 20px;
 `;
 
-// 댓글 섹션 스타일
-const CommentSection = styled.div`
-  margin-bottom: 20px;
-`;
-
 //댓글 입력 폼
-
 const CommentSectionFrom = styled.div`
   border: 2px solid #e0e0e0;
   border-radius: 8px;
@@ -154,11 +153,6 @@ const BlogListBox = styled.div`
   border: 1px solid #e0e0e0;
   background-color: #f9f0d5;
   /* padding: 10px; */
-`;
-
-// 블로그 항목 스타일
-const BlogListItem = styled.div`
-  margin-bottom: 10px;
 `;
 
 const BlogListContainer = styled.div`
@@ -197,6 +191,18 @@ const MiddleContent = styled.div`
   display: flex;
   flex-direction: column;
 `;
+const P1 = styled.div`
+  color: #232629;
+  font-family: Inter;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: bolder;
+  line-height: 24.7px; /* 145.294% */
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+`;
+
 const blogPosts = [
   {
     id: 1,
@@ -226,6 +232,18 @@ const MetaPosts = [
   // ... 추가 포스트
 ];
 
+const samplePosts = [
+  {
+    id: 1,
+    // title: 'Sample Post 1',
+    link: '#',
+    postedDate: 'today',
+    updatedDate: 'today',
+    viewCount: 100,
+  },
+  // ... 다른 게시물
+];
+
 // 블로그 리스트가 포함된 레이아웃
 const LayoutWithBlogList = () => {
   return (
@@ -236,15 +254,17 @@ const LayoutWithBlogList = () => {
           <LayoutWithFetchTitle />
           <AskButton />
         </TitleSection>
-        {/*베너 영역*/}
-        <AdBannerSection>
-          <BannerImg />
-        </AdBannerSection>
+        <Information posts={samplePosts} />
       </TopContent>
 
       <MiddleContent>
         <DescriptionBox>
           <MainContent>
+            {/*베너 영역*/}
+            <AdBannerSection>
+              <BannerImg />
+            </AdBannerSection>
+
             {/*질문 조회 영역*/}
             {/* 여기에 버튼을 삽입 */}
             <ContentSection>
@@ -253,6 +273,7 @@ const LayoutWithBlogList = () => {
                 <p>0</p>
                 <DownButton />
                 <BookButton />
+                <ResetButton />
               </ButtonSection>
               <ContentDetail>
                 {/* 질문 내용 추가 영역 */}
@@ -266,6 +287,7 @@ const LayoutWithBlogList = () => {
                 <LinkButton>uikit</LinkButton>
                 <LinkButton>uikit</LinkButton>
               </TagSection>
+              <ButtonList />
             </S>
             {/* 유저 프로필 영역 */}
             <UserInfoSection>
@@ -278,7 +300,7 @@ const LayoutWithBlogList = () => {
               Know someone who can answer? Share a link to this question via
               email, Twitter, or Facebook.
             </P>
-            <P>Your Answer</P>
+            <P1>Your Answer</P1>
             <TextEditor>
               <CommentSectionFrom>
                 <QuestionContent />

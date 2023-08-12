@@ -93,7 +93,8 @@ const Follow = styled.button`
 const Balloon = styled.div`
   display: flex;
   position: absolute;
-  top: 30px;
+  top: 40px;
+
   justify-content: center;
   align-items: center;
   /* left: -80%; */

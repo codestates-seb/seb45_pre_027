@@ -11,6 +11,7 @@ const StyledButton = styled.button`
   display: flex;
   border: none;
   background-color: transparent;
+  margin-top: 1rem;
 `;
 
 function BookButton() {
