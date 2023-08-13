@@ -1,5 +1,5 @@
 function SideBar() {
-  return <div></div>;
+  return <div>Home PUBLIC Questions Tags Users Companies</div>;
 }
 
 export default SideBar;
