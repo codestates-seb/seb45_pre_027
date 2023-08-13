@@ -146,8 +146,11 @@ const S = styled.div`
 
 // 블로그 리스트 박스 스타일
 const BlogListBox = styled.div`
-  border: 1px solid #e0e0e0;
-  background-color: #f9f0d5;
+  border: 1px solid #f1e5bc;
+  background-color: #fcf6e4;
+  /* display: flex;
+  flex-direction: row;
+  align-items: center; */
   /* padding: 10px; */
 `;
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Edit from '../../../assets/images/edit_black_24dp.svg'; // SVG 파일 경로 수정
 
 // const BlogListContainer = styled.div`
 //   display: flex;
@@ -47,6 +48,8 @@ const BlogLink = styled.a`
   font-style: normal;
   font-weight: 400;
   line-height: 17px;
+  display: flex;
+  flex-direction: row;
   &:hover {
     text-decoration: underline;
   }
@@ -60,6 +63,14 @@ const Item = styled.div`
   padding: 0.5rem;
   flex-direction: column;
 `;
+const PostSignatureImg = styled.img`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 15.999px;
+  flex-shrink: 0;
+  padding-right: 0.5rem;
+`;
 
 const TheOverflowBlogList = ({ posts }) => (
   // <BlogListContainer>
@@ -68,7 +79,10 @@ const TheOverflowBlogList = ({ posts }) => (
   <Item>
     {posts.map((post) => (
       <BlogItem key={post.id}>
-        <BlogLink href={post.link}>{post.title}</BlogLink>
+        <BlogLink href={post.link}>
+          <PostSignatureImg src={Edit} />
+          {post.title}
+        </BlogLink>
       </BlogItem>
     ))}
   </Item>

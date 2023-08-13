@@ -1,4 +1,8 @@
 import styled from 'styled-components';
+import React, { useState } from 'react';
+import BoookMark from '../../../assets/images/bookmark_border_black_24dp.svg'; // SVG 파일 경로 수정
+
+import BoookMarkBlack from '../../../assets/images/bookmark_black_24dp.svg'; // SVG 파일 경로 수정
 
 // 스타일된 컴포넌트 생성
 const StyledButton = styled.button`
@@ -13,23 +17,27 @@ const StyledButton = styled.button`
   background-color: transparent;
   margin-top: 1rem;
 `;
+const PostSignatureImg = styled.img`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 15.999px;
+  flex-shrink: 0;
+`;
 
 function BookButton() {
+  const [isFollowing, setIsFollowing] = useState(false);
+
+  const handleButtonClick = () => {
+    setIsFollowing((prevState) => !prevState);
+  };
+
   return (
-    <StyledButton>
+    <StyledButton onClick={handleButtonClick}>
       <div className="BookButton">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="13"
-          height="17"
-          viewBox="0 0 13 17"
-          fill="none"
-        >
-          <path
-            d="M6.39001 10.44L10.39 13.1V2.83997H2.39001V13.1L6.39001 10.44ZM0.390015 16.84V2.83997C0.390015 1.73997 1.29001 0.839966 2.39001 0.839966H10.39C10.9204 0.839966 11.4292 1.05068 11.8042 1.42575C12.1793 1.80082 12.39 2.30953 12.39 2.83997V16.84L6.39001 12.84L0.390015 16.84Z"
-            fill="#BABFC4"
-          />
-        </svg>
+        {/* 아이콘 이미지를 상태에 따라 조건적으로 렌더링 */}
+        <PostSignatureImg src={isFollowing ? BoookMarkBlack : BoookMark} />
+        {/* 필요한 경우 여기에 'Following' 또는 'Follow' 텍스트를 추가 */}
       </div>
     </StyledButton>
   );
