@@ -14,5 +14,5 @@ public interface BoardMapper {
     BoardDto.Reponse boardToBoardResponse(Board board);
     List<BoardResponseDto> boardsToBoardResponseDto(List<Board> boards);
 
-    BoardDetailDto boardToBoardDetailDto(Board board);
+//    BoardDetailDto boardToBoardDetailDto(Board board);
 }

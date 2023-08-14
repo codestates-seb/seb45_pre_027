@@ -1,7 +1,7 @@
 package com.example.tset.board.controller;
 
 
-import com.example.tset.board.dto.BoardDetailDto;
+
 import com.example.tset.board.dto.BoardDto;
 import com.example.tset.board.dto.BoardPatchDto;
 import com.example.tset.board.dto.BoardPostDto;
