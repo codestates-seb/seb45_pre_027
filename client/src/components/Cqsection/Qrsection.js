@@ -58,10 +58,17 @@ const Modal = styled.div`
 const LastBtn = styled.button`
   color: #d0394e;
   background-color: rgba(248, 249, 249, 1);
-  border: 0px;
-  height: 30px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  border: none;
+  height: 35px;
   display: flex;
   margin: 10px;
+  width: 90px;
+  &:hover {
+    background-color: pink;
+  }
 `;
 
 const SectionForm = styled.div`
@@ -145,22 +152,28 @@ const SectionForm = styled.div`
     width: 150px;
     height: 37px;
     background-color: rgba(10, 149, 255, 1);
-    border: 1px solid rgba(10, 149, 255, 1);
+    border: none;
     border-radius: 6px;
     font-size: 13px;
     color: white;
     margin: 7px 0px;
     padding: 10px;
+    &:hover {
+      background-color: rgba(0, 109, 205, 1);
+    }
   }
   .tags-btn {
     width: 50px;
     height: 37px;
     background-color: rgba(10, 149, 255, 1);
-    border: 1px solid rgba(10, 149, 255, 1);
+    border: none;
     border-radius: 6px;
     font-size: 13px;
     color: white;
     margin-top: 1px;
+    &:hover {
+      background-color: rgba(0, 109, 205, 1);
+    }
   }
   .form-review {
     height: 200px;
@@ -207,11 +220,14 @@ const SectionForm = styled.div`
         width: 50px;
         height: 37px;
         background-color: rgba(10, 149, 255, 1);
-        border: 1px solid rgba(10, 149, 255, 1);
         border-radius: 6px;
         font-size: 13px;
         color: white;
         margin-top: 7px;
+        border: none;
+        &:hover {
+          background-color: rgba(0, 109, 205, 1);
+        }
       }
 
       .section-title {
