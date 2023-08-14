@@ -1,10 +1,62 @@
 import styled from "styled-components";
 import React, { useState } from "react";
-import { postQuestionToServer } from "./Cqpost.js";
-import QuestionProblem from "./Problem.js";
+
+const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  .modal-text {
+    margin-left: 22px;
+  }
+  .modal-content {
+    background-color: white;
+    border: none;
+    width: 470px;
+    border-radius: 7px;
+    height: 170px;
+    font-size: 14px;
+  }
+  .modal-title {
+    color: #d0393e;
+    font-size: 30px;
+    margin: 22px;
+  }
+  .modal-btn {
+    margin: 22px;
+  }
+  .redbtn {
+    background-color: red;
+    border: none;
+    width: 120px;
+    height: 35px;
+    border-radius: 7px;
+    color: white;
+    &:hover {
+      background-color: #d0393e;
+    }
+  }
+  .whtiebtn {
+    background-color: white;
+    border: none;
+    margin-left: 10px;
+    height: 35px;
+    border-radius: 7px;
+    width: 60px;
+    &:hover {
+      background-color: #f8f9f9;
+    }
+  }
+`;
 
 const LastBtn = styled.button`
-  color: red;
+  color: #d0394e;
   background-color: rgba(248, 249, 249, 1);
   border: 0px;
   height: 30px;
@@ -169,7 +221,9 @@ const SectionForm = styled.div`
 
       .section-body-input {
         width: 100%;
-        height: 100%;
+        height: 80%;
+        vertical-align: top;
+        line-height: 100%;
       }
 
       .section-tags {
@@ -206,6 +260,22 @@ const Qrsection = () => {
     false,
     false,
   ]);
+  const [showDiscardModal, setShowDiscardModal] = useState(false);
+
+  const handleDiscardDraft = () => {
+    setShowDiscardModal(true);
+  };
+  const handleConfirmDiscard = () => {
+    window.location.reload();
+    window.scrollTo(0, 0);
+    setActiveSection(null);
+    setShowNextButton([true, false, false, false, false]);
+    setShowDiscardModal(false);
+  };
+
+  const handleCancelDiscard = () => {
+    setShowDiscardModal(false);
+  };
 
   const handleInputClick = (index) => {
     if (!showNextButton[index]) {
@@ -289,6 +359,7 @@ const Qrsection = () => {
               </label>
             </div>
             <div className="section-body">
+              <img src="layout.png" alt="test" />
               <input
                 className="section-body-input"
                 onClick={() => handleInputClick(1)}
@@ -332,6 +403,7 @@ const Qrsection = () => {
               </label>
             </div>
             <div className="section-body">
+              <img src="layout.png" alt="test" />
               <input
                 className="section-body-input"
                 onClick={() => handleInputClick(2)}
@@ -362,7 +434,6 @@ const Qrsection = () => {
                   should include a minimal, reproducible example.
                 </p>
                 <p>
-                  {" "}
                   Please make sure to post code and errors as text directly to
                   the question (and not as images), and format them
                   appropriately.
@@ -408,7 +479,6 @@ const Qrsection = () => {
                   the right people.
                 </p>
                 <p>
-                  {" "}
                   Tag things in more than one way so people can find them more
                   easily. Add tags for product lines, projects, teams, and the
                   specific technologies or languages used.
@@ -447,10 +517,29 @@ const Qrsection = () => {
       </SectionForm>
       <LastBtn
         className={`last-btn ${showNextButton[5] ? "" : "hidden"}`}
-        onClick={handleNextClick}
+        onClick={handleDiscardDraft}
       >
         Discard draft
       </LastBtn>
+      {showDiscardModal && (
+        <Modal>
+          <div className="modal-content">
+            <p className="modal-title">Discard question</p>
+            <p className="modal-text">
+              Are you sure you want to discard this question? This cannot be
+              undone.
+            </p>
+            <div className="modal-btn">
+              <button className="redbtn" onClick={handleConfirmDiscard}>
+                Discard question
+              </button>
+              <button className="whtiebtn" onClick={handleCancelDiscard}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        </Modal>
+      )}
     </>
   );
 };
