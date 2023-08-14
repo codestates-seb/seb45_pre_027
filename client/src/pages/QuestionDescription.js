@@ -16,6 +16,8 @@ import TheOverflowBlogList from '../components/DescriptionComponents/BlogItemLis
 import Information from '../components/DescriptionComponents/TitleComponents/AskedModifideViewed';
 import ResetButton from '../components/DescriptionComponents/ButtonComponents/Reset';
 import ButtonList from '../components/DescriptionComponents/ButtonComponents/TextButton';
+import Header from '../components/Header';
+import SideBar from '../components/SideBar';
 
 // 질문 상세 페이지를 위한 주 컨테이너 스타일링.
 const Container = styled.div`
@@ -27,6 +29,7 @@ const Container = styled.div`
   display: flex;
   width: 1100px;
   max-width: 1100px;
+  margin-bottom: 2rem;
 `;
 
 // 메인 컨텐츠와 사이드바를 위한 컨테이너.
@@ -50,7 +53,7 @@ const MainContent = styled.div`
 `;
 
 // 블로그 리스트와 같은 추가 컨텐츠를 위한 사이드바.
-const SideBar = styled.div`
+const SideBarBox = styled.div`
   flex: 1;
   width: 300px;
 `;
@@ -206,6 +209,12 @@ const P1 = styled.div`
   margin-bottom: 1rem;
 `;
 
+// 레이아웃 헤더,사이드바
+const Layout = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
 // 블로그 게시물의 샘플 데이터.
 const blogPosts = [
   {
@@ -273,59 +282,67 @@ const ButtonGroup = () => (
 
 // 질문 상세 페이지를 렌더링하기 위한 메인 컴포넌트.
 const LayoutWithBlogList = () => (
-  <Container>
-    <TopContent>
-      <TitleSection>
-        <LayoutWithFetchTitle />
-        <AskButton />
-      </TitleSection>
-      <Information posts={samplePosts} />
-    </TopContent>
-    <MiddleContent>
-      <DescriptionBox>
-        <MainContent>
-          <AdBannerSection>
-            <BannerImg />
-          </AdBannerSection>
-          <ContentSection>
-            <ButtonGroup />
-            <ContentDetail>
-              <QuestionContent />
-            </ContentDetail>
-          </ContentSection>
-          <S>
-            <TagSection>
-              <LinkButton>uikit</LinkButton>
-              <LinkButton>sun do manager</LinkButton>
-              <LinkButton>uikit</LinkButton>
-              <LinkButton>uikit</LinkButton>
-            </TagSection>
-            <ButtonList />
-          </S>
-          <UserInfoSection>
-            <UserInfoBox />
-          </UserInfoSection>
-          <RelatedQuestionsSection>
-            <AddRelatedQuestionItem />
-          </RelatedQuestionsSection>
-          <P>
-            Know someone who can answer? Share a link to this question via
-            email, Twitter, or Facebook.
-          </P>
-          <P1>Your Answer</P1>
-          <TextEditor>
-            <CommentSectionFrom>
-              <QuestionContent />
-            </CommentSectionFrom>
-          </TextEditor>
-        </MainContent>
-        <SideBar>
-          <BlogList title="The Overflow Blog" posts={blogPosts} />
-          <BlogList title="Featured on Meta" posts={MetaPosts} />
-        </SideBar>
-      </DescriptionBox>
-    </MiddleContent>
-  </Container>
+  <div>
+    {/* <Header /> */}
+
+    <Layout>
+      {/* <SideBar /> */}
+
+      <Container>
+        <TopContent>
+          <TitleSection>
+            <LayoutWithFetchTitle />
+            <AskButton />
+          </TitleSection>
+          <Information posts={samplePosts} />
+        </TopContent>
+        <MiddleContent>
+          <DescriptionBox>
+            <MainContent>
+              <AdBannerSection>
+                <BannerImg />
+              </AdBannerSection>
+              <ContentSection>
+                <ButtonGroup />
+                <ContentDetail>
+                  <QuestionContent />
+                </ContentDetail>
+              </ContentSection>
+              <S>
+                <TagSection>
+                  <LinkButton>uikit</LinkButton>
+                  <LinkButton>sun do manager</LinkButton>
+                  <LinkButton>uikit</LinkButton>
+                  <LinkButton>uikit</LinkButton>
+                </TagSection>
+                <ButtonList />
+              </S>
+              <UserInfoSection>
+                <UserInfoBox />
+              </UserInfoSection>
+              <RelatedQuestionsSection>
+                <AddRelatedQuestionItem />
+              </RelatedQuestionsSection>
+              <P>
+                Know someone who can answer? Share a link to this question via
+                email, Twitter, or Facebook.
+              </P>
+              <P1>Your Answer</P1>
+              <TextEditor>
+                <CommentSectionFrom>
+                  <QuestionContent />
+                </CommentSectionFrom>
+              </TextEditor>
+            </MainContent>
+            <SideBarBox>
+              <BlogList title="The Overflow Blog" posts={blogPosts} />
+              <BlogList title="Featured on Meta" posts={MetaPosts} />
+            </SideBarBox>
+          </DescriptionBox>
+        </MiddleContent>
+      </Container>
+    </Layout>
+  </div>
 );
 
 // 메인 컴포넌트를 내보냅니다.
