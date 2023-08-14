@@ -1,10 +1,7 @@
 package com.example.tset.board.mapper;
 
 
-import com.example.tset.board.dto.BoardDto;
-import com.example.tset.board.dto.BoardPatchDto;
-import com.example.tset.board.dto.BoardPostDto;
-import com.example.tset.board.dto.BoardResponseDto;
+import com.example.tset.board.dto.*;
 import com.example.tset.board.entity.Board;
 import org.mapstruct.Mapper;
 
@@ -16,4 +13,6 @@ public interface BoardMapper {
     Board boardPatchToBoard(BoardPatchDto boardPatchDto);
     BoardDto.Reponse boardToBoardResponse(Board board);
     List<BoardResponseDto> boardsToBoardResponseDto(List<Board> boards);
+
+    BoardDetailDto boardToBoardDetailDto(Board board);
 }

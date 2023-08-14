@@ -1,6 +1,7 @@
 package com.example.tset.board.controller;
 
 
+import com.example.tset.board.dto.BoardDetailDto;
 import com.example.tset.board.dto.BoardDto;
 import com.example.tset.board.dto.BoardPatchDto;
 import com.example.tset.board.dto.BoardPostDto;
@@ -89,5 +90,18 @@ public class BoardController {
 //
 //        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 //    }
+@GetMapping("/{board-id}/edit")
+public ResponseEntity<BoardDetailDto> editBoard(@PathVariable("board-id") @Positive long boardId) {
+    Board board = boardService.readBoard(boardId);
+
+    if (board == null) {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    // Board 엔티티를 BoardDetailDto로 변환
+    BoardDetailDto boardDetailDto = boardMapper.boardToBoardDetailDto(board);
+
+    return new ResponseEntity<>(boardDetailDto, HttpStatus.OK);
+}
 
 }
