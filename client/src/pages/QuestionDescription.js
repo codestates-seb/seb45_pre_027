@@ -1,4 +1,5 @@
 // 질문 상세보기 페이지
+// 필요한 라이브러리와 컴포넌트를 가져옵니다.
 import styled from 'styled-components';
 import LayoutWithFetchTitle from '../components/DescriptionComponents/TitleComponents/TitleComponent';
 import BannerImg from '../components/DescriptionComponents/Banner/BannerComponents';
@@ -16,21 +17,7 @@ import Information from '../components/DescriptionComponents/TitleComponents/Ask
 import ResetButton from '../components/DescriptionComponents/ButtonComponents/Reset';
 import ButtonList from '../components/DescriptionComponents/ButtonComponents/TextButton';
 
-// 질문 설명 상자를 위한 스타일 컴포넌트
-const DescriptionBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin-top: 1rem;
-  /* background-color: brown; */
-`;
-
-//TopContent
-const TopContent = styled.div`
-  flex: 1;
-  border-bottom: 1px solid #e0e0e0;
-`;
-
-// 페이지 전체 컨테이너 스타일
+// 질문 상세 페이지를 위한 주 컨테이너 스타일링.
 const Container = styled.div`
   font-family: Arial, sans-serif;
   padding: 20px;
@@ -40,34 +27,45 @@ const Container = styled.div`
   display: flex;
   width: 1100px;
   max-width: 1100px;
-  /* background-color: aqua; */
-  /* align-items: center; */
 `;
 
-// 메인 컨텐츠 영역 스타일
+// 메인 컨텐츠와 사이드바를 위한 컨테이너.
+const DescriptionBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
+`;
+
+// 메인 타이틀과 추가 정보를 포함하는 상단 컨텐츠.
+const TopContent = styled.div`
+  flex: 1;
+  border-bottom: 1px solid #e0e0e0;
+`;
+
+// 질문, 설명 및 관련 작업을 포함하는 메인 컨텐츠.
 const MainContent = styled.div`
   flex: 3;
   margin-right: 20px;
   /* background-color: aquamarine; */
 `;
 
-// 사이드바 영역 스타일
+// 블로그 리스트와 같은 추가 컨텐츠를 위한 사이드바.
 const SideBar = styled.div`
   flex: 1;
   width: 300px;
 `;
 
-// 타이틀 섹션 스타일
+// 메인 컨텐츠의 타이틀.
 const TitleSection = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   font-size: 28px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 `;
 
-// 광고 배너 섹션 스타일
+// 광고나 프로모션 컨텐츠를 표시하기 위한 배너 섹션.
 const AdBannerSection = styled.div`
   height: 90px;
   margin-bottom: 20px;
@@ -75,13 +73,13 @@ const AdBannerSection = styled.div`
   line-height: 100px;
 `;
 
-// 내용 섹션 스타일
+// 질문의 내용을 표시하기 위한 주요 섹션.
 const ContentSection = styled.div`
   display: flex;
   margin-bottom: 20px;
 `;
 
-// 버튼 영역 스타일
+// 추천, 반대 및 북마크와 같은 동작 버튼을 위한 섹션.
 const ButtonSection = styled.div`
   width: 56.78px;
   display: flex;
@@ -90,21 +88,20 @@ const ButtonSection = styled.div`
   flex-direction: column;
 `;
 
-// 내용 상세 영역 스타일
+// 질문의 상세 내용.
 const ContentDetail = styled.div`
   padding: 2rem;
   flex: 1;
 `;
 
-//유저 프로필 박스 영역
+// 질문을 한 유저의 프로필을 표시하기 위한 섹션.
 const UserInfoSection = styled.div`
   margin-bottom: 20px;
   display: flex;
   justify-content: flex-end;
 `;
 
-//태그 영역
-
+// 질문과 관련된 태그를 위한 섹션.
 const TagSection = styled.div`
   display: inline-flex;
   padding: 2px 6px 2px 0px;
@@ -113,12 +110,12 @@ const TagSection = styled.div`
   margin-bottom: 2rem;
 `;
 
-// 관련 질문 섹션 스타일
+// 관련된 질문들을 표시하기 위한 섹션.
 const RelatedQuestionsSection = styled.div`
   margin-bottom: 20px;
 `;
 
-//댓글 입력 폼
+// 댓글이나 답변을 추가하기 위한 폼.
 const CommentSectionFrom = styled.div`
   border: 2px solid #e0e0e0;
   border-radius: 8px;
@@ -126,6 +123,7 @@ const CommentSectionFrom = styled.div`
   margin-top: 1rem;
 `;
 
+// 문단 스타일 컴포넌트.
 const P = styled.div`
   color: #232629;
   font-family: Inter;
@@ -138,13 +136,14 @@ const P = styled.div`
   margin-bottom: 1rem;
 `;
 
+// 다른 스타일 컴포넌트 (이름에서 정확한 목적은 명확하지 않습니다).
 const S = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 76.77px;
 `;
 
-// 블로그 리스트 박스 스타일
+// 블로그 항목을 위한 리스트 컨테이너 스타일.
 const BlogListBox = styled.div`
   border: 1px solid #f1e5bc;
   background-color: #fcf6e4;
@@ -154,6 +153,7 @@ const BlogListBox = styled.div`
   /* padding: 10px; */
 `;
 
+// 블로그 리스트 타이틀 및 리스트 자체를 포함하는 컨테이너.
 const BlogListContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -161,12 +161,12 @@ const BlogListContainer = styled.div`
   align-items: flex-start;
 `;
 
+// 블로그 리스트 섹션의 타이틀.
 const BlogTitle = styled.h2`
   display: flex;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   padding-left: 24px;
-  /* padding: 12px 183px 13.69px 15px; */
   align-items: flex-start;
 
   border-radius: 4px 4px 0px 0px;
@@ -186,10 +186,14 @@ const BlogTitle = styled.h2`
   font-weight: 700;
   line-height: 15.692px; /* 142.657% */
 `;
+
+// 타이틀을 제외한 메인 컨텐츠.
 const MiddleContent = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
+// 두껍게 표시된 문단 스타일 컴포넌트.
 const P1 = styled.div`
   color: #232629;
   font-family: Inter;
@@ -202,6 +206,7 @@ const P1 = styled.div`
   margin-bottom: 1rem;
 `;
 
+// 블로그 게시물의 샘플 데이터.
 const blogPosts = [
   {
     id: 1,
@@ -216,6 +221,7 @@ const blogPosts = [
   // ... 추가 포스트
 ];
 
+// 메타 게시물의 샘플 데이터.
 const MetaPosts = [
   {
     id: 1,
@@ -231,6 +237,7 @@ const MetaPosts = [
   // ... 추가 포스트
 ];
 
+// 메인 컨텐츠의 추가 정보를 위한 샘플 데이터.
 const samplePosts = [
   {
     id: 1,
@@ -240,89 +247,86 @@ const samplePosts = [
     updatedDate: 'today',
     viewCount: 100,
   },
-  // ... 다른 게시물
 ];
 
-// 블로그 리스트가 포함된 레이아웃
-const LayoutWithBlogList = () => {
-  return (
-    <Container>
-      <TopContent>
-        {/*타이틀 영역*/}
-        <TitleSection>
-          <LayoutWithFetchTitle />
-          <AskButton />
-        </TitleSection>
-        <Information posts={samplePosts} />
-      </TopContent>
-      <MiddleContent>
-        <DescriptionBox>
-          <MainContent>
-            {/*베너 영역*/}
-            <AdBannerSection>
-              <BannerImg />
-            </AdBannerSection>
-            {/*질문 조회 영역*/}
-            {/* 여기에 버튼을 삽입 */}
-            <ContentSection>
-              <ButtonSection>
-                <UpButton />
-                <p>0</p>
-                <DownButton />
-                <BookButton />
-                <ResetButton />
-              </ButtonSection>
-              <ContentDetail>
-                {/* 질문 내용 추가 영역 */}
-                <QuestionContent />
-              </ContentDetail>
-            </ContentSection>
-            <S>
-              <TagSection>
-                <LinkButton>uikit</LinkButton>
-                <LinkButton>sun do manager</LinkButton>
-                <LinkButton>uikit</LinkButton>
-                <LinkButton>uikit</LinkButton>
-              </TagSection>
-              <ButtonList />
-            </S>
-            {/* 유저 프로필 영역 */}
-            <UserInfoSection>
-              <UserInfoBox />
-            </UserInfoSection>
-            <RelatedQuestionsSection>
-              <AddRelatedQuestionItem />
-            </RelatedQuestionsSection>
-            <P>
-              Know someone who can answer? Share a link to this question via
-              email, Twitter, or Facebook.
-            </P>
-            <P1>Your Answer</P1>
+// 블로그 리스트를 렌더링하기 위한 재사용 가능한 컴포넌트.
 
-            <TextEditor>
-              <CommentSectionFrom>
-                <QuestionContent />
-              </CommentSectionFrom>
-            </TextEditor>
-          </MainContent>
-          <SideBar>
-            <BlogListContainer>
-              <BlogTitle>The Overflow Blog</BlogTitle>
-              <BlogListBox>
-                <TheOverflowBlogList posts={blogPosts} />
-              </BlogListBox>
-            </BlogListContainer>
-            <BlogListContainer>
-              <BlogTitle>Featured on Meta</BlogTitle>
-              <BlogListBox>
-                <TheOverflowBlogList posts={MetaPosts} />
-              </BlogListBox>
-            </BlogListContainer>
-          </SideBar>
-        </DescriptionBox>
-      </MiddleContent>
-    </Container>
-  );
-};
+const BlogList = ({ title, posts }) => (
+  <BlogListContainer>
+    <BlogTitle>{title}</BlogTitle>
+    <BlogListBox>
+      <TheOverflowBlogList posts={posts} />
+    </BlogListBox>
+  </BlogListContainer>
+);
 
+// 동작 버튼 그룹.
+const ButtonGroup = () => (
+  <ButtonSection>
+    <UpButton />
+    <p>0</p>
+    <DownButton />
+    <BookButton />
+    <ResetButton />
+  </ButtonSection>
+);
+
+// 질문 상세 페이지를 렌더링하기 위한 메인 컴포넌트.
+const LayoutWithBlogList = () => (
+  <Container>
+    <TopContent>
+      <TitleSection>
+        <LayoutWithFetchTitle />
+        <AskButton />
+      </TitleSection>
+      <Information posts={samplePosts} />
+    </TopContent>
+    <MiddleContent>
+      <DescriptionBox>
+        <MainContent>
+          <AdBannerSection>
+            <BannerImg />
+          </AdBannerSection>
+          <ContentSection>
+            <ButtonGroup />
+            <ContentDetail>
+              <QuestionContent />
+            </ContentDetail>
+          </ContentSection>
+          <S>
+            <TagSection>
+              <LinkButton>uikit</LinkButton>
+              <LinkButton>sun do manager</LinkButton>
+              <LinkButton>uikit</LinkButton>
+              <LinkButton>uikit</LinkButton>
+            </TagSection>
+            <ButtonList />
+          </S>
+          <UserInfoSection>
+            <UserInfoBox />
+          </UserInfoSection>
+          <RelatedQuestionsSection>
+            <AddRelatedQuestionItem />
+          </RelatedQuestionsSection>
+          <P>
+            Know someone who can answer? Share a link to this question via
+            email, Twitter, or Facebook.
+          </P>
+          <P1>Your Answer</P1>
+          <TextEditor>
+            <CommentSectionFrom>
+              <QuestionContent />
+            </CommentSectionFrom>
+          </TextEditor>
+        </MainContent>
+        <SideBar>
+          <BlogList title="The Overflow Blog" posts={blogPosts} />
+          <BlogList title="Featured on Meta" posts={MetaPosts} />
+        </SideBar>
+      </DescriptionBox>
+    </MiddleContent>
+  </Container>
+);
+
+// 메인 컴포넌트를 내보냅니다.
 export default LayoutWithBlogList;
