@@ -96,7 +96,9 @@ function LoginForm() {
             `${process.env.REACT_APP_SERVER_URL}/members/${res.data}`
           );
         } else if (res.status === 403) {
-          setErrorMsg("로그인 실패");
+          setErrorMsg("Log-in is failed");
+        } else {
+          setErrorMsg("server error");
         }
       })
       .then((res) => {

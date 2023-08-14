@@ -109,28 +109,25 @@ function SignUpForm() {
   const [errorMsg, setErrorMsg] = useState("");
   const handleLogin = async (data) => {
     console.log(data);
-    await fetch(`${process.env.REACT_APP_SERVER_URL}/members/log-in/`, {
+    await fetch(`${process.env.REACT_APP_SERVER_URL}/members/`, {
       method: "POST",
       body: JSON.stringify({
         email: data.email,
         password: data.password,
+        name: data.name,
       }),
-    })
-      .then(async (res) => {
-        if (res.status === 200) {
-          sessionStorage.setItem("user_id", res.data);
-          dispatch(setIsLogin(res.data));
-          return await fetch(
-            `${process.env.REACT_APP_SERVER_URL}/members/${res.data}`
-          );
-        } else if (res.status === 403) {
-          setErrorMsg("로그인 실패");
-        }
-      })
-      .then((res) => {
-        dispatch(setUserInfo(res.data));
-        navigate("/");
-      });
+    }).then(async (res) => {
+      if (res.status === 200) {
+        alert("Sign-up is complete.");
+        navigate("/log-in");
+      } else if (res.status === 403) {
+        alert("Sign-up is failed.");
+        navigate("/log-in");
+      } else {
+        alert("Server error.");
+        navigate("/log-in");
+      }
+    });
   };
   return (
     <Container>
