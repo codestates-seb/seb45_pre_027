@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "How to style components in React?",
+    "content": "I'm having trouble styling my React components. Any advice?",
+    "answers": [
+      {
+        "id": 1,
+        "content": "You can use styled-components library to style your React components. It provides a great way to write component-specific styles."
+      },
+      {
+        "id": 2,
+        "content": "Another option is to use CSS modules. It allows you to write CSS that is scoped to a specific component."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "What is the purpose of JSX?",
+    "content": "I'm new to React and I'm confused about JSX. Can someone explain its purpose?",
+    "answers": [
+      {
+        "id": 1,
+        "content": "JSX is a syntax extension for JavaScript that allows you to write HTML-like code in your JavaScript files. It's used in React to define the structure of your UI components."
+      },
+      {
+        "id": 2,
+        "content": "JSX makes it easier to visualize and write UI components. It gets transpiled to JavaScript by tools like Babel."
+      }
+    ]
+  }
+]
