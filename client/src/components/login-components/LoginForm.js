@@ -1,12 +1,12 @@
-import { styled } from "styled-components";
-import SocialButton from "./SocialButton";
-import { useForm } from "react-hook-form";
-import { useState } from "react";
-import { ErrorMessage } from "@hookform/error-message";
-import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { setIsLogin } from "../../store/loginSlice";
-import { setUserInfo } from "../../store/userInfoSlice";
+import { styled } from 'styled-components';
+import SocialButton from './SocialButton';
+import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { ErrorMessage } from '@hookform/error-message';
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { setIsLogin } from '../../store/loginSlice';
+import { setUserInfo } from '../../store/userInfoSlice';
 
 const Container = styled.div`
   display: inline-flex;
@@ -79,32 +79,33 @@ function LoginForm() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [errorMsg, setErrorMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState('');
   const handleLogin = async (data) => {
-    await fetch(`${process.env.REACT_APP_SERVER_URL}/members/log-in/`, {
-      method: "POST",
-      body: JSON.stringify({
-        email: data.email,
-        password: data.password,
-      }),
-    })
-      .then(async (res) => {
-        if (res.status === 200) {
-          sessionStorage.setItem("user_id", res.data);
-          dispatch(setIsLogin(res.data));
-          return await fetch(
-            `${process.env.REACT_APP_SERVER_URL}/members/${res.data}`
-          );
-        } else if (res.status === 403) {
-          setErrorMsg("Log-in is failed");
-        } else {
-          setErrorMsg("server error");
-        }
-      })
-      .then((res) => {
-        dispatch(setUserInfo(res.data));
-        navigate("/");
-      });
+    // 세션 로그인 방식
+    // await fetch(`${process.env.REACT_APP_SERVER_URL}/members/log-in/`, {
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     email: data.email,
+    //     password: data.password,
+    //   }),
+    // })
+    //   .then(async (res) => {
+    //     if (res.status === 200) {
+    //       sessionStorage.setItem("user_id", res.data);
+    //       dispatch(setIsLogin(res.data));
+    //       return await fetch(
+    //         `${process.env.REACT_APP_SERVER_URL}/members/${res.data}`
+    //       );
+    //     } else if (res.status === 403) {
+    //       setErrorMsg("Log-in is failed");
+    //     } else {
+    //       setErrorMsg("server error");
+    //     }
+    //   })
+    //   .then((res) => {
+    //     dispatch(setUserInfo(res.data));
+    //     navigate("/");
+    //   });
   };
   return (
     <Container>
@@ -112,11 +113,11 @@ function LoginForm() {
         <div>
           <label>Email</label>
           <input
-            {...register("email", {
-              required: "Email is required",
+            {...register('email', {
+              required: 'Email is required',
               pattern: {
                 value: /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm,
-                message: "Please input a valid email format",
+                message: 'Please input a valid email format',
               },
             })}
           />
@@ -131,8 +132,8 @@ function LoginForm() {
         <div>
           <label>Password</label>
           <input
-            {...register("password", {
-              required: "Password is required",
+            {...register('password', {
+              required: 'Password is required',
             })}
             type="password"
           />

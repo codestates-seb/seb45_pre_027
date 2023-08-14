@@ -8,12 +8,13 @@ import QuestionDescription from './pages/QuestionDescription';
 import QuestionList from './pages/QuestionList';
 import QuestionRegist from './pages/QuestionRegist';
 import SignUp from './pages/SignUp';
+import GithabCallback from './components/oauth/GithubCallback';
 
 function App() {
   return (
     <>
-      <Header />
-      <SideBar />
+      {/* <Header />
+      <SideBar /> */}
       <Routes>
         <Route path="/log-in" element={<Login />} />
         <Route path="/log-out" element={<LogOut />} />
@@ -21,8 +22,9 @@ function App() {
         <Route path="/questions" element={<QuestionList />} />
         <Route path="/question-description" element={<QuestionDescription />} />
         <Route path="/question-regist" element={<QuestionRegist />} />
+        <Route path="/oauth/github/callback" element={<GithabCallback />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
