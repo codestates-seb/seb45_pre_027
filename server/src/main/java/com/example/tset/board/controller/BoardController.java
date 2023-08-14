@@ -67,7 +67,7 @@ public class BoardController {
        return new ResponseEntity<>(
                new MultiResponseDto<>(boardMapper.boardsToBoardResponseDto(boards), pageBoards), HttpStatus.OK);
     }
-    @DeleteMapping("/{board-id}/soft")
+    @DeleteMapping("/{board-id}")
     public ResponseEntity softdeleteBoard(@PathVariable("board-id") @Positive long boardId) {
         Board board = boardService.readBoard(boardId);
 
@@ -83,17 +83,11 @@ public class BoardController {
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    @DeleteMapping("/{board-id}/hard")
-    public ResponseEntity harddeleteBoard(@PathVariable("board-id") long boardId) {
-        boardService.deleteBoard(boardId);
+//    @DeleteMapping("/{board-id}/hard")
+//    public ResponseEntity harddeleteBoard(@PathVariable("board-id") long boardId) {
+//        boardService.deleteBoard(boardId);
+//
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//    }
 
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-
-    @PostMapping("/{board-id}/click")
-    public ResponseEntity<String> incrementView(@PathVariable("board-id") @Positive long boardId) {
-        boardService.increamentView(boardId);
-        return ResponseEntity.ok("Wiew count incremented.");
-    }
 }

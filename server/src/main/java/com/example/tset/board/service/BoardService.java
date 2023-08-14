@@ -28,7 +28,7 @@ public class BoardService {
 
         Board savedBoard = boardRepository.save(board);
 
-        return boardRepository.save(board);
+        return savedBoard;
     }
 
     public Board updateBoard(Board board) {
@@ -36,15 +36,15 @@ public class BoardService {
 
         String originalTitle = findBoard.map(Board::getTitle).orElse(null);
 
-        Optional.ofNullable(board.getTitle()).ifPresent(updatedTitle -> {
-
-            if (!updatedTitle.equals(originalTitle)) {
-                findBoard.get().setTitle(updatedTitle);
-            }
-        });
+//        Optional.ofNullable(board.getTitle()).ifPresent(updatedTitle -> {
+//
+//            if (!updatedTitle.equals(originalTitle)) {
+//                findBoard.get().setTitle(updatedTitle);
+//            }
+//        });
 
         Optional.ofNullable(board.getTitle()).ifPresent(title -> findBoard.get().setTitle(title));
-        Optional.ofNullable(board.getProblem()).ifPresent(problem -> findBoard.get().setProblem(problem));
+        Optional.ofNullable(board.getContent()).ifPresent(content -> findBoard.get().setContent(content));
         Optional.ofNullable(board.getExpecting()).ifPresent(expecting -> findBoard.get().setExpecting(expecting));
 
         return boardRepository.save(findBoard.get());

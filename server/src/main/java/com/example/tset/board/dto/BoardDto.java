@@ -14,8 +14,8 @@ public class BoardDto {
     public static class Post {
         @NotBlank(message = "title은 비어 있으면 안됩니다")
         private String title;
-        @NotBlank(message = "problem은 비어 있으면 안됩니다")
-        private String problem;
+        @NotBlank(message = "content은 비어 있으면 안됩니다")
+        private String content;
         @NotBlank(message = "expecting는 비어 있으면 안됩니다")
         private String expecting;
 
@@ -28,8 +28,8 @@ public class BoardDto {
 
         @NotBlank(message = "title은 비어 있으면 안됩니다")
         private String title;
-        @NotBlank(message = "problem은 비어 있으면 안됩니다")
-        private String problem;
+        @NotBlank(message = "content은 비어 있으면 안됩니다")
+        private String content;
         @NotBlank(message = "expecting는 비어 있으면 안됩니다")
         private String expecting;
 
@@ -47,7 +47,7 @@ public class BoardDto {
 
         private String title;
 
-        private String problem;
+        private String content;
 
         private String expecting;
     }

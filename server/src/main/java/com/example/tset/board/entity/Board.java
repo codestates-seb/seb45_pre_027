@@ -25,7 +25,7 @@ public class Board extends Auditable {
     private String title;
 
     @Column(length = 1000, nullable = false)
-    private String problem;
+    private String content;
 
     @Column(length = 1000, nullable = false)
     private String expecting;
@@ -36,9 +36,11 @@ public class Board extends Auditable {
         this.view++;
     }
 
-
     //    @ManyToOne
 //    @JoinColumn(name = "member-id")
 //    private List<MemberBroad> memberBroads = new ArrayList<>();
+
+//    @OneToMany
+//    @JoinColumn(name = "anwser-id")
 
 }

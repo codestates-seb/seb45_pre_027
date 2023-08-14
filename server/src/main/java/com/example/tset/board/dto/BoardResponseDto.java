@@ -15,7 +15,7 @@ public class BoardResponseDto {
 
     private String title;
 
-    private String problem;
+    private String content;
 
     private String expecting;
 
