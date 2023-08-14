@@ -7,6 +7,7 @@ import githubLogo from "../img/github-logo.svg";
 import LoginForm from "../components/login-components/LoginForm";
 import SocialButton from "../components/login-components/SocialButton";
 import { BiLinkExternal } from "react-icons/bi";
+import { Link } from "react-router-dom";
 const Container = styled.div`
   display: flex;
   height: 100vh;
@@ -58,7 +59,7 @@ const HelperContainer = styled.div`
     padding-left: 0.5rem;
     color: hsl(206, 100%, 40%);
     cursor: pointer;
-
+    text-decoration: none;
     &:hover {
       color: hsl(206, 100%, 52%);
     }
@@ -114,7 +115,7 @@ function Login() {
         <LoginForm />
         <HelperContainer>
           <span>
-            Don't have an account?<a>Sign up</a>
+            Don't have an account?<Link to="/sign-up">Sign up</Link>
           </span>
           <span>
             Are you an employer?
