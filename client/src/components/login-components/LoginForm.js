@@ -85,31 +85,32 @@ function LoginForm() {
     // 1. 프론트에서 로그인 시도
     // 2. 유저 정보가 올바르다면 백에서 JWT 발급
     // 3. 발급 받은 JWT를 브라우저 및 전역상태에 저장하여 백과의 통신 시 사용
+
     // 세션 로그인 방식
-    // await fetch(`${process.env.REACT_APP_SERVER_URL}/members/log-in/`, {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     email: data.email,
-    //     password: data.password,
-    //   }),
-    // })
-    //   .then(async (res) => {
-    //     if (res.status === 200) {
-    //       sessionStorage.setItem("user_id", res.data);
-    //       dispatch(setIsLogin(res.data));
-    //       return await fetch(
-    //         `${process.env.REACT_APP_SERVER_URL}/members/${res.data}`
-    //       );
-    //     } else if (res.status === 403) {
-    //       setErrorMsg("Log-in is failed");
-    //     } else {
-    //       setErrorMsg("server error");
-    //     }
-    //   })
-    //   .then((res) => {
-    //     dispatch(setUserInfo(res.data));
-    //     navigate("/");
-    //   });
+    await fetch(`${process.env.REACT_APP_SERVER_URL}/members/log-in/`, {
+      method: 'POST',
+      body: JSON.stringify({
+        email: data.email,
+        password: data.password,
+      }),
+    })
+      .then(async (res) => {
+        if (res.status === 200) {
+          sessionStorage.setItem('user_id', res.data);
+          dispatch(setIsLogin(res.data));
+          return await fetch(
+            `${process.env.REACT_APP_SERVER_URL}/members/${res.data}`,
+          );
+        } else if (res.status === 403) {
+          setErrorMsg('Log-in is failed');
+        } else {
+          setErrorMsg('server error');
+        }
+      })
+      .then((res) => {
+        dispatch(setUserInfo(res.data));
+        navigate('/');
+      });
   };
   return (
     <Container>
