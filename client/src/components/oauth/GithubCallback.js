@@ -11,14 +11,13 @@ const GithubCallback = () => {
       console.log(authorizationCode); //인증 코드
 
       try {
-        console.log(authorizationCode);
         const response = await fetch(`${authUri}?code=${authorizationCode}`);
         const data = await response.json();
 
         localStorage.setItem('token', data.jwt);
         localStorage.setItem('ProfileURL', data.avatar_url);
-      } catch (error) {
         navigate('/');
+      } catch (error) {
         console.log(error);
       }
     };

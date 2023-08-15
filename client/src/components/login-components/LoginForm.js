@@ -5,8 +5,8 @@ import { useState } from 'react';
 import { ErrorMessage } from '@hookform/error-message';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { setIsLogin } from '../../store/loginSlice';
-import { setUserInfo } from '../../store/userInfoSlice';
+import { setIsLogin } from '../../redux/loginSlice';
+import { setUserInfo } from '../../redux/userInfoSlice';
 
 const Container = styled.div`
   display: inline-flex;
@@ -81,6 +81,10 @@ function LoginForm() {
   } = useForm();
   const [errorMsg, setErrorMsg] = useState('');
   const handleLogin = async (data) => {
+    // jwt 로그인 방식
+    // 1. 프론트에서 로그인 시도
+    // 2. 유저 정보가 올바르다면 백에서 JWT 발급
+    // 3. 발급 받은 JWT를 브라우저 및 전역상태에 저장하여 백과의 통신 시 사용
     // 세션 로그인 방식
     // await fetch(`${process.env.REACT_APP_SERVER_URL}/members/log-in/`, {
     //   method: "POST",
