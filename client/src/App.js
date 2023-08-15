@@ -9,6 +9,7 @@ import QuestionList from './pages/QuestionList';
 import QuestionRegist from './pages/QuestionRegist';
 import SignUp from './pages/SignUp';
 import GithabCallback from './components/oauth/GithubCallback';
+import MyInfo from './pages/MyInfo';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/questions" element={<QuestionList />} />
         <Route path="/question-description" element={<QuestionDescription />} />
         <Route path="/question-regist" element={<QuestionRegist />} />
+        <Route path="/my-info" element={<MyInfo />} />
         <Route path="/oauth/github/callback" element={<GithabCallback />} />
       </Routes>
       {/* <Footer /> */}
