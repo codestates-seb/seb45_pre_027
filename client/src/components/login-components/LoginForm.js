@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setIsLogin } from '../../redux/loginSlice';
 import { setUserInfo } from '../../redux/userInfoSlice';
+import qs from 'qs';
 
 const Container = styled.div`
   display: inline-flex;
@@ -87,15 +88,20 @@ function LoginForm() {
     // 3. 발급 받은 JWT를 브라우저 및 전역상태에 저장하여 백과의 통신 시 사용
 
     // 세션 로그인 방식
-    await fetch(`${process.env.REACT_APP_SERVER_URL}/members/log-in/`, {
+    await fetch(`${process.env.REACT_APP_SERVER_URL}/login`, {
       method: 'POST',
-      body: JSON.stringify({
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: qs.stringify({
         email: data.email,
         password: data.password,
       }),
     })
       .then(async (res) => {
+        console.log(res);
         if (res.status === 200) {
+          console.log(res);
           sessionStorage.setItem('user_id', res.data);
           dispatch(setIsLogin(res.data));
           return await fetch(
@@ -104,13 +110,16 @@ function LoginForm() {
         } else if (res.status === 403) {
           setErrorMsg('Log-in is failed');
         } else {
+          console.log('server error');
           setErrorMsg('server error');
         }
       })
       .then((res) => {
+        console.log(res);
         dispatch(setUserInfo(res.data));
         navigate('/');
-      });
+      })
+      .catch((e) => console.log(e));
   };
   return (
     <Container>
