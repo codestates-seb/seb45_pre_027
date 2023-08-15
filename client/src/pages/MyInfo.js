@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import profile from '../img/default-profile.png';
-import { FaBirthdayCake, FaRegClock, FaRegCalendarAlt } from 'react-icons/fa';
+import {
+  FaBirthdayCake,
+  FaRegClock,
+  FaRegCalendarAlt,
+  FaPen,
+} from 'react-icons/fa';
 import About from '../components/myInfo-components/About';
 import Badges from '../components/myInfo-components/Badges';
 import Posts from '../components/myInfo-components/Posts';
+import ToBe from '../components/myInfo-components/ToBe';
+import Setting from '../components/myInfo-components/Setting';
 
 const Container = styled.div`
   padding: 24px;
 `;
 
 const Header = styled.div`
+  position: relative;
   display: flex;
   padding: 8px;
   margin-bottom: 8px;
@@ -32,6 +40,35 @@ const ProfileContent = styled.div`
     font-size: 34px;
     font-style: normal;
     font-weight: 400;
+  }
+`;
+
+const EditProfileButton = styled.button`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  right: 0;
+  top: 0;
+  padding: 9px;
+  border-radius: 6px;
+  background-color: white;
+  border: 1px solid rgb(186, 191, 196);
+
+  color: hsl(210, 8%, 25%);
+  font-size: 0.9rem;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: hsl(210, 8%, 97.5%);
+  }
+
+  &:active {
+    background-color: hsl(210, 8%, 95%);
+  }
+
+  svg {
+    margin-right: 0.3rem;
   }
 `;
 
@@ -72,8 +109,16 @@ const CategoryBox = styled.div`
 
   margin-bottom: 4px;
 
-  span {
+  button {
     padding: 6px 13.17px 6px 12px;
+    border: none;
+    border-radius: 100px;
+    background: none;
+    cursor: pointer;
+
+    &:hover {
+      background-color: hsl(206, 100%, 97%);
+    }
   }
 
   .category-active {
@@ -81,6 +126,9 @@ const CategoryBox = styled.div`
     padding: 6px 12px;
     border-radius: 100px;
     color: white;
+    &:hover {
+      background-color: #ea8225;
+    }
   }
 `;
 
@@ -88,7 +136,6 @@ const ContentBox = styled.div`
   padding: 12px;
   display: flex;
   gap: 24px;
-  border: 1px solid blue;
 `;
 
 const ContentLeft = styled.div`
@@ -137,6 +184,12 @@ const ContentRight = styled.div`
 `;
 
 function MyInfo() {
+  const [categoryIdx, setCategoryIdx] = useState(0);
+  const category = ['Profile', 'Activity', 'Settings'];
+
+  const handleCategory = (idx) => {
+    setCategoryIdx(idx);
+  };
   return (
     <Container>
       <Header>
@@ -157,11 +210,28 @@ function MyInfo() {
               <span>Visited 6 days</span>
             </li>
           </DateContent>
+          <EditProfileButton onClick={() => handleCategory(2)}>
+            <FaPen />
+            Edit profile
+          </EditProfileButton>
         </ProfileContent>
       </Header>
       <CategoryBox>
-        <span className="category-active">Profile</span>
-        <span>Activity</span>
+        {category.map((ele, idx) =>
+          idx === categoryIdx ? (
+            <butto
+              key={idx}
+              className="category-active"
+              onClick={() => handleCategory(idx)}
+            >
+              {ele}
+            </butto>
+          ) : (
+            <button key={idx} onClick={() => handleCategory(idx)}>
+              {ele}
+            </button>
+          ),
+        )}
       </CategoryBox>
       <ContentBox>
         <ContentLeft>
@@ -186,9 +256,17 @@ function MyInfo() {
           </StatBox>
         </ContentLeft>
         <ContentRight>
-          <About />
-          <Badges />
-          <Posts />
+          {categoryIdx === 0 ? (
+            <>
+              <About />
+              <Badges />
+              <Posts />
+            </>
+          ) : categoryIdx === 2 ? (
+            <Setting />
+          ) : (
+            <ToBe />
+          )}
         </ContentRight>
       </ContentBox>
     </Container>
