@@ -6,6 +6,7 @@ import DownButton from '../ButtonComponents/DownButton';
 import BookButton from '../ButtonComponents/BookButton';
 import ResetButton from '../ButtonComponents/Reset';
 import QuestionContent from '../QuestionContent/QuestionContentBox';
+import CounterButton from '../ButtonCNP/UpDownButtonCounter';
 
 // 질문의 내용을 표시하기 위한 주요 섹션.
 const ContentSection = styled.div`
@@ -32,9 +33,7 @@ const ContentDetail = styled.div`
 // 동작 버튼 그룹.
 const ButtonGroup = () => (
   <ButtonSection>
-    <UpButton />
-    <p>0</p>
-    <DownButton />
+    <CounterButton />
     <BookButton />
     <ResetButton />
   </ButtonSection>
