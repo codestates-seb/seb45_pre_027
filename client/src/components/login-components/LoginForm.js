@@ -86,40 +86,41 @@ function LoginForm() {
     // 1. 프론트에서 로그인 시도
     // 2. 유저 정보가 올바르다면 백에서 JWT 발급
     // 3. 발급 받은 JWT를 브라우저 및 전역상태에 저장하여 백과의 통신 시 사용
-
     // 세션 로그인 방식
-    await fetch(`${process.env.REACT_APP_SERVER_URL}/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: qs.stringify({
-        email: data.email,
-        password: data.password,
-      }),
-    })
-      .then(async (res) => {
-        console.log(res);
-        if (res.status === 200) {
-          console.log(res);
-          sessionStorage.setItem('user_id', res.data);
-          dispatch(setIsLogin(res.data));
-          return await fetch(
-            `${process.env.REACT_APP_SERVER_URL}/members/${res.data}`,
-          );
-        } else if (res.status === 403) {
-          setErrorMsg('Log-in is failed');
-        } else {
-          console.log('server error');
-          setErrorMsg('server error');
-        }
-      })
-      .then((res) => {
-        console.log(res);
-        dispatch(setUserInfo(res.data));
-        navigate('/');
-      })
-      .catch((e) => console.log(e));
+    // await fetch(`${process.env.REACT_APP_SERVER_URL}/login`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     email: data.email,
+    //     password: data.password,
+    //   }),
+    // })
+    //   .then(async (res) => {
+    //     console.log(res);
+    //     console.log(res.headers);
+    //     return await fetch(`${process.env.REACT_APP_SERVER_URL}/members`);
+    // if (res.status === 200) {
+    //   console.log(res);
+    //   sessionStorage.setItem('user_id', res.data);
+    //   dispatch(setIsLogin(res.data));
+    //   return await fetch(
+    //     `${process.env.REACT_APP_SERVER_URL}/members/${res.data}`,
+    //   );
+    // } else if (res.status === 403) {
+    //   setErrorMsg('Log-in is failed');
+    // } else {
+    //   console.log('server error');
+    //   setErrorMsg('server error');
+    // }
+    // })
+    // .then((res) => {
+    //   console.log(res);
+    //   dispatch(setUserInfo(res.data));
+    //   navigate('/');
+    // })
+    // .catch((e) => console.log(e));
   };
   return (
     <Container>
