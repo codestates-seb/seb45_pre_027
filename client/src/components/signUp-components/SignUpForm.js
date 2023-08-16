@@ -1,12 +1,12 @@
-import { styled } from 'styled-components';
-import SocialButton from '../login-components/SocialButton';
-import { useForm } from 'react-hook-form';
-import { useState } from 'react';
-import { ErrorMessage } from '@hookform/error-message';
-import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { setIsLogin } from '../../redux/loginSlice';
-import { setUserInfo } from '../../redux/userInfoSlice';
+import { styled } from "styled-components";
+import SocialButton from "../login-components/SocialButton";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { ErrorMessage } from "@hookform/error-message";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setIsLogin } from "../../store/loginSlice";
+import { setUserInfo } from "../../store/userInfoSlice";
 
 const Container = styled.div`
   width: 100%;
@@ -109,40 +109,33 @@ function SignUpForm() {
   const [errorMsg, setErrorMsg] = useState('');
   const handleLogin = async (data) => {
     console.log(data);
-    console.log('sign-up');
-    await fetch(`${process.env.REACT_APP_SERVER_URL}/members`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    await fetch(`${process.env.REACT_APP_SERVER_URL}/members/`, {
+      method: "POST",
       body: JSON.stringify({
         email: data.email,
         password: data.password,
         // name: data.name,
       }),
-    })
-      .then(async (res) => {
-        console.log(res);
-        if (res.status === 201) {
-          alert('Sign-up is complete.');
-          navigate('/log-in');
-        } else if (res.status === 403) {
-          alert('Sign-up is failed.');
-          navigate('/sign-up');
-        } else {
-          alert('Server error.');
-          navigate('/sign-up');
-        }
-      })
-      .catch((e) => console.log(e));
+    }).then(async (res) => {
+      if (res.status === 200) {
+        alert("Sign-up is complete.");
+        navigate("/log-in");
+      } else if (res.status === 403) {
+        alert("Sign-up is failed.");
+        navigate("/log-in");
+      } else {
+        alert("Server error.");
+        navigate("/log-in");
+      }
+    });
   };
   return (
     <Container>
       <Form onSubmit={handleSubmit(handleLogin)}>
         {/* <div>
           <label>Display name</label>
-          <input {...register('name')} />
-        </div> */}
+          <input {...register("name")} />
+        </div>
         <div>
           <label>Email</label>
           <input
