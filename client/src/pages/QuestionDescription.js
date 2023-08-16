@@ -123,12 +123,12 @@ const RelatedQuestionsSection = styled.div`
 `;
 
 // 댓글이나 답변을 추가하기 위한 폼.
-const CommentSectionFrom = styled.div`
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 1rem;
-  margin-top: 1rem;
-`;
+// const CommentSectionFrom = styled.div`
+//   border: 2px solid #e0e0e0;
+//   border-radius: 8px;
+//   padding: 1rem;
+//   margin-top: 1rem;
+// `;
 
 // 문단 스타일 컴포넌트.
 const P = styled.div`
