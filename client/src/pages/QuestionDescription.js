@@ -6,7 +6,7 @@ import BannerImg from '../components/DescriptionComponents/Banner/BannerComponen
 import QuestionContent from '../components/DescriptionComponents/QuestionContent/QuestionContentBox';
 import UserInfoBox from '../components/DescriptionComponents/user_info/UserInfoBox';
 import AddRelatedQuestionItem from '../components/DescriptionComponents/RelatedQuestions/RelatedQuestionItem';
-import TextEditor from '../components/DescriptionComponents/TextEditor/TextEditorComponent';
+// import TextEditor from '../components/DescriptionComponents/TextEditor/TextEditorComponent';
 import UpButton from '../components/DescriptionComponents/ButtonComponents/UpButton';
 import { LinkButton } from '../components/DescriptionComponents/ButtonComponents/TagButton';
 import DownButton from '../components/DescriptionComponents/ButtonComponents/DownButton';
@@ -16,8 +16,10 @@ import TheOverflowBlogList from '../components/DescriptionComponents/BlogItemLis
 import Information from '../components/DescriptionComponents/TitleComponents/AskedModifideViewed';
 import ResetButton from '../components/DescriptionComponents/ButtonComponents/Reset';
 import ButtonList from '../components/DescriptionComponents/ButtonComponents/TextButton';
-import Header from '../components/Header';
-import SideBar from '../components/SideBar';
+import AnswerCountBox from '../components/DescriptionComponents/Answers/AnswersCountBox';
+import QuestionComment from '../components/DescriptionComponents/Answers/QuestionComment';
+// import Header from '../components/Header';
+// import SideBar from '../components/SideBar';
 
 // 질문 상세 페이지를 위한 주 컨테이너 스타일링.
 const Container = styled.div`
@@ -320,6 +322,7 @@ const LayoutWithBlogList = () => (
               <UserInfoSection>
                 <UserInfoBox />
               </UserInfoSection>
+              <AnswerCountBox />
               <RelatedQuestionsSection>
                 <AddRelatedQuestionItem />
               </RelatedQuestionsSection>
@@ -327,12 +330,13 @@ const LayoutWithBlogList = () => (
                 Know someone who can answer? Share a link to this question via
                 email, Twitter, or Facebook.
               </P>
-              <P1>Your Answer</P1>
-              <TextEditor>
+              {/* <P1>Your Answer</P1> */}
+              <QuestionComment />
+              {/* <TextEditor>
                 <CommentSectionFrom>
                   <QuestionContent />
                 </CommentSectionFrom>
-              </TextEditor>
+              </TextEditor> */}
             </MainContent>
             <SideBarBox>
               <BlogList title="The Overflow Blog" posts={blogPosts} />

@@ -9,17 +9,30 @@ const ContentContainer = styled.div`
 
 const QuestionContent = () => {
   const [data, setData] = useState([]);
-  const [page, setPage] = useState(1);
   const loader = useRef(null);
+  console.log(data?.data?.title);
 
   // 데이터를 불러오는 함수
   const loadMore = () => {
-    fetch(`/api/questions?page=${page}`)
-      .then((response) => response.json())
+    console.log('loadMore');
+    fetch(`${process.env.REACT_APP_SERVER_URL}board/1/`, {
+      method: 'get',
+      headers: new Headers({
+        'ngrok-skip-browser-warning': '69420',
+      }),
+    })
+      // .then((response) => response.json(console.log()))
+      .then((response) => {
+        console.log(response);
+        return response.json();
+      })
       .then((newData) => {
-        setData((prevData) => [...prevData, ...newData]);
-        setPage((prevPage) => prevPage + 1);
+        console.log(newData);
+        setData((prevData) => newData);
       });
+    // .catch((error) => {
+    //   console.error('Error fetching data:', error);
+    // });
   };
 
   useEffect(() => {
@@ -30,13 +43,15 @@ const QuestionContent = () => {
       threshold: 1.0,
     };
 
+    loadMore();
+
     const observer = new IntersectionObserver(handleObserver, options);
     if (loader.current) {
       observer.observe(loader.current);
     }
 
     return () => observer.disconnect(); // 컴포넌트가 언마운트될 때 observer 연결 해제
-  }, []);
+  }, []); //의존성 배열
 
   const handleObserver = (entities) => {
     const target = entities[0];
@@ -47,10 +62,9 @@ const QuestionContent = () => {
 
   return (
     <ContentContainer>
-      {data.map((item, index) => (
-        <div key={index}>{item}</div>
-      ))}
-      <div ref={loader}>로딩...</div>
+      {/* <div ref={loader}>로딩...</div> */}
+      {data?.data?.content}
+      {data?.content}
     </ContentContainer>
   );
 };
