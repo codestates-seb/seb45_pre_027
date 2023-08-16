@@ -7,7 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setIsLogin } from '../../redux/loginSlice';
 import { setUserInfo } from '../../redux/userInfoSlice';
-import qs from 'qs';
+import { setRefreshToken } from '../../storage/Cookie';
+import { SET_TOKEN } from '../../redux/tokenSlice';
 
 const Container = styled.div`
   display: inline-flex;
@@ -77,15 +78,48 @@ function LoginForm() {
   const navigate = useNavigate();
   const {
     register,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const [errorMsg, setErrorMsg] = useState('');
   const handleLogin = async (data) => {
+    // 입력값 초기화
+    setValue('password', '');
+
     // jwt 로그인 방식
     // 1. 프론트에서 로그인 시도
-    // 2. 유저 정보가 올바르다면 백에서 JWT 발급
-    // 3. 발급 받은 JWT를 브라우저 및 전역상태에 저장하여 백과의 통신 시 사용
+    // 2. 유저 정보가 올바르다면 백에서 access_token, refresh_token 발급
+    // 3. refresh_token, access_token을 클라이언트에 저장하고 refresh token을
+    // 서버에 보내면 그때마다 새로운 access token을 발급
+    // 4. access token을 서버에 보내면 서버는 토큰이 유효한지 확인한다.
+    /*
+      Access Token: 실질적인 인증을 위한 JWT, 유효기간이 짧다.
+      Refresh Token: Access Token의 짧은 유효기간을 보완하기 위해 사용되며, 본 토큰을 사용해 access token 만료 시 재발급
+    */
+
+    await fetch(`${process.env.REACT_APP_SERVER_URL}/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: data.email,
+        password: data.password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setRefreshToken(data.refresh_token);
+        dispatch(SET_TOKEN(data.access_token));
+        // 메인으로 페이지 이동
+        return navigate('/');
+      })
+      .catch((e) => {
+        setErrorMsg('Log-in has failed');
+      });
+
     // 세션 로그인 방식
     // await fetch(`${process.env.REACT_APP_SERVER_URL}/login`, {
     //   method: 'POST',
