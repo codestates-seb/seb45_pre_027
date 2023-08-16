@@ -17,7 +17,9 @@ import Information from '../components/DescriptionComponents/TitleComponents/Ask
 import ResetButton from '../components/DescriptionComponents/ButtonComponents/Reset';
 import ButtonList from '../components/DescriptionComponents/ButtonComponents/TextButton';
 import AnswerCountBox from '../components/DescriptionComponents/Answers/AnswersCountBox';
-import QuestionComment from '../components/DescriptionComponents/Answers/QuestionComment';
+import QuestionComment from '../components/DescriptionComponents/Answers/QuestionCommentPost';
+import { QuestionCommentGet } from '../components/DescriptionComponents/Answers/QuestionCommentGet';
+import { useState, useEffect } from 'react';
 // import Header from '../components/Header';
 // import SideBar from '../components/SideBar';
 
@@ -283,71 +285,101 @@ const ButtonGroup = () => (
 );
 
 // 질문 상세 페이지를 렌더링하기 위한 메인 컴포넌트.
-const LayoutWithBlogList = () => (
-  <div>
-    {/* <Header /> */}
+const LayoutWithBlogList = () => {
+  const [data, setData] = useState('Loading...');
+  useEffect(() => {
+    // 백엔드 API 주소를 아래 URL에 설정합니다.
+    const apiUrl = `${process.env.REACT_APP_SERVER_URL}board/1`;
 
-    <Layout>
-      {/* <SideBar /> */}
+    fetch(apiUrl)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setData(data); // API 응답으로 받은 데이터를 상태에 저장
+      })
+      .catch((error) => {
+        console.error(
+          'There was a problem with the fetch operation:',
+          error.message,
+        );
+      });
+  }, []); // 빈 의존성 배열을 사용하여 컴포넌트 마운트 시에만 실행
 
-      <Container>
-        <TopContent>
-          <TitleSection>
-            <LayoutWithFetchTitle />
-            <AskButton />
-          </TitleSection>
-          <Information posts={samplePosts} />
-        </TopContent>
-        <MiddleContent>
-          <DescriptionBox>
-            <MainContent>
-              <AdBannerSection>
-                <BannerImg />
-              </AdBannerSection>
-              <ContentSection>
-                <ButtonGroup />
-                <ContentDetail>
-                  <QuestionContent />
-                </ContentDetail>
-              </ContentSection>
-              <S>
-                <TagSection>
-                  <LinkButton>uikit</LinkButton>
-                  <LinkButton>sun do manager</LinkButton>
-                  <LinkButton>uikit</LinkButton>
-                  <LinkButton>uikit</LinkButton>
-                </TagSection>
-                <ButtonList />
-              </S>
-              <UserInfoSection>
-                <UserInfoBox />
-              </UserInfoSection>
-              <AnswerCountBox />
-              <RelatedQuestionsSection>
-                <AddRelatedQuestionItem />
-              </RelatedQuestionsSection>
-              <P>
-                Know someone who can answer? Share a link to this question via
-                email, Twitter, or Facebook.
-              </P>
-              {/* <P1>Your Answer</P1> */}
-              <QuestionComment />
-              {/* <TextEditor>
+  return (
+    <div>
+      {/* <Header /> */}
+
+      <Layout>
+        {/* <SideBar /> */}
+
+        <Container>
+          <TopContent>
+            <TitleSection>
+              <LayoutWithFetchTitle />
+              <AskButton />
+            </TitleSection>
+            <Information posts={samplePosts} />
+          </TopContent>
+          <MiddleContent>
+            <DescriptionBox>
+              <MainContent>
+                <AdBannerSection>
+                  <BannerImg />
+                </AdBannerSection>
+                <ContentSection>
+                  <ButtonGroup />
+                  <ContentDetail>
+                    <QuestionContent />
+                  </ContentDetail>
+                </ContentSection>
+                <S>
+                  <TagSection>
+                    <LinkButton>uikit</LinkButton>
+                    <LinkButton>sun do manager</LinkButton>
+                    <LinkButton>uikit</LinkButton>
+                    <LinkButton>uikit</LinkButton>
+                  </TagSection>
+                  <ButtonList />
+                </S>
+                <UserInfoSection>
+                  <UserInfoBox />
+                </UserInfoSection>
+                <AnswerCountBox />
+                <RelatedQuestionsSection>
+                  <AddRelatedQuestionItem />
+                </RelatedQuestionsSection>
+                <P>
+                  Know someone who can answer? Share a link to this question via
+                  email, Twitter, or Facebook.
+                </P>
+                {data ? (
+                  <QuestionCommentGet>{data?.data?.content}</QuestionCommentGet>
+                ) : (
+                  ''
+                )}
+                <P1>Your Answer</P1>
+                <QuestionComment />
+                {/* <TextEditor>
                 <CommentSectionFrom>
                   <QuestionContent />
                 </CommentSectionFrom>
               </TextEditor> */}
-            </MainContent>
-            <SideBarBox>
-              <BlogList title="The Overflow Blog" posts={blogPosts} />
-              <BlogList title="Featured on Meta" posts={MetaPosts} />
-            </SideBarBox>
-          </DescriptionBox>
-        </MiddleContent>
-      </Container>
-    </Layout>
-  </div>
-);
+              </MainContent>
+              <SideBarBox>
+                <BlogList title="The Overflow Blog" posts={blogPosts} />
+                <BlogList title="Featured on Meta" posts={MetaPosts} />
+              </SideBarBox>
+            </DescriptionBox>
+          </MiddleContent>
+        </Container>
+      </Layout>
+    </div>
+  );
+};
 
 // 메인 컴포넌트를 내보냅니다.
 export default LayoutWithBlogList;

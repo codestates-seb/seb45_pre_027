@@ -52,7 +52,7 @@ const QuestionComment = () => {
 
   const handleSubmit = () => {
     console.log(handleSubmit);
-    fetch(`${process.env.REACT_APP_SERVER_URL}/board/1`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/board/{board_id}/answer`, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
