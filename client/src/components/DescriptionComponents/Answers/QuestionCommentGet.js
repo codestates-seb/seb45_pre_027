@@ -43,8 +43,6 @@ const ButtonGroup = () => (
 export const QuestionCommentGet = () => (
   <ContentSection>
     <ButtonGroup />
-    <ContentDetail>
-      <QuestionContent />
-    </ContentDetail>
+    <ContentDetail>{/* <QuestionContent /> */}</ContentDetail>
   </ContentSection>
 );

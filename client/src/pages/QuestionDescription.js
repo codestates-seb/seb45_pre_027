@@ -6,10 +6,7 @@ import BannerImg from '../components/DescriptionComponents/Banner/BannerComponen
 import QuestionContent from '../components/DescriptionComponents/QuestionContent/QuestionContentBox';
 import UserInfoBox from '../components/DescriptionComponents/user_info/UserInfoBox';
 import AddRelatedQuestionItem from '../components/DescriptionComponents/RelatedQuestions/RelatedQuestionItem';
-// import TextEditor from '../components/DescriptionComponents/TextEditor/TextEditorComponent';
-import UpButton from '../components/DescriptionComponents/ButtonComponents/UpButton';
 import { LinkButton } from '../components/DescriptionComponents/ButtonComponents/TagButton';
-import DownButton from '../components/DescriptionComponents/ButtonComponents/DownButton';
 import BookButton from '../components/DescriptionComponents/ButtonComponents/BookButton';
 import AskButton from '../components/DescriptionComponents/ButtonComponents/AskButton';
 import TheOverflowBlogList from '../components/DescriptionComponents/BlogItemList/BlogItem';
@@ -20,6 +17,7 @@ import AnswerCountBox from '../components/DescriptionComponents/Answers/AnswersC
 import QuestionComment from '../components/DescriptionComponents/Answers/QuestionCommentPost';
 import { QuestionCommentGet } from '../components/DescriptionComponents/Answers/QuestionCommentGet';
 import { useState, useEffect } from 'react';
+import CounterButton from '../components/DescriptionComponents/ButtonCNP/UpDownButtonCounter';
 // import Header from '../components/Header';
 // import SideBar from '../components/SideBar';
 
@@ -276,9 +274,7 @@ const BlogList = ({ title, posts }) => (
 // 동작 버튼 그룹.
 const ButtonGroup = () => (
   <ButtonSection>
-    <UpButton />
-    <p>0</p>
-    <DownButton />
+    <CounterButton />
     <BookButton />
     <ResetButton />
   </ButtonSection>
