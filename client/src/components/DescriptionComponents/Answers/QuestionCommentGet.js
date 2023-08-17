@@ -1,12 +1,11 @@
 // 댓글
 
 import styled from 'styled-components';
-import UpButton from '../ButtonComponents/UpButton';
-import DownButton from '../ButtonComponents/DownButton';
 import BookButton from '../ButtonComponents/BookButton';
 import ResetButton from '../ButtonComponents/Reset';
-import QuestionContent from '../QuestionContent/QuestionContentBox';
 import CounterButton from '../ButtonCNP/UpDownButtonCounter';
+import AnswerContent from './AnswerContentBox';
+// import QuestionContent from '../QuestionContent/QuestionContentBox';
 
 // 질문의 내용을 표시하기 위한 주요 섹션.
 const ContentSection = styled.div`
@@ -42,6 +41,9 @@ const ButtonGroup = () => (
 export const QuestionCommentGet = () => (
   <ContentSection>
     <ButtonGroup />
-    <ContentDetail>{/* <QuestionContent /> */}</ContentDetail>
+    <ContentDetail>
+      {/* <QuestionContent /> */}
+      <AnswerContent />
+    </ContentDetail>
   </ContentSection>
 );

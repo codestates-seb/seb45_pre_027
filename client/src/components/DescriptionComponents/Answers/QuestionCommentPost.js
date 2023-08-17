@@ -47,18 +47,24 @@ const SubmitButton = styled.button`
 `;
 
 const QuestionComment = () => {
+  const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [expecting, setExpecting] = useState('');
   const [showModal, setShowModal] = useState(false); // 모달 표시 여부를 관리하는 상태
 
   const handleSubmit = () => {
     console.log(handleSubmit);
-    fetch(`${process.env.REACT_APP_SERVER_URL}/board/{board_id}/answer`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}board`, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
         'ngrok-skip-browser-warning': '69420',
       },
-      body: JSON.stringify({ content: content }),
+      body: JSON.stringify({
+        title: title,
+        content: content,
+        expecting: expecting,
+      }),
     })
       .then((response) => {
         if (!response.ok) {
@@ -67,7 +73,7 @@ const QuestionComment = () => {
         return response.json();
       })
       .then((data) => {
-        setContent(''); // 텍스트 에디터 리셋
+        setTitle(''); // 텍스트 에디터 리셋
         setShowModal(true); // 모달 표시
       })
       .catch((error) => {
@@ -78,7 +84,10 @@ const QuestionComment = () => {
   return (
     <Container>
       <Title>Your Answer</Title>
+      <StyledQuill value={title} onChange={setTitle} />
       <StyledQuill value={content} onChange={setContent} />
+      <StyledQuill value={expecting} onChange={setExpecting} />
+
       <SubmitButton onClick={handleSubmit}>Post Your Answer</SubmitButton>
 
       {/* 모달 창 */}

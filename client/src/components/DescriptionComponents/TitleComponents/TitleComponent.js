@@ -45,7 +45,7 @@ const LayoutWithFetchTitle = () => {
         console.error('타이틀 가져오기 오류:', error);
         setTitle('타이틀 로딩 오류');
       });
-  }, []); // 빈 종속성 배열은 이 useEffect가 컴포넌트가 마운트될 때 한 번만 실행되도록 합니다
+  }, []); // 빈 종속성 배열은 이 useEffect가 컴포넌트가 마운트될 때 한 번만 실행되도록 합니다.
 
   return (
     <div>

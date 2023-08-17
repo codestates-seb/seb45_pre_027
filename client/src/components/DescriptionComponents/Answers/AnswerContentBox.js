@@ -7,17 +7,16 @@ const ContentContainer = styled.div`
   height: 500px; // 예시 높이입니다. 원하는 대로 조절 가능합니다.
 `;
 
-const QuestionContent = () => {
+const AnswerContent = () => {
   const [data, setData] = useState([]);
   const loader = useRef(null);
-  console.log(data?.data?.title);
   console.log(data?.data?.content);
-  console.log(data?.data?.boardId);
 
   // 데이터를 불러오는 함수
   const loadMore = () => {
     console.log('loadMore');
-    fetch(`${process.env.REACT_APP_SERVER_URL}board/5`, {
+    // 답변 Url 적용 하기
+    fetch(`${process.env.REACT_APP_SERVER_URL}board/1`, {
       method: 'get',
       headers: new Headers({
         'ngrok-skip-browser-warning': '69420',
@@ -64,10 +63,11 @@ const QuestionContent = () => {
 
   return (
     <ContentContainer>
-      {data?.data?.content}
-      {data?.content}
+      {/* <div ref={loader}>로딩...</div> */}
+      {data?.data?.title}
+      <p>질문 내용</p>
     </ContentContainer>
   );
 };
 
-export default QuestionContent;
+export default AnswerContent;
