@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 public class BoardResponseDto {
+
     private long boardId;
 
     private String title;

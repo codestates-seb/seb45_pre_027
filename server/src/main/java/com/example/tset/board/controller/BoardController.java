@@ -1,7 +1,6 @@
 package com.example.tset.board.controller;
 
 
-
 import com.example.tset.board.dto.BoardDto;
 import com.example.tset.board.dto.BoardPatchDto;
 import com.example.tset.board.dto.BoardPostDto;
@@ -18,11 +17,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.io.Console;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
 @RequestMapping("/board")
+@CrossOrigin("*")
 @Validated
 public class BoardController {
     private BoardService boardService;
@@ -68,6 +69,7 @@ public class BoardController {
        return new ResponseEntity<>(
                new MultiResponseDto<>(boardMapper.boardsToBoardResponseDto(boards), pageBoards), HttpStatus.OK);
     }
+
     @DeleteMapping("/{board-id}")
     public ResponseEntity softdeleteBoard(@PathVariable("board-id") @Positive long boardId) {
         Board board = boardService.readBoard(boardId);
@@ -84,6 +86,7 @@ public class BoardController {
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
 //    @DeleteMapping("/{board-id}/hard")
 //    public ResponseEntity harddeleteBoard(@PathVariable("board-id") long boardId) {
 //        boardService.deleteBoard(boardId);
