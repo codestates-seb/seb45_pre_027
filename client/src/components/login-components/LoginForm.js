@@ -70,10 +70,22 @@ const LoginButton = styled(SocialButton)`
   margin-top: 10px;
   width: 240px;
 `;
+const AutoLoginContainer = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 0.7rem;
+  gap: 5px;
+  color: #111;
+  input {
+    width: 15px;
+    height: 15px;
+  }
+`;
 
 function LoginForm() {
   const isLogin = useSelector((state) => state.isLogin.value);
   const userInfo = useSelector((state) => state.userInfo.value);
+  const [autoLogin, setAutoLogin] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
@@ -116,6 +128,9 @@ function LoginForm() {
         console.log(data);
         setRefreshToken(data.refresh_token);
         dispatch(SET_TOKEN(data.access_token));
+        dispatch(setIsLogin(true));
+        // 자동 로그인 설정 시 로컬 스토리지에 저장
+        if (autoLogin) localStorage.setItem('autoLogIn', true);
         // 메인으로 페이지 이동
         return navigate('/');
       })
@@ -211,6 +226,14 @@ function LoginForm() {
             <p>{errorMsg}</p>
           </ErrorContainer>
         </div>
+        <AutoLoginContainer>
+          <input
+            type="checkbox"
+            value={autoLogin}
+            onClick={() => setAutoLogin((prev) => !prev)}
+          />
+          Keep Log-in
+        </AutoLoginContainer>
       </Form>
     </Container>
   );

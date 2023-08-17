@@ -14,14 +14,20 @@ import { useEffect } from 'react';
 import { getCookieToken, setRefreshToken } from './storage/Cookie';
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_TOKEN } from './redux/tokenSlice';
+import { setIsLogin } from './redux/loginSlice';
 
 function App() {
   const dispatch = useDispatch();
   const refresh_token = getCookieToken();
   const access_token = useSelector((state) => state.authToken.authenticated);
-  console.log(access_token);
-  // access_token이 없고 refresh_token이 있을 경우 refresh token으로 새롭게 access_token 발급
+
   useEffect(() => {
+    // 자동 로그인 설정이 되어있으면 바로 로그인
+    if (localStorage.getItem('autoLogIn')) {
+      dispatch(setIsLogin(true));
+      return;
+    }
+    // access_token이 없고 refresh_token이 있을 경우 refresh token으로 새롭게 access_token 발급
     const login = async () => {
       await fetch(`${process.env.REACT_APP_SERVER_URL}/access-token`, {
         method: 'POST',
@@ -37,6 +43,7 @@ function App() {
           console.log(data);
           setRefreshToken(data.refresh_token);
           dispatch(SET_TOKEN(data.access_token));
+          dispatch(setIsLogin(true));
         })
         .catch((e) => {
           console.log('failed get access token');

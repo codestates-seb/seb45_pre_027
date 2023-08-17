@@ -31,6 +31,8 @@ function Logout() {
         dispatch(DELETE_TOKEN());
         // cookie에 저장된 refresh token 정보 삭제
         removeCookieToken();
+        // 자동 로그인 설정 해제
+        localStorage.clear();
         // 메인으로 페이지 이동
         return navigate('/');
       })
