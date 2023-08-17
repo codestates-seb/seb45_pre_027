@@ -19,6 +19,7 @@ import { QuestionCommentGet } from '../components/DescriptionComponents/Answers/
 import { useState, useEffect } from 'react';
 import CounterButton from '../components/DescriptionComponents/ButtonCNP/UpDownButtonCounter';
 import { CommentBUT } from '../components/DescriptionComponents/ButtonComponents/AddComment';
+import CommentForm from '../components/DescriptionComponents/Comment/CommentForm';
 // import Header from '../components/Header';
 // import SideBar from '../components/SideBar';
 
@@ -353,6 +354,7 @@ const LayoutWithBlogList = () => {
                 </UserInfoSection>
                 <Comment>
                   <CommentBUT />
+                  {/* <CommentForm /> */}
                 </Comment>
                 <AnswerCountBox />
                 <RelatedQuestionsSection>

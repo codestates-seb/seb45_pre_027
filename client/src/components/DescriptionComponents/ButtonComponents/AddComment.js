@@ -1,11 +1,13 @@
 // Add a comment Button
 
 import { styled } from 'styled-components';
-import React, { useState } from 'react';
-import { Balloon } from '../Balloon/BalloonBox.js';
+import React, { useState, useRef, useEffect } from 'react';
+// import { Balloon } from '../Balloon/BalloonBox.js';
+import CommentForm from '../Comment/CommentForm.js';
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
   align-content: flex-start;
   flex-shrink: 0;
@@ -17,18 +19,20 @@ const Container = styled.div`
 
   /* background-color: gray; */
 `;
-
+const ShowComment = styled.div`
+  width: 670.22px;
+`;
 const AddCommentBUT = styled.button`
   color: #838c95;
   font-family: Inter;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
-  line-height: 17px; /* 141.667% */
-  /* opacity: 0.6; */
+  line-height: 17px;
   border: none;
   height: 17px;
   padding: 0px;
+  margin-bottom: 0.5rem;
   background-color: transparent;
 
   &:hover {
@@ -36,50 +40,49 @@ const AddCommentBUT = styled.button`
   }
 `;
 
-const BalloonBox = styled.div`
-  position: absolute;
-  margin-top: 1%;
-  text-align: center;
-  margin-left: 6rem;
-`;
+// const BalloonBox = styled.div`
+//   position: absolute;
+//   margin-top: 1%;
+//   text-align: center;
+//   margin-left: 6rem;
+// `;
 
-const BalloonText = styled.div`
-  padding: 4%;
-  color: #ffffff;
-  font-family: Inter;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 17px; /* 141.667% */
-`;
+// const BalloonText = styled.div`
+//   padding: 4%;
+//   color: #ffffff;
+//   font-family: Inter;
+//   font-size: 12px;
+//   font-style: normal;
+//   font-weight: 400;
+//   line-height: 17px; /* 141.667% */
+// `;
 
 export const CommentBUT = () => {
-  const [showBalloon, setShowBalloon] = useState(false);
+  const [showComment, setShowComment] = useState(false);
+
+  const containerRef = useRef(null);
 
   const handleButtonClick = () => {
-    setShowBalloon(true);
+    setShowComment(true);
   };
 
-  const handleMouseLeave = () => {
-    setShowBalloon(false);
+  const handleClickOutside = (event) => {
+    if (containerRef.current && !containerRef.current.contains(event.target)) {
+      setShowComment(false);
+    }
   };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
-    <Container>
-      <AddCommentBUT
-        onClick={handleButtonClick}
-        // onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
-        {showBalloon && (
-          <BalloonBox>
-            <Balloon>
-              <BalloonText>You must have 50 reputation to comment</BalloonText>
-            </Balloon>
-          </BalloonBox>
-        )}
-        Add a comment
-      </AddCommentBUT>
+    <Container ref={containerRef}>
+      <AddCommentBUT onClick={handleButtonClick}>Add a Comment</AddCommentBUT>
+      <ShowComment>{showComment && <CommentForm />}</ShowComment>
     </Container>
   );
 };

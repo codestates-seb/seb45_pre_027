@@ -4,20 +4,27 @@ import styled from 'styled-components';
 // 스타일 컴포넌트 (스타일을 원하면 추가/수정할 수 있습니다)
 const ContentContainer = styled.div`
   overflow-y: auto;
-  height: 500px; // 예시 높이입니다. 원하는 대로 조절 가능합니다.
+  height: min-content; // 예시 높이입니다. 원하는 대로 조절 가능합니다.
+`;
+
+const ContainerText = styled.div`
+  overflow-y: auto;
+  height: min-content;
+  margin-top: 2rem;
 `;
 
 const AnswerContent = () => {
   const [data, setData] = useState([]);
   const loader = useRef(null);
-  // console.log(data?.data?.content);
-  // console.log(data?.data);
+  console.log(data?.data?.content);
+  console.log(data?.data);
+  // console.let(data?.boardId);
 
   // 데이터를 불러오는 함수
   const loadMore = () => {
     console.log('loadMore');
     // 답변 Url 적용 하기
-    fetch(`${process.env.REACT_APP_SERVER_URL}board/1`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}board/5`, {
       method: 'get',
       headers: new Headers({
         'ngrok-skip-browser-warning': '69420',
@@ -32,9 +39,6 @@ const AnswerContent = () => {
         console.log(newData);
         setData((prevData) => newData);
       });
-    // .catch((error) => {
-    //   console.error('Error fetching data:', error);
-    // });
   };
 
   useEffect(() => {
@@ -66,7 +70,7 @@ const AnswerContent = () => {
     <ContentContainer>
       {/* <div ref={loader}>로딩...</div> */}
       {data?.data?.title}
-      <p>질문 내용</p>
+      <ContainerText>{data?.data?.content}</ContainerText>
     </ContentContainer>
   );
 };
