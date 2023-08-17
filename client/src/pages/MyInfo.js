@@ -219,13 +219,13 @@ function MyInfo() {
       <CategoryBox>
         {category.map((ele, idx) =>
           idx === categoryIdx ? (
-            <butto
+            <button
               key={idx}
               className="category-active"
               onClick={() => handleCategory(idx)}
             >
               {ele}
-            </butto>
+            </button>
           ) : (
             <button key={idx} onClick={() => handleCategory(idx)}>
               {ele}

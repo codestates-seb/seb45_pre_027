@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { styled } from 'styled-components';
 import profile from '../../img/default-profile.png';
 import SocialButton from '../login-components/SocialButton';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 
 const Container = styled.div`
   h1 {
@@ -93,53 +95,100 @@ const StyledButton = styled(SocialButton)`
 `;
 
 function Setting() {
+  const [imageSrc, setImageSrc] = useState(profile);
+  const postImg = new FormData();
+  const { register, setValue, handleSubmit } = useForm();
+  const navigate = useNavigate();
+  const imageUploadRef = useRef(null);
+  const editUserInfo = (data) => {
+    console.log({ ...data, 'profile-img': postImg });
+    fetch('서버 uri', {
+      method: 'POST',
+      body: { ...data, 'profile-img': postImg },
+    });
+    // window.location.href = '/my-info';
+  };
+  const changeImageFile = (e) => {
+    if (!e.target.files) {
+      return;
+    }
+
+    postImg.append('file', e.target.files[0]);
+
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        setImageSrc(reader.result || null); // 파일의 컨텐츠
+        resolve();
+      };
+    });
+  };
+  const handleImageUpload = () => {
+    if (!imageUploadRef.current) {
+      return;
+    }
+    imageUploadRef.current.click();
+  };
   return (
     <Container>
-      <h1>Edit your profile</h1>
-      <h2>Public information</h2>
-      <InformationContainer>
-        <InformationBox>
-          <h3>Profile image</h3>
-          <div className="img-box">
-            <img src={profile} alt="profile" />
-            <span className="change-picture">Change picture</span>
-          </div>
-        </InformationBox>
-        <InformationBox>
-          <h3>Display name</h3>
-          <input />
-        </InformationBox>
-        <InformationBox>
-          <h3>Location</h3>
-          <input />
-        </InformationBox>
-        <InformationBox>
-          <h3>Title</h3>
-          <input />
-        </InformationBox>
-        <InformationBox>
-          <h3>About me</h3>
-          <textarea />
-        </InformationBox>
-      </InformationContainer>
-      <ButtonContainer>
-        <StyledButton
-          color="#FFF"
-          background="#0A95FF"
-          bordercolor="hsl(206,96%,90%)"
-          hovercolor="hsl(206,100%,40%)"
-          activecolor="hsl(209,100%,37.5%)"
-        >
-          Save profile
-        </StyledButton>
-        <StyledButton
-          color="#0A95FF"
-          hovercolor="hsl(206,100%,97%)"
-          activecolor="hsl(206,93%,83.5%)"
-        >
-          Cancel
-        </StyledButton>
-      </ButtonContainer>
+      <form onSubmit={handleSubmit(editUserInfo)}>
+        <h1>Edit your profile</h1>
+        <h2>Public information</h2>
+        <InformationContainer>
+          <InformationBox>
+            <h3>Profile image</h3>
+            <div className="img-box">
+              <img src={imageSrc} alt="profile" />
+              <input
+                type="file"
+                accept="image/*"
+                style={{ display: 'none' }}
+                ref={imageUploadRef}
+                onChange={changeImageFile}
+              />
+              <span onClick={handleImageUpload} className="change-picture">
+                Change picture
+              </span>
+            </div>
+          </InformationBox>
+          <InformationBox>
+            <h3>Display name</h3>
+            <input {...register('name')} />
+          </InformationBox>
+          <InformationBox>
+            <h3>Location</h3>
+            <input {...register('location')} />
+          </InformationBox>
+          <InformationBox>
+            <h3>Title</h3>
+            <input {...register('title')} />
+          </InformationBox>
+          <InformationBox>
+            <h3>About me</h3>
+            <textarea {...register('about-me')} />
+          </InformationBox>
+        </InformationContainer>
+        <ButtonContainer>
+          <StyledButton
+            color="#FFF"
+            background="#0A95FF"
+            bordercolor="hsl(206,96%,90%)"
+            hovercolor="hsl(206,100%,40%)"
+            activecolor="hsl(209,100%,37.5%)"
+          >
+            Save profile
+          </StyledButton>
+          <StyledButton
+            color="#0A95FF"
+            hovercolor="hsl(206,100%,97%)"
+            activecolor="hsl(206,93%,83.5%)"
+          >
+            Cancel
+          </StyledButton>
+        </ButtonContainer>
+      </form>
     </Container>
   );
 }
