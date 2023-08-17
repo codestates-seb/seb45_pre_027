@@ -17,7 +17,7 @@ const QuestionContent = () => {
   // 데이터를 불러오는 함수
   const loadMore = () => {
     console.log('loadMore');
-    fetch(`${process.env.REACT_APP_SERVER_URL}board/5`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}board/1`, {
       method: 'get',
       headers: new Headers({
         'ngrok-skip-browser-warning': '69420',
@@ -65,7 +65,7 @@ const QuestionContent = () => {
   return (
     <ContentContainer>
       {data?.data?.content}
-      {data?.content}
+      {data?.data?.boardId}
     </ContentContainer>
   );
 };

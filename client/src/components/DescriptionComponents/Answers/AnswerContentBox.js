@@ -10,7 +10,8 @@ const ContentContainer = styled.div`
 const AnswerContent = () => {
   const [data, setData] = useState([]);
   const loader = useRef(null);
-  console.log(data?.data?.content);
+  // console.log(data?.data?.content);
+  // console.log(data?.data);
 
   // 데이터를 불러오는 함수
   const loadMore = () => {

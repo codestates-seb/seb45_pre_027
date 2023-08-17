@@ -2,7 +2,7 @@
 
 import { styled } from 'styled-components';
 import React, { useState } from 'react';
-import { Balloon } from '../../Balloon/BalloonBox.js';
+import { Balloon } from '../Balloon/BalloonBox.js';
 
 const Container = styled.div`
   display: flex;
@@ -11,7 +11,6 @@ const Container = styled.div`
   flex-shrink: 0;
   flex-wrap: wrap;
   border: none;
-
   width: 670.22px;
   padding: 0px 577.22px 0px 3px;
   align-items: flex-start;
@@ -26,7 +25,7 @@ const AddCommentBUT = styled.button`
   font-style: normal;
   font-weight: 400;
   line-height: 17px; /* 141.667% */
-  opacity: 0.6;
+  /* opacity: 0.6; */
   border: none;
   height: 17px;
   padding: 0px;

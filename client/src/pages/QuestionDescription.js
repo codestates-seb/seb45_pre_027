@@ -18,6 +18,7 @@ import QuestionComment from '../components/DescriptionComponents/Answers/Questio
 import { QuestionCommentGet } from '../components/DescriptionComponents/Answers/QuestionCommentGet';
 import { useState, useEffect } from 'react';
 import CounterButton from '../components/DescriptionComponents/ButtonCNP/UpDownButtonCounter';
+import { CommentBUT } from '../components/DescriptionComponents/ButtonComponents/AddComment';
 // import Header from '../components/Header';
 // import SideBar from '../components/SideBar';
 
@@ -217,6 +218,11 @@ const Layout = styled.div`
   flex-direction: row;
 `;
 
+const Comment = styled.div`
+  margin-left: 82px;
+  margin-bottom: 2rem;
+`;
+
 // 블로그 게시물의 샘플 데이터.
 const blogPosts = [
   {
@@ -341,9 +347,13 @@ const LayoutWithBlogList = () => {
                   </TagSection>
                   <ButtonList />
                 </S>
+
                 <UserInfoSection>
                   <UserInfoBox />
                 </UserInfoSection>
+                <Comment>
+                  <CommentBUT />
+                </Comment>
                 <AnswerCountBox />
                 <RelatedQuestionsSection>
                   <AddRelatedQuestionItem />
