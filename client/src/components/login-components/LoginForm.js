@@ -108,7 +108,10 @@ function LoginForm() {
         password: data.password,
       }),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
       .then((data) => {
         console.log(data);
         setRefreshToken(data.refresh_token);

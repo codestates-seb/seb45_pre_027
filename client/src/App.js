@@ -12,15 +12,16 @@ import GithabCallback from './components/oauth/GithubCallback';
 import MyInfo from './pages/MyInfo';
 import { useEffect } from 'react';
 import { getCookieToken, setRefreshToken } from './storage/Cookie';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { SET_TOKEN } from './redux/tokenSlice';
 
 function App() {
   const dispatch = useDispatch();
-  // refresh_token이 있을 경우 refresh token으로 새롭게 access_token 발급
+  const refresh_token = getCookieToken();
+  const access_token = useSelector((state) => state.authToken.authenticated);
+  console.log(access_token);
+  // access_token이 없고 refresh_token이 있을 경우 refresh token으로 새롭게 access_token 발급
   useEffect(() => {
-    const refresh_token = getCookieToken();
-
     const login = async () => {
       await fetch(`${process.env.REACT_APP_SERVER_URL}/access-token`, {
         method: 'POST',
@@ -41,7 +42,7 @@ function App() {
           console.log('failed get access token');
         });
     };
-    if (refresh_token) {
+    if (refresh_token && !access_token) {
       login();
     }
   }, []);
