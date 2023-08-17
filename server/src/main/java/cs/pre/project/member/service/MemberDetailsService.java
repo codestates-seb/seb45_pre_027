@@ -1,5 +1,6 @@
 package cs.pre.project.member.service;
 
+import cs.pre.project.auth.MemberAuthority;
 import cs.pre.project.member.entity.Member;
 import cs.pre.project.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,46 +22,33 @@ import java.util.Optional;
 public class MemberDetailsService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
+    private final MemberAuthority memberAuthority;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        log.info("email : " + email);
-
         Optional<Member> member = memberRepository.findByEmail(email);
 
-        return new MemberDetails(member);
+        Member findMember = member.orElseThrow();
+
+        return new MemberDetails(findMember);
     }
 
-    private class MemberDetails implements UserDetails {
+    private class MemberDetails extends Member implements UserDetails {
 
-        private Optional<Member> member;
-
-        public MemberDetails(Optional<Member> member) {
-            this.member = member;
+        MemberDetails(Member member) {
+            setEmail(member.getEmail());
+            setPassword(member.getPassword());
         }
+
 
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
-            Collection<GrantedAuthority> collect = new ArrayList<>();
-
-            collect.add(new GrantedAuthority() {
-                @Override
-                public String getAuthority() {
-                    return member.get().getRole();
-                }
-            });
-
-            return collect;
+            return memberAuthority.createAuthorities(this.getRoles());
         }
 
         @Override
         public String getUsername() {
-            return member.get().getEmail();
-        }
-
-        @Override
-        public String getPassword() {
-            return member.get().getPassword();
+            return getEmail();
         }
 
         @Override
