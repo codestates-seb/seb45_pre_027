@@ -52,6 +52,8 @@ public class BoardDto {
 
         private String expecting;
 
+        private String body;
+
         private int view;
 
         private LocalDateTime createdAt;

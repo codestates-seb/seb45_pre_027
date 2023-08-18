@@ -45,7 +45,6 @@ public class BoardService {
 
         Optional.ofNullable(board.getTitle()).ifPresent(title -> findBoard.get().setTitle(title));
         Optional.ofNullable(board.getContent()).ifPresent(content -> findBoard.get().setContent(content));
-        Optional.ofNullable(board.getExpecting()).ifPresent(expecting -> findBoard.get().setExpecting(expecting));
 
         return boardRepository.save(findBoard.get());
     }
