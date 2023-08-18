@@ -36,6 +36,10 @@ public class Board extends Auditable {
         this.view++;
     }
 
+    private int likes = 0;
+
+    private int dislikes = 0;
+
 //    @ManyToOne
 //    @JoinColumn(name = "member-id")
 //    private List<MemberBroad> memberBroads = new ArrayList<>();

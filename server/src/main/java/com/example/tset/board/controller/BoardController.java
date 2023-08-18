@@ -1,7 +1,7 @@
 package com.example.tset.board.controller;
 
 
-import com.example.tset.board.dto.BoardDto;
+
 import com.example.tset.board.dto.BoardPatchDto;
 import com.example.tset.board.dto.BoardPostDto;
 import com.example.tset.board.entity.Board;
@@ -85,6 +85,17 @@ public class BoardController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @PostMapping("/like/{board-id}")
+    public ResponseEntity likeBoard(@PathVariable("board-id") @Positive long boardId) {
+        Board likedBoard = boardService.likeBoard(boardId);
+        return new ResponseEntity<>(new SingleResponseDto<>(boardMapper.boardToBoardResponse(likedBoard)), HttpStatus.OK);
+    }
+
+    @PostMapping("/dislike/{board-id}")
+    public ResponseEntity dislikeBoard(@PathVariable("board-id") @Positive long boardId) {
+        Board dislikedBoard = boardService.dislikeBoard(boardId);
+        return new ResponseEntity<>(new SingleResponseDto<>(boardMapper.boardToBoardResponse(dislikedBoard)), HttpStatus.OK);
     }
 
 //    @DeleteMapping("/{board-id}/hard")

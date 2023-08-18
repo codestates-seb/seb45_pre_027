@@ -45,21 +45,14 @@ public class BoardDto {
     @Getter
     public static class Reponse {
         private long boardId;
-
         private String title;
-
         private String content;
-
         private String expecting;
-
-        private String body;
-
         private int view;
-
+        private int likes;
+        private int dislikes;
         private LocalDateTime createdAt;
-
-        private LocalDateTime updateAt;
-
+        private LocalDateTime updatedAt;
         private LocalDateTime deletedAt;
     }
 }

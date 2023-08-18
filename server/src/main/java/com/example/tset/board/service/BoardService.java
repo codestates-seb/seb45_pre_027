@@ -73,6 +73,18 @@ public class BoardService {
         boardRepository.save(board);
     }
 
+    public Board likeBoard(long boardId) {
+        Board board = findVerifiedBoard(boardId);
+        board.setLikes(board.getLikes() +  1);
+        return boardRepository.save(board);
+    }
+
+    public Board dislikeBoard(long boardId) {
+        Board board = findVerifiedBoard(boardId);
+        board.setDislikes(board.getDislikes() + 1);
+        return boardRepository.save(board);
+    }
+
     @Transactional(readOnly = true)
     public Board findVerifiedBoard(long broadId) {
         Optional<Board> optionalBoard = boardRepository.findById(broadId);
