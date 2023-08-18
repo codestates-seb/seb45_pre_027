@@ -6,8 +6,8 @@ import styled from "styled-components";
 // Sidebar에 전체적으로 적용할 CSS
 const StyledSidebar = styled.div`
   font-size: 13px;
-  padding: 2rem 4rem;
-  width: 80px;
+  padding: 3rem 12rem;
+  width: 50px;
   border-right: 1px solid gray;
 `;
 

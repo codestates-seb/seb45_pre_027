@@ -3,6 +3,8 @@ import Qrsection from "../components/Cqsection/Qrsection";
 import { useState } from "react";
 import { postQuestionToServer } from "../components/Cqsection/Cqpost";
 import { useNavigate } from 'react-router-dom';
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const colors = {
   backgroundColor: "rgba(248, 249, 249, 1)",
@@ -130,6 +132,8 @@ const QuestionRegist = () => {
   };
 
   return (
+    <>
+    <Header />
     <QCPage>
       <div className="container">
         <div className="description">
@@ -172,6 +176,8 @@ const QuestionRegist = () => {
         </div>
       </div>
     </QCPage>
+    <Footer />
+    </>
   );
 };
 
