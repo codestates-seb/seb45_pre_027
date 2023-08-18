@@ -3,6 +3,7 @@
 import styled from 'styled-components';
 import React, { useState } from 'react';
 import DropDown from '../../../assets/images/arrow_drop_down.svg';
+import CountObjects from '../CountObjects/CountComponents';
 
 // 스타일링된 컨테이너
 const Container = styled.div`
@@ -16,6 +17,17 @@ const Container = styled.div`
   background-color: salmon;
 `;
 
+// 카운트 영역
+const Count = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+// 카운트 넘버
+
+const CountNumber = styled.text`
+  margin-right: 5px;
+`;
 // 스타일링된 드롭다운 메뉴
 const Dropdown = styled.select`
   width: 257px;
@@ -100,9 +112,14 @@ const Sorter = () => {
 };
 
 // 답변 수 및 드롭다운을 포함한 메인 컴포넌트
-const AnswerBox = ({ count }) => (
+const AnswerBox = () => (
   <Container>
-    <h2>{count} Answers</h2>
+    <Count>
+      <CountNumber>
+        <CountObjects />
+      </CountNumber>
+      Answers
+    </Count>
     <AnswerCountBoxDrop>
       <p>Sorted by : </p> <Sorter />
     </AnswerCountBoxDrop>

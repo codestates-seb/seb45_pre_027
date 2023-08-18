@@ -19,14 +19,9 @@ import { QuestionCommentGet } from '../components/DescriptionComponents/Answers/
 import { useState, useEffect } from 'react';
 import CounterButton from '../components/DescriptionComponents/ButtonCNP/UpDownButtonCounter';
 import { CommentBUT } from '../components/DescriptionComponents/ButtonComponents/AddComment';
-// import { QuestionCommentGetList } from '../components/DescriptionComponents/Answers/QuestionCommentGetList';
-// import AnswerContent from '../components/DescriptionComponents/Answers/AnswerContentBox';
-// import BoardList from '../components/DescriptionComponents/Answers/Test';
-// import CommentForm from '../components/DescriptionComponents/Comment/CommentForm';
-// import Header from '../components/Header';
-// import SideBar from '../components/SideBar';
 
 // 질문 상세 페이지를 위한 주 컨테이너 스타일링.
+
 const Container = styled.div`
   font-family: Arial, sans-serif;
   padding: 20px;
@@ -370,8 +365,6 @@ const LayoutWithBlogList = () => {
                   Know someone who can answer? Share a link to this question via
                   email, Twitter, or Facebook.
                 </P>
-                {/* <QuestionCommentGetList /> */}
-                {/* <BoardList /> */}
                 {data ? (
                   <QuestionCommentGet>{data?.data?.content}</QuestionCommentGet>
                 ) : (

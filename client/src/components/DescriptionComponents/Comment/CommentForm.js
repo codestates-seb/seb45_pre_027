@@ -65,7 +65,7 @@ const CommentForm = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [expecting, setExpecting] = useState('');
-  const [boardId, setboardId] = useState('');
+  // const [boardId, setboardId] = useState('');
 
   const handleSubmit = () => {
     fetch(`${process.env.REACT_APP_SERVER_URL}board`, {
@@ -78,7 +78,7 @@ const CommentForm = () => {
         title: title,
         content: content,
         expecting: expecting,
-        boardId: boardId,
+        // boardId: boardId,
       }),
     })
       .then((response) => response.json())
@@ -87,7 +87,7 @@ const CommentForm = () => {
         setContent(''); // 텍스트 에디터 리셋
         setTitle('');
         setExpecting('');
-        setboardId('');
+        // setboardId('');
       });
   };
 
