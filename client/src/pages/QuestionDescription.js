@@ -19,7 +19,10 @@ import { QuestionCommentGet } from '../components/DescriptionComponents/Answers/
 import { useState, useEffect } from 'react';
 import CounterButton from '../components/DescriptionComponents/ButtonCNP/UpDownButtonCounter';
 import { CommentBUT } from '../components/DescriptionComponents/ButtonComponents/AddComment';
-import CommentForm from '../components/DescriptionComponents/Comment/CommentForm';
+// import { QuestionCommentGetList } from '../components/DescriptionComponents/Answers/QuestionCommentGetList';
+// import AnswerContent from '../components/DescriptionComponents/Answers/AnswerContentBox';
+// import BoardList from '../components/DescriptionComponents/Answers/Test';
+// import CommentForm from '../components/DescriptionComponents/Comment/CommentForm';
 // import Header from '../components/Header';
 // import SideBar from '../components/SideBar';
 
@@ -292,9 +295,13 @@ const LayoutWithBlogList = () => {
   const [data, setData] = useState('Loading...');
   useEffect(() => {
     // 백엔드 API 주소를 아래 URL에 설정합니다.
-    const apiUrl = `${process.env.REACT_APP_SERVER_URL}board/1`;
 
-    fetch(apiUrl)
+    fetch(`${process.env.REACT_APP_SERVER_URL}board/1`, {
+      method: 'get',
+      headers: new Headers({
+        'ngrok-skip-browser-warning': '69420',
+      }),
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -354,7 +361,6 @@ const LayoutWithBlogList = () => {
                 </UserInfoSection>
                 <Comment>
                   <CommentBUT />
-                  {/* <CommentForm /> */}
                 </Comment>
                 <AnswerCountBox />
                 <RelatedQuestionsSection>
@@ -364,6 +370,8 @@ const LayoutWithBlogList = () => {
                   Know someone who can answer? Share a link to this question via
                   email, Twitter, or Facebook.
                 </P>
+                {/* <QuestionCommentGetList /> */}
+                {/* <BoardList /> */}
                 {data ? (
                   <QuestionCommentGet>{data?.data?.content}</QuestionCommentGet>
                 ) : (
@@ -371,11 +379,6 @@ const LayoutWithBlogList = () => {
                 )}
                 <P1>Your Answer</P1>
                 <QuestionComment />
-                {/* <TextEditor>
-                <CommentSectionFrom>
-                  <QuestionContent />
-                </CommentSectionFrom>
-              </TextEditor> */}
               </MainContent>
               <SideBarBox>
                 <BlogList title="The Overflow Blog" posts={blogPosts} />

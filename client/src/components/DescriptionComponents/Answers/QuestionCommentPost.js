@@ -1,3 +1,5 @@
+//답변 작성 영역 / 텍스트 에디터 영역
+
 import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import styled from 'styled-components';
@@ -12,6 +14,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background-color: blueviolet;
 `;
 
 const Title = styled.h2`
@@ -44,6 +47,35 @@ const SubmitButton = styled.button`
   &:hover {
     background-color: #0056b3;
   }
+`;
+
+const AnswerOk = styled.div`
+  height: fit-content;
+  width: max-content;
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  font-size: 13px;
+  margin-top: 2rem;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  align-items: center;
+  cursor: pointer;
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+
+const CloseButton = styled.button`
+  background-color: transparent;
+  border: none;
+  padding-left: 1rem;
+  font-family: Inter;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: bolder;
+  color: white;
 `;
 
 const QuestionComment = () => {
@@ -92,10 +124,10 @@ const QuestionComment = () => {
 
       {/* 모달 창 */}
       {showModal && (
-        <div>
+        <AnswerOk>
           답변 완료 되었습니다
-          <button onClick={() => setShowModal(false)}>닫기</button>
-        </div>
+          <CloseButton onClick={() => setShowModal(false)}>닫기</CloseButton>
+        </AnswerOk>
       )}
     </Container>
   );

@@ -61,32 +61,56 @@ const StyledTextarea = styled.textarea`
   resize: vertical; // 사용자가 세로 방향으로만 크기를 조절할 수 있게 합니다.
 `;
 
-const CommentForm = ({ postId, onCommentAdded }) => {
+const CommentForm = () => {
+  const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [expecting, setExpecting] = useState('');
+  const [boardId, setboardId] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     fetch(`${process.env.REACT_APP_SERVER_URL}board`, {
-      method: 'POST',
+      method: 'post',
       headers: {
         'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': '69420',
       },
-      body: JSON.stringify({ postId, content }),
+      body: JSON.stringify({
+        title: title,
+        content: content,
+        expecting: expecting,
+        boardId: boardId,
+      }),
     })
       .then((response) => response.json())
       .then((data) => {
-        onCommentAdded(data);
-        setContent('');
+        // onCommentAdded(data);
+        setContent(''); // 텍스트 에디터 리셋
+        setTitle('');
+        setExpecting('');
+        setboardId('');
       });
   };
 
   return (
     <Form onSubmit={handleSubmit}>
       <StyledTextarea
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        placeholder="Write a title..."
+      />
+
+      <StyledTextarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        placeholder="Write a comment..."
+        placeholder="Write a content..."
       />
+
+      <StyledTextarea
+        value={expecting}
+        onChange={(e) => setExpecting(e.target.value)}
+        placeholder="Write a expecting..."
+      />
+
       <ButtonList>
         <AddButton type="submit">Add Comment</AddButton>
         <Help>help</Help>

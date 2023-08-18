@@ -1,10 +1,12 @@
-// 댓글
+// 댓글 조회 영역 /조회 외각 폼
 
 import styled from 'styled-components';
 import BookButton from '../ButtonComponents/BookButton';
 import ResetButton from '../ButtonComponents/Reset';
 import CounterButton from '../ButtonCNP/UpDownButtonCounter';
-import AnswerContent from './AnswerContentBox';
+import BoardList from './Test';
+// import AnswerContent from './AnswerContentBox';
+// import LayoutWithBlogList from './AnswerList';
 // import QuestionContent from '../QuestionContent/QuestionContentBox';
 
 // 질문의 내용을 표시하기 위한 주요 섹션.
@@ -38,12 +40,12 @@ const ButtonGroup = () => (
   </ButtonSection>
 );
 
+// 배열 영역
+
 export const QuestionCommentGet = () => (
   <ContentSection>
     <ButtonGroup />
-    <ContentDetail>
-      {/* <QuestionContent /> */}
-      <AnswerContent />
-    </ContentDetail>
+    {/* <BoardList /> */}
+    <ContentDetail />
   </ContentSection>
 );

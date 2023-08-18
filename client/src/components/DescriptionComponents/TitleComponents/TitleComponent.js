@@ -1,3 +1,5 @@
+// 내부 메인 영역 타이틀 부분
+
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
@@ -11,10 +13,10 @@ const TitleStyled = styled.div`
   line-height: 36.45px; /* 145.8% */
 `;
 
-// 주어진 타이틀을 표시하는 TitleComponent
-const TitleComponent = ({ title }) => {
-  return <TitleStyled>{title}</TitleStyled>;
-};
+// // 주어진 타이틀을 표시하는 TitleComponent
+// const TitleComponent = ({ title }) => {
+//   return <TitleStyled>{title}</TitleStyled>;
+// };
 
 const LayoutWithFetchTitle = () => {
   // 타이틀을 저장하기 위한 상태. 초기값은 'Loading...'
@@ -22,7 +24,7 @@ const LayoutWithFetchTitle = () => {
 
   useEffect(() => {
     // 백엔드에서 타이틀을 가져오기 위해 fetch API 사용
-    fetch(`${process.env.REACT_APP_SERVER_URL}board/1`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}board/2`, {
       method: 'get',
       headers: new Headers({
         'ngrok-skip-browser-warning': '69420',
@@ -50,8 +52,8 @@ const LayoutWithFetchTitle = () => {
   return (
     <div>
       {/* TitleComponent를 사용하여 타이틀 표시 */}
-      <TitleComponent title={title} />
-      {/* 여기에 다른 컴포넌트를 추가할 수 있습니다 */}
+      {/* 만약 raw HTML을 삽입하려면 다음과 같이 사용할 수 있습니다. */}
+      <div dangerouslySetInnerHTML={{ __html: title }} />
     </div>
   );
 };

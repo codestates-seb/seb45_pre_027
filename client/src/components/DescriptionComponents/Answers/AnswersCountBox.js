@@ -1,3 +1,5 @@
+// Answers 카운트 부분 영역
+
 import styled from 'styled-components';
 import React, { useState } from 'react';
 import DropDown from '../../../assets/images/arrow_drop_down.svg';
@@ -11,6 +13,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 2rem;
+  background-color: salmon;
 `;
 
 // 스타일링된 드롭다운 메뉴

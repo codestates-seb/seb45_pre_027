@@ -1,10 +1,16 @@
+//답변 영역 내용이 담겨있는 컴포넌트
+
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import { QuestionCommentGet } from './QuestionCommentGet';
+import BoardList from './Test';
 
 // 스타일 컴포넌트 (스타일을 원하면 추가/수정할 수 있습니다)
 const ContentContainer = styled.div`
   overflow-y: auto;
-  height: min-content; // 예시 높이입니다. 원하는 대로 조절 가능합니다.
+  height: min-content;
+  background-color: red;
+  // 예시 높이입니다. 원하는 대로 조절 가능합니다.
 `;
 
 const ContainerText = styled.div`
@@ -24,7 +30,7 @@ const AnswerContent = () => {
   const loadMore = () => {
     console.log('loadMore');
     // 답변 Url 적용 하기
-    fetch(`${process.env.REACT_APP_SERVER_URL}board/5`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}board?page=1&size=10`, {
       method: 'get',
       headers: new Headers({
         'ngrok-skip-browser-warning': '69420',
@@ -67,11 +73,14 @@ const AnswerContent = () => {
   };
 
   return (
-    <ContentContainer>
-      {/* <div ref={loader}>로딩...</div> */}
-      {data?.data?.title}
-      <ContainerText>{data?.data?.content}</ContainerText>
-    </ContentContainer>
+    <QuestionCommentGet>
+      <ContentContainer>
+        <BoardList />
+        {/* <div ref={loader}>로딩...</div>
+        {data?.data?.title}
+        <ContainerText>{data?.data?.content}</ContainerText> */}
+      </ContentContainer>
+    </QuestionCommentGet>
   );
 };
 

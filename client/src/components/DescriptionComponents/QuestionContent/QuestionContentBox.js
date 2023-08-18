@@ -1,3 +1,5 @@
+//메인 질문 내용 영역 / 질문 내용이 조회되는 컴포넌트
+
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
@@ -9,7 +11,9 @@ const ContentContainer = styled.div`
 
 const QuestionContent = () => {
   const [data, setData] = useState([]);
+  const [boardId, setboardId] = useState();
   const loader = useRef(null);
+
   console.log(data?.data?.title);
   console.log(data?.data?.content);
   console.log(data?.data?.boardId);
@@ -17,7 +21,7 @@ const QuestionContent = () => {
   // 데이터를 불러오는 함수
   const loadMore = () => {
     console.log('loadMore');
-    fetch(`${process.env.REACT_APP_SERVER_URL}board/1`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}board/2`, {
       method: 'get',
       headers: new Headers({
         'ngrok-skip-browser-warning': '69420',
@@ -32,9 +36,6 @@ const QuestionContent = () => {
         console.log(newData);
         setData((prevData) => newData);
       });
-    // .catch((error) => {
-    //   console.error('Error fetching data:', error);
-    // });
   };
 
   useEffect(() => {
@@ -64,8 +65,10 @@ const QuestionContent = () => {
 
   return (
     <ContentContainer>
-      {data?.data?.content}
-      {data?.data?.boardId}
+      <div dangerouslySetInnerHTML={{ __html: data?.data?.content }} />
+
+      {/* {data?.data?.content} */}
+      {/* {data?.data?.boardId} */}
     </ContentContainer>
   );
 };

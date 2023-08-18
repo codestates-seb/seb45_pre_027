@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Comment from './Comment';
 
-const CommentList = ({ postId }) => {
+const CommentList = ({ boardId }) => {
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    fetch(`/api/comments?post_id=${postId}`)
+    fetch(`${process.env.REACT_APP_SERVER_URL}board=${boardId}`)
       .then((response) => response.json())
       .then((data) => setComments(data));
-  }, [postId]);
+  }, [boardId]);
 
   return (
     <div>
