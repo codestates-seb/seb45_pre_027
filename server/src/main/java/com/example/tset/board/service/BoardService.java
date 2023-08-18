@@ -48,7 +48,6 @@ public class BoardService {
 
         return boardRepository.save(findBoard.get());
     }
-
     public Board readBoard(long broadId) {
         Board board = findVerifiedBoard(broadId);
 
