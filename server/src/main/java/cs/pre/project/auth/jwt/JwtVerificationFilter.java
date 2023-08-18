@@ -2,6 +2,7 @@ package cs.pre.project.auth.jwt;
 
 import cs.pre.project.auth.MemberAuthority;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
+@Slf4j
 public class JwtVerificationFilter extends OncePerRequestFilter {
     private final JwtTokenizer jwtTokenizer;
     private final MemberAuthority memberAuthority;
@@ -25,6 +27,8 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
+
+        log.info("doFilterInternal.authorization : " + request.getHeader("Authorization"));
 
         Map<String, Object> claims = verifyJws(request);
         setAuthenticationToContext(claims);

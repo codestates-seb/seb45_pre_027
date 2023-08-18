@@ -9,6 +9,7 @@ import cs.pre.project.auth.jwt.JwtVerificationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -52,11 +53,13 @@ public class SecurityConfig {
                 .cors(withDefaults())
                 .formLogin().disable()
                 .httpBasic().disable()
-                .apply(new CustomFilterConfigurer())
-                .and()
                 .authorizeHttpRequests(authorize -> authorize
+                        .antMatchers("/members/**").permitAll()
+                        .antMatchers("/questions/**").permitAll()
                         .anyRequest().permitAll()
-                );
+                )
+                .apply(new CustomFilterConfigurer());
+
 
         return http.build();
     }
@@ -64,9 +67,11 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
+
+        configuration.setExposedHeaders(Arrays.asList("Authorization", "Refresh"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
@@ -83,7 +88,8 @@ public class SecurityConfig {
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
 
-            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, memberAuthority);  // (2) 추가
+
+            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, memberAuthority);
 
             builder
                     .addFilter(jwtAuthenticationFilter)

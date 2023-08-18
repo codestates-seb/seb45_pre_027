@@ -20,3 +20,8 @@ spring:
       hibernate:
         format_sql: true
 
+jwt:
+  key: secretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKey
+  access-token-expiration-minutes: 30
+  refresh-token-expiration-minutes: 420
+
