@@ -21,6 +21,8 @@ public class BoardResponseDto {
 
     private String expecting;
 
+    private int view;
+
     private LocalDateTime createdAt;
 
     private LocalDateTime updateAt;

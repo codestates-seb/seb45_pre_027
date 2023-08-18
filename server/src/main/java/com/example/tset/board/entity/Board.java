@@ -36,7 +36,7 @@ public class Board extends Auditable {
         this.view++;
     }
 
-    //    @ManyToOne
+//    @ManyToOne
 //    @JoinColumn(name = "member-id")
 //    private List<MemberBroad> memberBroads = new ArrayList<>();
 
