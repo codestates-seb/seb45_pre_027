@@ -7,7 +7,7 @@ function About({ content, handleCategory }) {
     <BoxContainer>
       <h3>About</h3>
       {content ? (
-        <p>{content}</p>
+        <p>{content.content}</p>
       ) : (
         <EmptyContainer>
           <div>

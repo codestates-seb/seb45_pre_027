@@ -12,7 +12,8 @@ import Badges from '../components/myInfo-components/Badges';
 import Posts from '../components/myInfo-components/Posts';
 import ToBe from '../components/myInfo-components/ToBe';
 import Setting from '../components/myInfo-components/Setting';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserInfo } from '../redux/userInfoSlice';
 
 const Container = styled.div`
   padding: 24px;
@@ -188,8 +189,10 @@ function MyInfo() {
   const [categoryIdx, setCategoryIdx] = useState(0);
   const category = ['Profile', 'Activity', 'Settings'];
   const token = useSelector((state) => state.authToken.accessToken);
-  const [user, setUser] = useState(0);
+
+  const userInfo = useSelector((state) => state.userInfo);
   const userId = localStorage.getItem('user_id');
+  const dispatch = useDispatch();
   useEffect(() => {
     const getUserInfo = async () => {
       await fetch(`${process.env.REACT_APP_SERVER_URL}/members/${userId}`, {
@@ -200,10 +203,10 @@ function MyInfo() {
         },
       })
         .then((res) => res.json())
-        .then((data) => setUser(data));
+        .then((data) => dispatch(setUserInfo(data)));
     };
     if (userId) getUserInfo();
-    else setUser({ profile, name: 'binchoi' });
+    else dispatch(setUserInfo({ profile, name: 'binchoi' }));
   }, []);
 
   const handleCategory = (idx) => {
@@ -212,9 +215,9 @@ function MyInfo() {
   return (
     <Container>
       <Header>
-        <img src={user.profile} alt="profile"></img>
+        <img src={userInfo.profile} alt="profile"></img>
         <ProfileContent>
-          <h2>{user.name}</h2>
+          <h2>{userInfo.name}</h2>
           <DateContent>
             <li>
               <FaBirthdayCake />
@@ -282,7 +285,7 @@ function MyInfo() {
               <Posts />
             </>
           ) : categoryIdx === 2 ? (
-            <Setting />
+            <Setting handleCategory={handleCategory} />
           ) : (
             <ToBe />
           )}

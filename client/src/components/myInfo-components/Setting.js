@@ -4,6 +4,8 @@ import profile from '../../img/default-profile.png';
 import SocialButton from '../login-components/SocialButton';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserInfo } from '../../redux/userInfoSlice';
 
 const Container = styled.div`
   h1 {
@@ -94,19 +96,23 @@ const StyledButton = styled(SocialButton)`
   border: none;
 `;
 
-function Setting() {
-  const [imageSrc, setImageSrc] = useState(profile);
+function Setting({ handleCategory }) {
   const postImg = new FormData();
   const { register, setValue, handleSubmit } = useForm();
+  const userInfo = useSelector((state) => state.userInfo);
+  const [imageSrc, setImageSrc] = useState(userInfo.profile);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const imageUploadRef = useRef(null);
   const editUserInfo = (data) => {
-    console.log({ ...data, 'profile-img': postImg });
-    fetch('서버 uri', {
-      method: 'POST',
-      body: { ...data, 'profile-img': postImg },
-    });
+    console.log({ ...data, profile: postImg });
+    dispatch(setUserInfo({ ...data, profile: imageSrc }));
+    // fetch('서버 uri', {
+    //   method: 'POST',
+    //   body: { ...data, 'profile: postImg },
+    // });
     // window.location.href = '/my-info';
+    handleCategory(0);
   };
   const changeImageFile = (e) => {
     if (!e.target.files) {

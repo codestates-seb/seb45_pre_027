@@ -3,7 +3,7 @@ import PostImg from './PostImg';
 import BoxContainer from './BoxContainer';
 import EmptyContainer from './EmptyContainer';
 
-function Posts({ title, content }) {
+function Posts({ content }) {
   return (
     <BoxContainer>
       <h3>Posts</h3>
