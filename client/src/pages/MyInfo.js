@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import profile from '../img/default-profile.png';
 import {
@@ -186,6 +186,23 @@ const ContentRight = styled.div`
 function MyInfo() {
   const [categoryIdx, setCategoryIdx] = useState(0);
   const category = ['Profile', 'Activity', 'Settings'];
+  const [user, setUser] = useState(0);
+  const userId = localStorage.getItem('user_id');
+  console.log(userId);
+  useEffect(() => {
+    const getUserInfo = async () => {
+      await fetch(`${process.env.REACT_APP_SERVER_URL}/login`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => setUser(data));
+    };
+    if (userId) getUserInfo();
+    else setUser({ profile, name: 'binchoi' });
+  }, []);
 
   const handleCategory = (idx) => {
     setCategoryIdx(idx);
@@ -193,9 +210,9 @@ function MyInfo() {
   return (
     <Container>
       <Header>
-        <img src={profile} alt="profile"></img>
+        <img src={user.profile} alt="profile"></img>
         <ProfileContent>
-          <h2>binchoi</h2>
+          <h2>{user.name}</h2>
           <DateContent>
             <li>
               <FaBirthdayCake />
