@@ -58,7 +58,6 @@ public class BoardService {
         return board;
     }
 
-
     public Page<Board> readBoards(int page, int size) {
         return boardRepository.findAll(PageRequest.of(page, size,
                 Sort.by("boardId").descending()));

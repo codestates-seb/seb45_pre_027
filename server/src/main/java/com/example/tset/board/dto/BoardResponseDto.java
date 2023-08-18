@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 @Builder
 @Getter
@@ -19,5 +20,11 @@ public class BoardResponseDto {
     private String content;
 
     private String expecting;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updateAt;
+
+    private LocalDateTime deletedAt;
 
 }

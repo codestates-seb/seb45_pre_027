@@ -6,6 +6,7 @@ import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class BoardDto {
 
@@ -50,5 +51,11 @@ public class BoardDto {
         private String content;
 
         private String expecting;
+
+        private LocalDateTime createdAt;
+
+        private LocalDateTime updateAt;
+
+        private LocalDateTime deletedAt;
     }
 }
