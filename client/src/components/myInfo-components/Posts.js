@@ -16,8 +16,9 @@ function Posts({ title, content }) {
             Just getting started? Try answering a question!
             <br /> <br />
             Your most helpful questions, answers and tags will appear here.
-            Start by <a>answering a question</a> or <a>selecting tags</a> that
-            match topics you’re interested in.
+            Start by <button>answering a question</button> or
+            <button>selecting tags</button> that match topics you’re interested
+            in.
           </div>
         </EmptyContainer>
       )}

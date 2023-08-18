@@ -2,7 +2,7 @@ import React from 'react';
 import BoxContainer from './BoxContainer';
 import EmptyContainer from './EmptyContainer';
 
-function About({ content }) {
+function About({ content, handleCategory }) {
   return (
     <BoxContainer>
       <h3>About</h3>
@@ -12,7 +12,7 @@ function About({ content }) {
         <EmptyContainer>
           <div>
             Your about me section is currently blank. Would you like to add one?{' '}
-            <a>Edit profile</a>
+            <button onClick={() => handleCategory(2)}>Edit profile</button>
           </div>
         </EmptyContainer>
       )}

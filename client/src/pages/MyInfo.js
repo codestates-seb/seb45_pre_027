@@ -12,6 +12,7 @@ import Badges from '../components/myInfo-components/Badges';
 import Posts from '../components/myInfo-components/Posts';
 import ToBe from '../components/myInfo-components/ToBe';
 import Setting from '../components/myInfo-components/Setting';
+import { useSelector } from 'react-redux';
 
 const Container = styled.div`
   padding: 24px;
@@ -186,15 +187,16 @@ const ContentRight = styled.div`
 function MyInfo() {
   const [categoryIdx, setCategoryIdx] = useState(0);
   const category = ['Profile', 'Activity', 'Settings'];
+  const token = useSelector((state) => state.authToken.accessToken);
   const [user, setUser] = useState(0);
   const userId = localStorage.getItem('user_id');
-  console.log(userId);
   useEffect(() => {
     const getUserInfo = async () => {
-      await fetch(`${process.env.REACT_APP_SERVER_URL}/login`, {
+      await fetch(`${process.env.REACT_APP_SERVER_URL}/members/${userId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          access_token: token,
         },
       })
         .then((res) => res.json())
@@ -275,7 +277,7 @@ function MyInfo() {
         <ContentRight>
           {categoryIdx === 0 ? (
             <>
-              <About />
+              <About handleCategory={handleCategory} />
               <Badges />
               <Posts />
             </>

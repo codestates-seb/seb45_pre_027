@@ -11,7 +11,7 @@ function Badges({ content }) {
       ) : (
         <EmptyContainer>
           <div>
-            You have not earned any <a>badges.</a>
+            You have not earned any <button>badges.</button>
           </div>
         </EmptyContainer>
       )}

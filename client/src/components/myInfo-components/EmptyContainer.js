@@ -12,7 +12,9 @@ const EmptyContainer = styled.div`
   text-align: center;
   font-size: 0.8rem;
   color: rgb(106, 115, 124);
-  a {
+  button {
+    background-color: transparent;
+    border: none;
     color: hsl(206, 100%, 40%);
     cursor: pointer;
     text-decoration: none;
