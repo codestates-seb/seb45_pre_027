@@ -1,6 +1,7 @@
-package cs.pre.project.member.entity;
+package cs.pre.project.domain.member.entity;
 
-import cs.pre.project.member.dto.MemberPostDto;
+import cs.pre.project.domain.board.entity.Board;
+import cs.pre.project.domain.member.dto.MemberPostDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +22,9 @@ public class Member {
     private String username;
     private String email;
     private String password;
+
+//    @OneToMany(mappedBy = "member")
+//    private List<Board> boards = new ArrayList<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();

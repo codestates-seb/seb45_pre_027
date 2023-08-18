@@ -11,15 +11,14 @@ import java.util.stream.Collectors;
 public class MemberAuthority {
     private final List<String> USER_ROLES_STRING = List.of("USER");
 
-    public List<GrantedAuthority> createAuthorities(List<String> roles){
+    public List<GrantedAuthority> createAuthorities(List<String> roles) {
 
         return roles.stream()
                 .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
                 .collect(Collectors.toList());
     }
 
-    public List<String> createRoles(){
+    public List<String> createRoles() {
         return USER_ROLES_STRING;
     }
-
 }

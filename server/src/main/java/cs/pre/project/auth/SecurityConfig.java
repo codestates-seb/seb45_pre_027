@@ -1,6 +1,5 @@
 package cs.pre.project.auth;
 
-import cs.pre.project.auth.MemberAuthority;
 import cs.pre.project.auth.handler.MemberAuthenticationFailureHandler;
 import cs.pre.project.auth.handler.MemberAuthenticationSuccessHandler;
 import cs.pre.project.auth.jwt.JwtAuthenticationFilter;
@@ -9,9 +8,7 @@ import cs.pre.project.auth.jwt.JwtVerificationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -32,8 +29,8 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final JwtTokenizer jwtTokenizer;
     private final MemberAuthority memberAuthority;
+    private final JwtTokenizer jwtTokenizer;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -53,13 +50,11 @@ public class SecurityConfig {
                 .cors(withDefaults())
                 .formLogin().disable()
                 .httpBasic().disable()
+                .apply(new CustomFilterConfigurer())
+                .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers("/members/**").permitAll()
-                        .antMatchers("/questions/**").permitAll()
                         .anyRequest().permitAll()
-                )
-                .apply(new CustomFilterConfigurer());
-
+                );
 
         return http.build();
     }
@@ -67,7 +62,7 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
 
@@ -88,8 +83,7 @@ public class SecurityConfig {
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
 
-
-            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, memberAuthority);
+            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, memberAuthority);  // (2) 추가
 
             builder
                     .addFilter(jwtAuthenticationFilter)
