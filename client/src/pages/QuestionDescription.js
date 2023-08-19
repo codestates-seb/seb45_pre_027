@@ -15,7 +15,6 @@ import ResetButton from '../components/DescriptionComponents/ButtonComponents/Re
 import ButtonList from '../components/DescriptionComponents/ButtonComponents/TextButton';
 import AnswerCountBox from '../components/DescriptionComponents/Answers/AnswersCountBox';
 import QuestionComment from '../components/DescriptionComponents/Answers/QuestionCommentPost';
-import { QuestionCommentGet } from '../components/DescriptionComponents/Answers/QuestionCommentGet';
 import { useState, useEffect } from 'react';
 import CounterButton from '../components/DescriptionComponents/ButtonCNP/UpDownButtonCounter';
 import { CommentBUT } from '../components/DescriptionComponents/ButtonComponents/AddComment';
