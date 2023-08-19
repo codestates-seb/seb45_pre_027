@@ -2,7 +2,8 @@ package cs.pre.project.auth.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cs.pre.project.auth.dto.LoginDto;
-import cs.pre.project.member.entity.Member;
+import cs.pre.project.domain.member.entity.Member;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,20 +19,17 @@ import java.io.IOException;
 import java.util.*;
 
 @Slf4j
+@RequiredArgsConstructor
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenizer jwtTokenizer;
 
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenizer jwtTokenizer) {
-        this.authenticationManager = authenticationManager;
-        this.jwtTokenizer = jwtTokenizer;
-    }
 
     @SneakyThrows
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        LoginDto loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class);
+        ObjectMapper objectMapper = new ObjectMapper();    // (3-1)
+        LoginDto loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class); // (3-2)
 
 
         UsernamePasswordAuthenticationToken authenticationToken =
