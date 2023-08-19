@@ -1,4 +1,4 @@
-package cs.pre.project.domain.board.audit;
+package cs.pre.project.domain.audit;
 
 import lombok.Getter;
 import lombok.Setter;

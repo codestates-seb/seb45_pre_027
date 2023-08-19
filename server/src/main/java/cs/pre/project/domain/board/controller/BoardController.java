@@ -1,6 +1,9 @@
 package cs.pre.project.domain.board.controller;
 
 
+import cs.pre.project.domain.answer.entiry.Answer;
+import cs.pre.project.domain.answer.mapper.AnswerMapper;
+import cs.pre.project.domain.answer.service.AnswerService;
 import cs.pre.project.domain.board.dto.BoardPatchDto;
 import cs.pre.project.domain.board.dto.BoardPostDto;
 import cs.pre.project.domain.board.entity.Board;
@@ -27,7 +30,7 @@ public class BoardController {
     private BoardService boardService;
     private BoardMapper boardMapper;
 
-    public BoardController(BoardService boardService, BoardMapper boardMapper) {
+    public BoardController(BoardService boardService, BoardMapper boardMapper, AnswerService answerService, AnswerMapper answerMapper) {
         this.boardService = boardService;
         this.boardMapper = boardMapper;
     }
@@ -55,7 +58,8 @@ public class BoardController {
     public ResponseEntity getBoard(@PathVariable("board-id") @Positive long boardId) {
         Board board = boardService.readBoard(boardId);
 
-        return new ResponseEntity<>(new SingleResponseDto<>(boardMapper.boardToBoardResponse(board)), HttpStatus.OK);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(boardMapper.boardToBoardResponse(board)), HttpStatus.OK);
     }
 
     @GetMapping
