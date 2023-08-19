@@ -1,4 +1,4 @@
-package cs.pre.project.member.dto;
+package cs.pre.project.domain.member.dto;
 
 
 import lombok.Getter;

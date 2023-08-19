@@ -21,7 +21,8 @@ spring:
         format_sql: true
 
 jwt:
-  key: secretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKey
+  key: c5ngc5ngc5ngc5ngc5ngc5ngc5ngc5ngc5ngc5ngc5ngc5ngc5ng
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420
+
 

@@ -1,7 +1,7 @@
-package cs.pre.project.member.service;
+package cs.pre.project.domain.member.service;
 
-import cs.pre.project.member.entity.Member;
-import cs.pre.project.member.repository.MemberRepository;
+import cs.pre.project.domain.member.entity.Member;
+import cs.pre.project.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;

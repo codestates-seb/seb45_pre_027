@@ -1,6 +1,6 @@
-package cs.pre.project.member.repository;
+package cs.pre.project.domain.member.repository;
 
-import cs.pre.project.member.entity.Member;
+import cs.pre.project.domain.member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
