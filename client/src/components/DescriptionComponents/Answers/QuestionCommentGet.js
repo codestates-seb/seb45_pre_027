@@ -4,10 +4,6 @@ import styled from 'styled-components';
 import BookButton from '../ButtonComponents/BookButton';
 import ResetButton from '../ButtonComponents/Reset';
 import CounterButton from '../ButtonCNP/UpDownButtonCounter';
-import BoardList from './Test';
-// import AnswerContent from './AnswerContentBox';
-// import LayoutWithBlogList from './AnswerList';
-// import QuestionContent from '../QuestionContent/QuestionContentBox';
 
 // 질문의 내용을 표시하기 위한 주요 섹션.
 const ContentSection = styled.div`
@@ -45,7 +41,6 @@ const ButtonGroup = () => (
 export const QuestionCommentGet = () => (
   <ContentSection>
     <ButtonGroup />
-    {/* <BoardList /> */}
     <ContentDetail />
   </ContentSection>
 );

@@ -19,6 +19,7 @@ import { QuestionCommentGet } from '../components/DescriptionComponents/Answers/
 import { useState, useEffect } from 'react';
 import CounterButton from '../components/DescriptionComponents/ButtonCNP/UpDownButtonCounter';
 import { CommentBUT } from '../components/DescriptionComponents/ButtonComponents/AddComment';
+import { QuestionCommentGetList } from '../components/DescriptionComponents/ListTest/Test';
 
 // 질문 상세 페이지를 위한 주 컨테이너 스타일링.
 
@@ -357,7 +358,6 @@ const LayoutWithBlogList = () => {
                 <Comment>
                   <CommentBUT />
                 </Comment>
-                <AnswerCountBox />
                 <RelatedQuestionsSection>
                   <AddRelatedQuestionItem />
                 </RelatedQuestionsSection>
@@ -365,8 +365,11 @@ const LayoutWithBlogList = () => {
                   Know someone who can answer? Share a link to this question via
                   email, Twitter, or Facebook.
                 </P>
+                <AnswerCountBox />
                 {data ? (
-                  <QuestionCommentGet>{data?.data?.content}</QuestionCommentGet>
+                  <QuestionCommentGetList>
+                    {data?.data?.content}
+                  </QuestionCommentGetList>
                 ) : (
                   ''
                 )}

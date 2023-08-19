@@ -78,16 +78,13 @@ const CommentForm = () => {
         title: title,
         content: content,
         expecting: expecting,
-        // boardId: boardId,
       }),
     })
       .then((response) => response.json())
       .then((data) => {
-        // onCommentAdded(data);
         setContent(''); // 텍스트 에디터 리셋
         setTitle('');
         setExpecting('');
-        // setboardId('');
       });
   };
 
