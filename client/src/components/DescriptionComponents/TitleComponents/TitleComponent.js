@@ -13,11 +13,6 @@ const TitleStyled = styled.div`
   line-height: 36.45px; /* 145.8% */
 `;
 
-// // 주어진 타이틀을 표시하는 TitleComponent
-// const TitleComponent = ({ title }) => {
-//   return <TitleStyled>{title}</TitleStyled>;
-// };
-
 const LayoutWithFetchTitle = () => {
   // 타이틀을 저장하기 위한 상태. 초기값은 'Loading...'
   const [title, setTitle] = useState('Loading...');
@@ -55,7 +50,9 @@ const LayoutWithFetchTitle = () => {
     <div>
       {/* TitleComponent를 사용하여 타이틀 표시 */}
       {/* 만약 raw HTML을 삽입하려면 다음과 같이 사용할 수 있습니다. */}
-      <div dangerouslySetInnerHTML={{ __html: title }} />
+      <TitleStyled>
+        <div dangerouslySetInnerHTML={{ __html: title }} />
+      </TitleStyled>
     </div>
   );
 };

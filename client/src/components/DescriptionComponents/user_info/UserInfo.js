@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
-import Park from '../../../assets/images/image1.png';
 
 // 스타일된 컴포넌트 생성
 export const PostSignature = styled.div`
