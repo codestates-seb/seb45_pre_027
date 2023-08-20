@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import QuestionList from '../pages/QuestionList';
 
 // CSS 코드입니다.
 
@@ -33,7 +34,9 @@ const SidebarTitles = styled.div`
 
 const Title1 = styled.div``;
 
-const Title2 = styled.div``;
+const Title2 = styled.div`
+  cursor: pointer;
+`;
 
 const Title2Contents = styled.div`
   display: flex;
