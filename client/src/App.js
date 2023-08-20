@@ -19,8 +19,8 @@ import { setIsLogin } from './redux/loginSlice';
 function App() {
   const dispatch = useDispatch();
   const refresh_token = getCookieToken();
-  const access = useSelector((state) => state.authToken.authenticated);
-
+  const access = useSelector((state) => state.authToken);
+  console.log(access);
   // 리프레쉬 토큰이 있을 경우 새로고침 때마다 리프레쉬 토큰을 사용하여 서버로부터 액세스 토큰을 가져온다.
   useEffect(() => {
     // 자동 로그인 설정이 되어있으면 바로 로그인
@@ -52,7 +52,7 @@ function App() {
         });
     };
     // 리프레쉬 토큰이 있고 액세스 토큰이 없는 경우 액세스 토큰 요청
-    if (refresh_token !== undefined && access) {
+    if (refresh_token !== undefined && access.authenticated) {
       login();
     }
   }, []);
