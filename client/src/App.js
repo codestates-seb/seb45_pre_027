@@ -19,7 +19,7 @@ import { setIsLogin } from './redux/loginSlice';
 function App() {
   const dispatch = useDispatch();
   const refresh_token = getCookieToken();
-  const access_token = useSelector((state) => state.authToken.authenticated);
+  const access = useSelector((state) => state.authToken.authenticated);
 
   // 리프레쉬 토큰이 있을 경우 새로고침 때마다 리프레쉬 토큰을 사용하여 서버로부터 액세스 토큰을 가져온다.
   useEffect(() => {
@@ -31,6 +31,7 @@ function App() {
 
     // access_token이 없고 refresh_token이 있을 경우 refresh token으로 새롭게 access_token 발급
     const login = async () => {
+      console.log('login');
       await fetch(`${process.env.REACT_APP_SERVER_URL}/access-token`, {
         method: 'GET',
         headers: {
@@ -43,16 +44,15 @@ function App() {
           setRefreshToken(res.refresh_token);
           // 액세스 토큰 저장
           const access_token = res.headers.get('Authorization');
-          if (!access_token) return console.log('Log-in has failed');
+          if (!access_token) return console.log('Log-in has failed at root');
           dispatch(SET_TOKEN(access_token));
         })
         .catch((e) => {
-          console.log('failed get access token');
+          console.log('failed get access token at root');
         });
     };
-
     // 리프레쉬 토큰이 있고 액세스 토큰이 없는 경우 액세스 토큰 요청
-    if (refresh_token && !access_token) {
+    if (refresh_token !== undefined && access) {
       login();
     }
   }, []);
