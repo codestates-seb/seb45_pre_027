@@ -14,6 +14,7 @@ import ToBe from '../components/myInfo-components/ToBe';
 import Setting from '../components/myInfo-components/Setting';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserInfo } from '../redux/userInfoSlice';
+import { useNavigate } from 'react-router';
 
 const Container = styled.div`
   padding: 24px;
@@ -188,18 +189,24 @@ const ContentRight = styled.div`
 function MyInfo() {
   const [categoryIdx, setCategoryIdx] = useState(0);
   const category = ['Profile', 'Activity', 'Settings'];
-  const token = useSelector((state) => state.authToken.accessToken);
 
   const userInfo = useSelector((state) => state.userInfo);
   const userId = localStorage.getItem('user_id');
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.authToken);
+  const navigate = useNavigate();
   useEffect(() => {
+    // 토큰이 없으면 로그인 창 이동
+    // if (!token.authenticated) {
+    //   return navigate('/log-in');
+    // }
     const getUserInfo = async () => {
+      // TODO: userId 가져오는 방법 서버랑 상의
       await fetch(`${process.env.REACT_APP_SERVER_URL}/members/${userId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          access_token: token,
+          token: token.accessToken,
         },
       })
         .then((res) => res.json())
