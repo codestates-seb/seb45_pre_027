@@ -58,6 +58,11 @@ const StyledTextarea = styled.textarea`
   flex: 2;
   padding: 10px;
   border: 1px solid #ccc;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+
   resize: vertical; // 사용자가 세로 방향으로만 크기를 조절할 수 있게 합니다.
 `;
 
@@ -91,23 +96,10 @@ const CommentForm = () => {
   return (
     <Form onSubmit={handleSubmit}>
       <StyledTextarea
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="Write a title..."
-      />
-
-      <StyledTextarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        placeholder="Write a content..."
+        placeholder="Write a Comment..."
       />
-
-      <StyledTextarea
-        value={expecting}
-        onChange={(e) => setExpecting(e.target.value)}
-        placeholder="Write a expecting..."
-      />
-
       <ButtonList>
         <AddButton type="submit">Add Comment</AddButton>
         <Help>help</Help>

@@ -14,7 +14,8 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 2rem;
-  background-color: salmon;
+  margin-top: 0.5rem;
+  /* background-color: salmon; */
 `;
 
 // 카운트 영역

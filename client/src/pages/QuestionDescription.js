@@ -18,7 +18,8 @@ import QuestionComment from '../components/DescriptionComponents/Answers/Questio
 import { useState, useEffect } from 'react';
 import CounterButton from '../components/DescriptionComponents/ButtonCNP/UpDownButtonCounter';
 import { CommentBUT } from '../components/DescriptionComponents/ButtonComponents/AddComment';
-import { QuestionCommentGetList } from '../components/DescriptionComponents/ListTest/Test';
+import { QuestionCommentGetList } from '../components/DescriptionComponents/ListTest/QuestionCommentGetList';
+import { CommentGetList } from '../components/DescriptionComponents/ListTest/CommentList';
 
 // 질문 상세 페이지를 위한 주 컨테이너 스타일링.
 
@@ -355,6 +356,11 @@ const LayoutWithBlogList = () => {
                   <UserInfoBox />
                 </UserInfoSection>
                 <Comment>
+                  {data ? (
+                    <CommentGetList>{data?.data?.content}</CommentGetList>
+                  ) : (
+                    ''
+                  )}
                   <CommentBUT />
                 </Comment>
                 <RelatedQuestionsSection>
@@ -372,7 +378,7 @@ const LayoutWithBlogList = () => {
                 ) : (
                   ''
                 )}
-                <P1>Your Answer</P1>
+                {/* <P1>Your Answer</P1> */}
                 <QuestionComment />
               </MainContent>
               <SideBarBox>

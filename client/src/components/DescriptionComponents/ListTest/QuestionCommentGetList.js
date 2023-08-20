@@ -6,6 +6,7 @@ import CounterButton from '../ButtonCNP/UpDownButtonCounter';
 import ButtonList from '../ButtonComponents/TextButton';
 import { CommentBUT } from '../ButtonComponents/AddComment';
 import { UserInfoTop } from '../user_info/UserInfo';
+import { CommentGetList } from './CommentList';
 
 // 전체 박스
 const Container = styled.div`
@@ -50,6 +51,12 @@ const ContentBox = styled.div`
 const Title = styled.div`
   /* background-color: blue; */
   padding: 1rem;
+  color: #232629;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22.5px; /* 160.714% */
 `;
 
 // 컨텐츠 영역
@@ -57,6 +64,12 @@ const ContentText = styled.div`
   /* background-color: pink; */
   flex: 1;
   padding: 1rem;
+  color: #232629;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22.5px; /* 160.714% */
 `;
 
 // 버튼 박스
@@ -82,15 +95,24 @@ export const QuestionCommentGetList = () => {
     data: [
       {
         boardId: 3,
-        time: 1,
-        title: 'Title 1',
-        content: 'Content 1',
+        userName: 'JimB',
+        time: '10:30',
+        title: `Well, I figured out the problem. Basically Go starting path for import is $HOME/go/src
+
+        So I just needed to add myapp in front of the package names, that is, the import should be:`,
+        content:
+          'All imports are "local" regardless of the import path. See "How to Write Go Code" for a detailed explanation. ',
+        date: 'Feb 18, 2016',
       },
       {
         boardId: 2,
-        time: 2,
-        title: 'Title 2',
-        content: 'Content 2',
+        time: '10:30',
+        userName: 'JimB',
+        title: `You should have created your package with go mod init e.g. go mod init github.com/my-org/my-package
+
+        Now in my-package you have a sub module called utils for example.`,
+        content: `I'm not trying to make a philosophical statement, I'm literally saying all imports happen in your local filesystem; there is never any difference whether they originate from a remote repo or not. Don't try to use relative paths (they work sometimes, but are discouraged), and go through the "How to Write Go Code" document, specifically the section on`,
+        date: 'Feb 18, 2021',
       },
       {
         boardId: 2,
@@ -134,6 +156,9 @@ export const QuestionCommentGetList = () => {
                   <UserInfoTop />
                   {/* {유저 박스 영역} */}
                 </UserInfoSection>
+
+                {/* {댓글 영역} */}
+                <CommentGetList />
 
                 <CommentBUT />
               </ButtonContentBox>

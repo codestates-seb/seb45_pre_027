@@ -7,14 +7,14 @@ import 'react-quill/dist/quill.snow.css'; // 스타일
 
 // 스타일드 컴포넌트 정의
 const Container = styled.div`
-  /* border: 2px solid #e0e0e0; */
-  border-radius: 8px;
+  border-top: 1.1px solid #e0e0e0;
   padding: 1rem;
   margin-top: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: blueviolet;
+
+  /* background-color: blueviolet; */
 `;
 
 const Title = styled.h2`
@@ -117,8 +117,8 @@ const QuestionComment = () => {
     <Container>
       <Title>Your Answer</Title>
       <StyledQuill value={title} onChange={setTitle} />
-      <StyledQuill value={content} onChange={setContent} />
-      <StyledQuill value={expecting} onChange={setExpecting} />
+      {/* <StyledQuill value={content} onChange={setContent} />
+      <StyledQuill value={expecting} onChange={setExpecting} /> */}
 
       <SubmitButton onClick={handleSubmit}>Post Your Answer</SubmitButton>
 
