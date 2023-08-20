@@ -101,7 +101,6 @@ function Setting({ handleCategory }) {
   const { register, setValue, handleSubmit } = useForm();
   const userInfo = useSelector((state) => state.userInfo);
   const [imageSrc, setImageSrc] = useState(userInfo.profile);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const imageUploadRef = useRef(null);
   const editUserInfo = (data) => {
@@ -109,8 +108,10 @@ function Setting({ handleCategory }) {
     dispatch(setUserInfo({ ...data, profile: imageSrc }));
     // fetch('서버 uri', {
     //   method: 'POST',
-    //   body: { ...data, 'profile: postImg },
-    // });
+    //   body: JSON.stringify({ ...data, profile: postImg }),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => dispatch(setUserInfo(data)));
     // window.location.href = '/my-info';
     handleCategory(0);
   };

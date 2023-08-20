@@ -21,34 +21,37 @@ function App() {
   const refresh_token = getCookieToken();
   const access_token = useSelector((state) => state.authToken.authenticated);
 
+  // 리프레쉬 토큰이 있을 경우 새로고침 때마다 리프레쉬 토큰을 사용하여 서버로부터 액세스 토큰을 가져온다.
   useEffect(() => {
     // 자동 로그인 설정이 되어있으면 바로 로그인
-    if (localStorage.getItem('autoLogIn')) {
-      dispatch(setIsLogin(true));
-      return;
-    }
+    // if (localStorage.getItem('autoLogIn')) {
+    //   dispatch(setIsLogin(true));
+    //   return;
+    // }
+
     // access_token이 없고 refresh_token이 있을 경우 refresh token으로 새롭게 access_token 발급
     const login = async () => {
       await fetch(`${process.env.REACT_APP_SERVER_URL}/access-token`, {
-        method: 'POST',
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          refresh_token: getCookieToken(),
         },
-        body: JSON.stringify({
-          refresh_token: refresh_token,
-        }),
       })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          setRefreshToken(data.refresh_token);
-          dispatch(SET_TOKEN(data.access_token));
-          dispatch(setIsLogin(true));
+        .then((res) => {
+          // 리프레쉬 토큰 쿠키에 저장
+          setRefreshToken(res.refresh_token);
+          // 액세스 토큰 저장
+          const access_token = res.headers.get('Authorization');
+          if (!access_token) return console.log('Log-in has failed');
+          dispatch(SET_TOKEN(access_token));
         })
         .catch((e) => {
           console.log('failed get access token');
         });
     };
+
+    // 리프레쉬 토큰이 있고 액세스 토큰이 없는 경우 액세스 토큰 요청
     if (refresh_token && !access_token) {
       login();
     }

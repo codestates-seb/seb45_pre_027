@@ -113,9 +113,6 @@ function SignUpForm() {
   //       method: 'POST',
   //       headers: {
   //         'Content-Type': 'application/json',
-
-  //         // 'Access-Control-Allow-Origin': '*', // Required for CORS support to work
-  //         // 'Access-Control-Allow-Credentials': true, // Required for cookies, authorization headers
   //       },
   //       body: JSON.stringify({
   //         email: 'asd@naver.com',
