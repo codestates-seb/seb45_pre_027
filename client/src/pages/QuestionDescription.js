@@ -315,7 +315,6 @@ const LayoutWithBlogList = () => {
         );
       });
   }, []); // 빈 의존성 배열을 사용하여 컴포넌트 마운트 시에만 실행
-
   return (
     <div>
       {/* <Header /> */}

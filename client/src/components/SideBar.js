@@ -6,14 +6,11 @@ import QuestionList from '../pages/QuestionList';
 
 // Sidebar에 전체적으로 적용할 CSS
 const StyledSidebar = styled.div`
-
   font-size: 14px;
   color: gray;
   /* padding: 2rem, 4rem; */
   width: 164px;
-  height: 2275.45px;
 
- 
   border-right: 1px solid gray;
   margin-left: 20px;
   /* margin-top: 30px; */
@@ -22,7 +19,6 @@ const StyledSidebar = styled.div`
 
 const SidebarContianer = styled.div`
   /* width: 164px; */
-  height: 2275.45px;
   padding: 0;
   margin-top: 30px;
 `;

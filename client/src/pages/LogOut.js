@@ -8,6 +8,7 @@ import { getCookieToken, removeCookieToken } from '../storage/Cookie';
 // 로그아웃 페이지
 const Container = styled.div`
   height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;

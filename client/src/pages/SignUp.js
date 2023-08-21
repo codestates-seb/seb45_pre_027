@@ -1,21 +1,22 @@
-import { styled } from "styled-components";
-import { Link } from "react-router-dom";
-import tag from "../img/tag-icon.svg";
-import question from "../img/question-icon.svg";
-import trophy from "../img/trophy-icon.svg";
-import up from "../img/up-icon.svg";
-import SocialButton from "../components/login-components/SocialButton";
-import SmallLogo from "../components/login-components/SmallLogo";
-import facebookLogo from "../img/facebook-logo.svg";
-import googleLogo from "../img/google-logo.svg";
-import githubLogo from "../img/github-logo.svg";
-import SignUpForm from "../components/signUp-components/SignUpForm";
-import { BiLinkExternal } from "react-icons/bi";
+import { styled } from 'styled-components';
+import { Link } from 'react-router-dom';
+import tag from '../img/tag-icon.svg';
+import question from '../img/question-icon.svg';
+import trophy from '../img/trophy-icon.svg';
+import up from '../img/up-icon.svg';
+import SocialButton from '../components/login-components/SocialButton';
+import SmallLogo from '../components/login-components/SmallLogo';
+import facebookLogo from '../img/facebook-logo.svg';
+import googleLogo from '../img/google-logo.svg';
+import githubLogo from '../img/github-logo.svg';
+import SignUpForm from '../components/signUp-components/SignUpForm';
+import { BiLinkExternal } from 'react-icons/bi';
 
 // 회원가입 페이지
 const Container = styled.div`
   display: flex;
   max-width: 1920px;
+  width: 100%;
   justify-content: center;
   align-items: flex-start;
   align-self: stretch;
@@ -141,19 +142,19 @@ function SignUp() {
           <h2>Join the Stack Overflow community</h2>
           <LineContainer>
             <div>
-              <img src={question} alt="question"></img>{" "}
+              <img src={question} alt="question"></img>{' '}
             </div>
             <span>Get unstuck — ask a question</span>
           </LineContainer>
           <LineContainer>
             <div>
-              <img src={up} alt="up"></img>{" "}
+              <img src={up} alt="up"></img>{' '}
             </div>
             <span>Unlock new privileges like voting and commenting</span>
           </LineContainer>
           <LineContainer>
             <div>
-              <img src={tag} alt="tag"></img>{" "}
+              <img src={tag} alt="tag"></img>{' '}
             </div>
             <span>
               Save your favorite questions, answers, watch tags, and more
@@ -161,7 +162,7 @@ function SignUp() {
           </LineContainer>
           <LineContainer>
             <div>
-              <img src={trophy} alt="trophy"></img>{" "}
+              <img src={trophy} alt="trophy"></img>{' '}
             </div>
             <span>Earn reputation and badges</span>
           </LineContainer>
@@ -214,7 +215,7 @@ function SignUp() {
               Already have an account? <Link to="/log-in">Log in</Link>
             </div>
             <div>
-              Are you an employer?{" "}
+              Are you an employer?{' '}
               <a href="#">
                 Sign up on Talent <BiLinkExternal />
               </a>
