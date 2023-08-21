@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Pagination from './pagenation';
 // import UserInfo from './UserInfo';
 import Tag from './Tag';
+import { Link, useParams } from 'react-router-dom';
 
 const Main = styled.div`
   color: black;
@@ -169,34 +170,157 @@ const QuestionPostTime = styled.div`
   /* text-align: right; */
 `;
 
-const dummyData = {
-  data: [
-    {
-      borderId: 3,
-      title: 'Title 1',
-      content: 'Content 1',
-    },
-    {
-      borderId: 4,
-      title: 'Title 2',
-      content: 'Content 2',
-    },
-    {
-      borderId: 5,
-      title: 'Title 3',
-      content: 'Content 3',
-    },
-  ],
-};
+// const dummyData = {
+//   data: [
+//     {
+//       borderId: 3,
+//       title: 'Title 1',
+//       content: 'Content 1',
+//     },
+//     {
+//       borderId: 4,
+//       title: 'Title 2',
+//       content: 'Content 2',
+//     },
+//     {
+//       borderId: 5,
+//       title: 'Title 3',
+//       content: 'Content 3',
+//     },
+//   ],
+// };
 
-// 질문 리스트 페이지
+// // 질문 리스트 페이지
+// const QuestionList = () => {
+//   // 페이지네이션
+//   const [page, setPage] = useState(0);
+//   const [totalPages, setTotalPages] = useState(0);
+//   const [totalElements, setTotalElements] = useState(0);
+
+//   // const [searchParams, setSearchParams] = useSearchParams();
+
+//   return (
+//     <Main>
+//       <Section>
+//         <Header>
+//           <HeaderTitle>All Questions</HeaderTitle>
+//           <AskQuestionbt>Ask Question</AskQuestionbt>
+//         </Header>
+
+//         <ViewAndFilterbt>
+//           <ViewCount>{} questions</ViewCount>
+
+//           <FilterContainer>
+//             <NewestFilter>
+//               <div>Newest</div>
+//             </NewestFilter>
+//             <ActiveFilter>
+//               <div>Active</div>
+//             </ActiveFilter>
+//           </FilterContainer>
+//         </ViewAndFilterbt>
+//         <List>
+//           {/* <QuestionListBar> */}
+//           <QuestionsContainer>
+//             <QuestionVoteAnswerView>
+//               <div>{} votes</div>
+//               <div>{} answers</div>
+//               <div>{} views</div>
+//             </QuestionVoteAnswerView>
+//             <Question>
+//               <QuestionTitle>{}This is title</QuestionTitle>
+//               <QuestionContent>{}Content is long</QuestionContent>
+//               <QuestionTagsAndPostTime>
+//                 <UserInfo>username</UserInfo>
+//                 <QuestionPostTime>asked {} ago</QuestionPostTime>
+//               </QuestionTagsAndPostTime>
+//             </Question>
+//           </QuestionsContainer>
+//           {/* </QuestionListBar> */}
+//         </List>
+
+//         <List>
+//           {/* <QuestionListBar> */}
+//           <QuestionsContainer>
+//             <QuestionVoteAnswerView>
+//               <div>{} votes</div>
+//               <div>{} answers</div>
+//               <div>{} views</div>
+//             </QuestionVoteAnswerView>
+
+//             <Question>
+//               <QuestionTitle>{}This is title</QuestionTitle>
+//               <QuestionContent>{}Content is long</QuestionContent>
+
+//               <QuestionTagsAndPostTime>
+//                 <UserInfo>username</UserInfo>
+//                 <QuestionPostTime>asked {} ago</QuestionPostTime>
+//               </QuestionTagsAndPostTime>
+//             </Question>
+//           </QuestionsContainer>
+//           {/* </QuestionListBar> */}
+//         </List>
+
+//         <List>
+//           {/* <QuestionListBar> */}
+//           <QuestionsContainer>
+//             <QuestionVoteAnswerView>
+//               <div>{} votes</div>
+//               <div>{} answers</div>
+//               <div>{} views</div>
+//             </QuestionVoteAnswerView>
+
+//             <Question>
+//               <QuestionTitle>{}This is title</QuestionTitle>
+//               <QuestionContent>{}Content is long</QuestionContent>
+
+//               <QuestionTagsAndPostTime>
+//                 <UserInfo>username</UserInfo>
+//                 <QuestionPostTime>asked {} ago</QuestionPostTime>
+//               </QuestionTagsAndPostTime>
+//             </Question>
+//           </QuestionsContainer>
+//           {/* </QuestionListBar> */}
+//         </List>
+//       </Section>
+//       <Pagination page={page} totalPages={totalPages} />
+//     </Main>
+//   );
+// };
+
+// export default QuestionList;
 const QuestionList = () => {
-  // 페이지네이션
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [totalElements, setTotalElements] = useState(0);
+  const [data, setData] = useState([]);
 
-  // const [searchParams, setSearchParams] = useSearchParams();
+  useEffect(() => {
+    // 백엔드 API 주소를 아래 URL에 설정합니다.
+
+    fetch(`${process.env.REACT_APP_SERVER_URL}board?page=1&size=10`, {
+      method: 'get',
+      headers: new Headers({
+        'ngrok-skip-browser-warning': '69420',
+        'Content-Type': 'application/json',
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setData(data?.data); // API 응답으로 받은 데이터를 상태에 저장
+      })
+      .catch((error) => {
+        console.error(
+          'There was a problem with the fetch operation:',
+          error.message,
+        );
+      });
+  }, []); // 빈 의존성 배열을 사용하여 컴포넌트 마운트 시에만 실행
 
   return (
     <Main>
@@ -207,80 +331,33 @@ const QuestionList = () => {
         </Header>
 
         <ViewAndFilterbt>
-          <ViewCount>{} questions</ViewCount>
-
-          <FilterContainer>
-            <NewestFilter>
-              <div>Newest</div>
-            </NewestFilter>
-            <ActiveFilter>
-              <div>Active</div>
-            </ActiveFilter>
-          </FilterContainer>
+          <ViewCount>{data?.data?.length} questions</ViewCount>
+          {/* ... */}
         </ViewAndFilterbt>
-        <List>
-          {/* <QuestionListBar> */}
-          <QuestionsContainer>
-            <QuestionVoteAnswerView>
-              <div>{} votes</div>
-              <div>{} answers</div>
-              <div>{} views</div>
-            </QuestionVoteAnswerView>
-            <Question>
-              <QuestionTitle>{}This is title</QuestionTitle>
-              <QuestionContent>{}Content is long</QuestionContent>
-              <QuestionTagsAndPostTime>
-                <UserInfo>username</UserInfo>
-                <QuestionPostTime>asked {} ago</QuestionPostTime>
-              </QuestionTagsAndPostTime>
-            </Question>
-          </QuestionsContainer>
-          {/* </QuestionListBar> */}
-        </List>
 
-        <List>
-          {/* <QuestionListBar> */}
-          <QuestionsContainer>
-            <QuestionVoteAnswerView>
-              <div>{} votes</div>
-              <div>{} answers</div>
-              <div>{} views</div>
-            </QuestionVoteAnswerView>
+        {data?.map((ele) => (
+          <List key={ele.boardId}>
+            <QuestionsContainer>
+              <QuestionVoteAnswerView>
+                <div>{ele.votes} votes</div>
+                <div>{ele.answers} answers</div>
+                <div>{ele.views} views</div>
+              </QuestionVoteAnswerView>
 
-            <Question>
-              <QuestionTitle>{}This is title</QuestionTitle>
-              <QuestionContent>{}Content is long</QuestionContent>
+              <Question>
+                <Link to={`/question-description/${ele.boardId}`}>
+                  <QuestionTitle>{ele.title}</QuestionTitle>
+                </Link>
+                <QuestionContent>{ele.content}</QuestionContent>
 
-              <QuestionTagsAndPostTime>
-                <UserInfo>username</UserInfo>
-                <QuestionPostTime>asked {} ago</QuestionPostTime>
-              </QuestionTagsAndPostTime>
-            </Question>
-          </QuestionsContainer>
-          {/* </QuestionListBar> */}
-        </List>
-
-        <List>
-          {/* <QuestionListBar> */}
-          <QuestionsContainer>
-            <QuestionVoteAnswerView>
-              <div>{} votes</div>
-              <div>{} answers</div>
-              <div>{} views</div>
-            </QuestionVoteAnswerView>
-
-            <Question>
-              <QuestionTitle>{}This is title</QuestionTitle>
-              <QuestionContent>{}Content is long</QuestionContent>
-
-              <QuestionTagsAndPostTime>
-                <UserInfo>username</UserInfo>
-                <QuestionPostTime>asked {} ago</QuestionPostTime>
-              </QuestionTagsAndPostTime>
-            </Question>
-          </QuestionsContainer>
-          {/* </QuestionListBar> */}
-        </List>
+                <QuestionTagsAndPostTime>
+                  <UserInfo>{ele.username}</UserInfo>
+                  <QuestionPostTime>asked {ele.time} ago</QuestionPostTime>
+                </QuestionTagsAndPostTime>
+              </Question>
+            </QuestionsContainer>
+          </List>
+        ))}
       </Section>
       <Pagination page={page} totalPages={totalPages} />
     </Main>

@@ -82,12 +82,13 @@ const CloseButton = styled.button`
 const QuestionComment = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const { id } = useParams();
   // const [expecting, setExpecting] = useState('');
   const [showModal, setShowModal] = useState(false); // 모달 표시 여부를 관리하는 상태
 
   const handleSubmit = () => {
     console.log(handleSubmit);
-    fetch(`${process.env.REACT_APP_SERVER_URL}answer/1`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}answer/${id}`, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
@@ -162,8 +163,6 @@ const QuestionComment = () => {
     <Container>
       <Title>Your Answer</Title>
       <StyledQuill value={content} onChange={setContent} />
-      {/* <StyledQuill value={content} onChange={setContent} />
-      <StyledQuill value={expecting} onChange={setExpecting} /> */}
 
       <SubmitButton onClick={handleSubmit}>Post Your Answer</SubmitButton>
 

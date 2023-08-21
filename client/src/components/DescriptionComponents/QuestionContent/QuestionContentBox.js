@@ -1,6 +1,7 @@
 //메인 질문 내용 영역 / 질문 내용이 조회되는 컴포넌트
 
 import React, { useState, useEffect, useRef } from 'react';
+import { useParams } from 'react-router';
 import styled from 'styled-components';
 
 // 스타일 컴포넌트 (스타일을 원하면 추가/수정할 수 있습니다)
@@ -12,6 +13,7 @@ const ContentContainer = styled.div`
 const QuestionContent = () => {
   const [data, setData] = useState([]);
   const [boardId, setboardId] = useState();
+  const { id } = useParams();
 
   const loader = useRef(null);
   console.log(data);
@@ -21,7 +23,7 @@ const QuestionContent = () => {
 
   // 데이터를 불러오는 함수
   const loadMore = () => {
-    fetch(`${process.env.REACT_APP_SERVER_URL}board/2`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}board/${id}`, {
       method: 'get',
       headers: new Headers({
         'ngrok-skip-browser-warning': '69420',

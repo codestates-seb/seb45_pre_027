@@ -65,6 +65,7 @@ function App() {
       login();
     }
   }, []);
+
   return (
     <>
       <Header />
@@ -76,7 +77,7 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/questions" element={<QuestionList />} />
           <Route
-            path="/question-description"
+            path="/question-description/:id"
             element={<QuestionDescription />}
           />
           <Route path="/question-regist" element={<QuestionRegist />} />
