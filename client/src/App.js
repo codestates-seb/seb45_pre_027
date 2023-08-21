@@ -1,13 +1,13 @@
-import { Routes, Route } from "react-router-dom";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import SideBar from "./components/SideBar";
-import Login from "./pages/Login";
-import LogOut from "./pages/LogOut";
-import QuestionDescription from "./pages/QuestionDescription";
-import QuestionList from "./pages/QuestionList";
-import QuestionRegist from "./pages/QuestionRegist";
-import SignUp from "./pages/SignUp";
+import { Routes, Route } from 'react-router-dom';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import SideBar from './components/SideBar';
+import Login from './pages/Login';
+import LogOut from './pages/LogOut';
+import QuestionDescription from './pages/QuestionDescription';
+import QuestionList from './pages/QuestionList';
+import QuestionRegist from './pages/QuestionRegist';
+import SignUp from './pages/SignUp';
 
 function App() {
   return (
