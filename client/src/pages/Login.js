@@ -1,13 +1,14 @@
-import styled from "styled-components";
-import SmallLogo from "../components/login-components/SmallLogo";
-import logo from "../img/small-logo.svg";
-import facebookLogo from "../img/facebook-logo.svg";
-import googleLogo from "../img/google-logo.svg";
-import githubLogo from "../img/github-logo.svg";
-import LoginForm from "../components/login-components/LoginForm";
-import SocialButton from "../components/login-components/SocialButton";
-import { BiLinkExternal } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import styled from 'styled-components';
+import SmallLogo from '../components/login-components/SmallLogo';
+import logo from '../img/small-logo.svg';
+import facebookLogo from '../img/facebook-logo.svg';
+import googleLogo from '../img/google-logo.svg';
+import githubLogo from '../img/github-logo.svg';
+import LoginForm from '../components/login-components/LoginForm';
+import SocialButton from '../components/login-components/SocialButton';
+import { BiLinkExternal } from 'react-icons/bi';
+import { Link } from 'react-router-dom';
+
 const Container = styled.div`
   display: flex;
   height: 100vh;
@@ -75,6 +76,11 @@ const HelperContainer = styled.div`
 
 // 로그인 페이지
 function Login() {
+  const handleGithubLogin = (e) => {
+    const uri = `https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_GITHUB_REDIRECT_URI}`;
+    console.log(e);
+    window.location.href = uri;
+  };
   return (
     <Container>
       <InnerContainer>
@@ -96,6 +102,7 @@ function Login() {
             bordercolor="hsl(210,8%,85%)"
             hovercolor="hsl(210,8%,15%)"
             activecolor="hsl(210,8%,5%)"
+            onClick={(e) => handleGithubLogin(e)}
           >
             <SmallLogo logo={githubLogo} />
             <span>Log In with GitHub</span>

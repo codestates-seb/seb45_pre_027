@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Edit from '../../../assets/images/edit_black_24dp.svg'; // SVG 파일 경로 수정
 
+
 const BlogListContainer = styled.div`
   display: flex;
   flex-direction: column;

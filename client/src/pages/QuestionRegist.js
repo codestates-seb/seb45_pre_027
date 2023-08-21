@@ -1,5 +1,12 @@
-import styled from 'styled-components';
-import Qrsection from '../components/Cqsection/Qrsection';
+
+import styled from "styled-components";
+import Qrsection from "../components/Cqsection/Qrsection";
+import { useState } from "react";
+import { postQuestionToServer } from "../components/Cqsection/Cqpost";
+import { useNavigate } from 'react-router-dom';
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+
 
 const colors = {
   backgroundColor: 'rgba(248, 249, 249, 1)',
@@ -100,7 +107,35 @@ const QCPage = styled.section`
 `;
 
 const QuestionRegist = () => {
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [expecting, setExpecting] = useState('');
+
+  const navigate = useNavigate();
+
+  const handlesubmit = async () => {
+    const questionData = {
+      title,
+      content,
+      expecting
+    };
+
+    try {
+      const response = await postQuestionToServer(questionData);
+
+      if (response) {
+        navigate('/questions');
+      } else {
+        console.error("Post요청 실패");
+      }
+    } catch (error) {
+      console.error("Error", error.message);
+    }
+  };
+
   return (
+    <>
+    <Header />
     <QCPage>
       <div className="container">
         <div className="description">
@@ -132,10 +167,19 @@ const QuestionRegist = () => {
               </ul>
             </div>
           </div>
-          <Qrsection />
+          <Qrsection 
+          title={title}
+          setTitle={setTitle}
+          content={content}
+          setContent={setContent}
+          expecting={expecting}
+          setExpecting={setExpecting}
+          handlesubmit={handlesubmit}/>
         </div>
       </div>
     </QCPage>
+    <Footer />
+    </>
   );
 };
 

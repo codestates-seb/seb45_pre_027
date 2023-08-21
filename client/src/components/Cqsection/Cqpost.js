@@ -1,8 +1,8 @@
-const PostUrl = "http:localhost:0000";
+const PostUrl = "https://bba2-183-102-170-103.ngrok-free.app";
 
 export const postQuestionToServer = async (questionData) => {
   try {
-    const response = await fetch(`${PostUrl}/questions`, {
+    const response = await fetch(`${PostUrl}/board`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

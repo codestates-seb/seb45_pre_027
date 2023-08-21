@@ -21,7 +21,7 @@ export const Balloon = styled.div`
     border-left: 0;
     border-top: 0;
     margin-top: -0.375em;
-    margin-left: -0.75em;
+    margin-left: -0.65em;
   }
 `;
 
