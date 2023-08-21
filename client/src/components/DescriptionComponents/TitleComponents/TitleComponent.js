@@ -20,10 +20,11 @@ const LayoutWithFetchTitle = () => {
 
   useEffect(() => {
     // 백엔드에서 타이틀을 가져오기 위해 fetch API 사용
-    fetch(`${process.env.REACT_APP_SERVER_URL}board/4`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}board/2`, {
       method: 'get',
       headers: new Headers({
         'ngrok-skip-browser-warning': '69420',
+        'Content-Type': 'application/json',
       }),
     })
       .then((response) => {

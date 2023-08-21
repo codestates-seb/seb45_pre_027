@@ -12,19 +12,20 @@ const ContentContainer = styled.div`
 const QuestionContent = () => {
   const [data, setData] = useState([]);
   const [boardId, setboardId] = useState();
-  const loader = useRef(null);
 
+  const loader = useRef(null);
+  console.log(data);
   console.log(data?.data?.title);
   console.log(data?.data?.content);
   console.log(data?.data?.boardId);
 
   // 데이터를 불러오는 함수
   const loadMore = () => {
-    console.log('loadMore');
-    fetch(`${process.env.REACT_APP_SERVER_URL}board/4`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}board/2`, {
       method: 'get',
       headers: new Headers({
         'ngrok-skip-browser-warning': '69420',
+        'Content-Type': 'application/json',
       }),
     })
       // .then((response) => response.json(console.log()))
@@ -35,6 +36,9 @@ const QuestionContent = () => {
       .then((newData) => {
         console.log(newData);
         setData((prevData) => newData);
+      })
+      .catch((error) => {
+        console.error('데이터 가져오기 오류:', error);
       });
   };
 

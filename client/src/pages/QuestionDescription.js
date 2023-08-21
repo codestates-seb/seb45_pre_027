@@ -297,6 +297,7 @@ const LayoutWithBlogList = () => {
       method: 'get',
       headers: new Headers({
         'ngrok-skip-browser-warning': '69420',
+        'Content-Type': 'application/json',
       }),
     })
       .then((response) => {
