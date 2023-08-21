@@ -1,12 +1,14 @@
-import { styled } from "styled-components";
-import SocialButton from "./SocialButton";
-import { useForm } from "react-hook-form";
-import { useState } from "react";
-import { ErrorMessage } from "@hookform/error-message";
-import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { setIsLogin } from "../../store/loginSlice";
-import { setUserInfo } from "../../store/userInfoSlice";
+import { styled } from 'styled-components';
+import SocialButton from './SocialButton';
+import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { ErrorMessage } from '@hookform/error-message';
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { setIsLogin } from '../../redux/loginSlice';
+import { setUserInfo } from '../../redux/userInfoSlice';
+import { getCookieToken, setRefreshToken } from '../../storage/Cookie';
+import { SET_TOKEN } from '../../redux/tokenSlice';
 
 const Container = styled.div`
   display: inline-flex;
@@ -68,55 +70,120 @@ const LoginButton = styled(SocialButton)`
   margin-top: 10px;
   width: 240px;
 `;
+const AutoLoginContainer = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 0.7rem;
+  gap: 5px;
+  color: #111;
+  input {
+    width: 15px;
+    height: 15px;
+  }
+`;
 
 function LoginForm() {
   const isLogin = useSelector((state) => state.isLogin.value);
   const userInfo = useSelector((state) => state.userInfo.value);
+  const [autoLogin, setAutoLogin] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
     register,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [errorMsg, setErrorMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState('');
   const handleLogin = async (data) => {
-    await fetch(`${process.env.REACT_APP_SERVER_URL}/members/log-in/`, {
-      method: "POST",
+    // 입력값 초기화
+    setValue('password', '');
+
+    // jwt 로그인 방식
+    // 1. 프론트에서 로그인 시도
+    // 2. 유저 정보가 올바르다면 백에서 access_token, refresh_token 발급
+    // 3. refresh_token, access_token을 클라이언트에 저장하고 refresh token을
+    // 서버에 보내면 그때마다 새로운 access token을 발급
+    // 4. access token을 서버에 보내면 서버는 토큰이 유효한지 확인한다.
+    /*
+      Access Token: 실질적인 인증을 위한 JWT, 유효기간이 짧다.
+      Refresh Token: Access Token의 짧은 유효기간을 보완하기 위해 사용되며, 본 토큰을 사용해 access token 만료 시 재발급
+    */
+    await fetch(`${process.env.REACT_APP_SERVER_URL}/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
         email: data.email,
         password: data.password,
       }),
     })
-      .then(async (res) => {
-        if (res.status === 200) {
-          sessionStorage.setItem("user_id", res.data);
-          dispatch(setIsLogin(res.data));
-          return await fetch(
-            `${process.env.REACT_APP_SERVER_URL}/members/${res.data}`
-          );
-        } else if (res.status === 403) {
-          setErrorMsg("Log-in is failed");
-        } else {
-          setErrorMsg("server error");
-        }
-      })
       .then((res) => {
-        dispatch(setUserInfo(res.data));
-        navigate("/");
+        // 리프레쉬 토큰 쿠키에 저장
+        setRefreshToken(res.refresh_token);
+        // 액세스 토큰 저장
+        const access_token = res.headers.get('Authorization');
+        if (!access_token) return setErrorMsg('Log-in has failed');
+        dispatch(SET_TOKEN(access_token));
+        dispatch(setIsLogin(true));
+        // 자동 로그인 설정 시 로컬 스토리지에 저장
+        if (autoLogin) localStorage.setItem('autoLogIn', true);
+        return navigate('/');
+      })
+
+      .catch((e) => {
+        setErrorMsg('Log-in has failed');
       });
+
+    // 세션 로그인 방식
+    // await fetch(`${process.env.REACT_APP_SERVER_URL}/login`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     email: data.email,
+    //     password: data.password,
+    //   }),
+    // })
+    //   .then(async (res) => {
+    //     console.log(res);
+    //     console.log(res.headers);
+    //     return await fetch(`${process.env.REACT_APP_SERVER_URL}/members`);
+    // if (res.status === 200) {
+    //   console.log(res);
+    //   sessionStorage.setItem('user_id', res.data);
+    //   dispatch(setIsLogin(res.data));
+    //   return await fetch(
+    //     `${process.env.REACT_APP_SERVER_URL}/members/${res.data}`,
+    //   );
+    // } else if (res.status === 403) {
+    //   setErrorMsg('Log-in is failed');
+    // } else {
+    //   console.log('server error');
+    //   setErrorMsg('server error');
+    // }
+    // })
+    // .then((res) => {
+    //   console.log(res);
+    //   dispatch(setUserInfo(res.data));
+    //   navigate('/');
+    // })
+    // .catch((e) => console.log(e));
   };
+
   return (
     <Container>
       <Form onSubmit={handleSubmit(handleLogin)}>
         <div>
           <label>Email</label>
           <input
-            {...register("email", {
-              required: "Email is required",
+            {...register('email', {
+              required: 'Email is required',
               pattern: {
                 value: /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm,
-                message: "Please input a valid email format",
+                message: 'Please input a valid email format',
               },
             })}
           />
@@ -131,8 +198,8 @@ function LoginForm() {
         <div>
           <label>Password</label>
           <input
-            {...register("password", {
-              required: "Password is required",
+            {...register('password', {
+              required: 'Password is required',
             })}
             type="password"
           />
@@ -158,6 +225,14 @@ function LoginForm() {
             <p>{errorMsg}</p>
           </ErrorContainer>
         </div>
+        <AutoLoginContainer>
+          <input
+            type="checkbox"
+            value={autoLogin}
+            onClick={() => setAutoLogin((prev) => !prev)}
+          />
+          Keep Log-in
+        </AutoLoginContainer>
       </Form>
     </Container>
   );
