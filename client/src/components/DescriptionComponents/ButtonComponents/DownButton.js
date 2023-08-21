@@ -18,9 +18,9 @@ const StyledButton = styled.button`
   }
 `;
 
-function DownButton() {
+function DownButton(props) {
   return (
-    <StyledButton>
+    <StyledButton onClick={props.onClick}>
       <div className="UpDownButton">
         <svg
           width="17"
