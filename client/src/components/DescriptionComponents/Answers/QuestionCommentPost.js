@@ -1,4 +1,4 @@
-//답변 작성 영역 / 텍스트 에디터 영역 /
+//답변 작성 영역 / 텍스트 에디터 영역
 
 import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
