@@ -95,7 +95,7 @@ export const QuestionCommentGetList = () => {
 
   useEffect(() => {
     // 백엔드에서 타이틀을 가져오기 위해 fetch API 사용
-    fetch(`${process.env.REACT_APP_SERVER_URL}board/1`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}answer/1`, {
       method: 'get',
       headers: new Headers({
         'ngrok-skip-browser-warning': '69420',
@@ -109,10 +109,8 @@ export const QuestionCommentGetList = () => {
         // 응답에서 JSON 데이터 파싱
         return response.json();
       })
-      .then((data) => {
-        // 백엔드에서 가져온 타이틀로 상태 업데이트
-        setData(data?.data?.title); // 데이터에 'title' 필드가 있다고 가정
-        console.log(data);
+      .then((fetchedData) => {
+        setData(fetchedData); // Assuming the fetched data is an array
       })
       .catch((error) => {
         // 오류가 발생하면 오류를 로그에 출력하고 타이틀을 오류 메시지로 설정
@@ -161,25 +159,60 @@ export const QuestionCommentGetList = () => {
   //   ],
   // };
 
-  useEffect(() => {
-    setData(setData.data); // 더미 데이터로 상태를 설정합니다.
-  }, []);
+  // useEffect(() => {
+  //   setData(setData.data); // 더미 데이터로 상태를 설정합니다.
+  // }, []);
+
+  //   return (
+  //     <div>
+  //       {/* <h2>Blog List</h2> */}
+  //       <ul>
+  //         {data.map((data, boardId) => (
+  //           <li key={boardId}>
+  //             <Container>
+  //               <ContentSection>
+  //                 <ButtonGroup />
+  //                 <ContentBox>
+  //                   <Title>{data.title}</Title>
+  //                   <ContentText>{data.content}</ContentText>
+  //                 </ContentBox>
+  //               </ContentSection>
+
+  //               <ButtonContentBox>
+  //                 <ButtonList />
+  //                 <UserInfoSection>
+  //                   {/* {유저 박스 영역} */}
+  //                   <UserInfoTop />
+  //                   {/* {유저 박스 영역} */}
+  //                 </UserInfoSection>
+
+  //                 {/* {댓글 영역} */}
+  //                 <CommentGetListTest />
+
+  //                 <CommentBUT />
+  //               </ButtonContentBox>
+  //             </Container>
+  //           </li>
+  //         ))}
+  //       </ul>
+  //     </div>
+  //   );
+  // };
 
   return (
     <div>
-      {/* <h2>Blog List</h2> */}
       <ul>
-        {data.map((data, boardId) => (
-          <li key={boardId}>
+        {data.map((item, id) => (
+          <li key={id}>
             <Container>
               <ContentSection>
                 <ButtonGroup />
                 <ContentBox>
-                  <Title>{data.title}</Title>
-                  <ContentText>{data.content}</ContentText>
+                  {/* Assuming the fetched data has a title property */}
+                  <ContentText>{item.content}</ContentText>{' '}
+                  {/* Assuming the fetched data has a content property */}
                 </ContentBox>
               </ContentSection>
-
               <ButtonContentBox>
                 <ButtonList />
                 <UserInfoSection>
@@ -187,10 +220,8 @@ export const QuestionCommentGetList = () => {
                   <UserInfoTop />
                   {/* {유저 박스 영역} */}
                 </UserInfoSection>
-
                 {/* {댓글 영역} */}
                 <CommentGetListTest />
-
                 <CommentBUT />
               </ButtonContentBox>
             </Container>

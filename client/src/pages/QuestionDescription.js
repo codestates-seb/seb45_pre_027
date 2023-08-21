@@ -20,6 +20,7 @@ import CounterButton from '../components/DescriptionComponents/ButtonCNP/UpDownB
 import { CommentBUT } from '../components/DescriptionComponents/ButtonComponents/AddComment';
 import { QuestionCommentGetListTest } from '../components/DescriptionComponents/ListTest/QuestionCommentGetList';
 import { CommentGetListTest } from '../components/DescriptionComponents/ListTest/CommentList';
+import { QuestionCommentGetList } from '../components/DescriptionComponents/Answers/QuestionCommentGet';
 
 // 질문 상세 페이지를 위한 주 컨테이너 스타일링.
 
@@ -374,9 +375,9 @@ const LayoutWithBlogList = () => {
                 </P>
                 <AnswerCountBox />
                 {data ? (
-                  <QuestionCommentGetListTest>
+                  <QuestionCommentGetList>
                     {data?.data?.content}
-                  </QuestionCommentGetListTest>
+                  </QuestionCommentGetList>
                 ) : (
                   ''
                 )}
