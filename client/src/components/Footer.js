@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 // CSS 코드입니다.
 
@@ -10,6 +10,7 @@ const StyledFooter = styled.footer`
 `;
 
 const FooterContainer = styled.div`
+  margin-left: 30px;
   max-width: 1264px;
   width: 100%;
   display: flex;

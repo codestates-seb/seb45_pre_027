@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import Login from "../pages/Login";
-import SignUp from "../pages/SignUp";
+import Login from '../pages/Login';
+import SignUp from '../pages/SignUp';
 
 const StyledHeader = styled.div`
   min-width: auto;
@@ -18,9 +18,10 @@ const StyledHeader = styled.div`
 
 const HeaderContainer = styled.div`
   width: 1264px;
-  max-width: 100%;
-  height: 100%;
-  gap: 10px;
+  height: 52px;
+  border: 3px, 0px, 1px, 0px;
+  padding: 3px, 328px, 1px, 328px;
+  justify-content: space-between;
   display: flex;
   align-items: center;
 `;
@@ -36,6 +37,8 @@ const HeaderLogoA = styled.a`
 const HeaderLogo = styled.img`
   width: 150px;
   height: 30px;
+  padding: 5, 0, 0, 0;
+  margin-left: 20px;
 `;
 
 const HeaderNavi = styled.nav`
@@ -53,17 +56,21 @@ const HeaderNaviTitle = styled.div`
 const HeaderSearchBar = styled.div`
   display: flex;
   margin-left: 10px;
-  height: 30px;
-  border: 1px solid gray;
+  height: 32.59px;
+  width: 714.46px;
+  border: 1.5px solid lightgray;
   border-radius: 5px;
 `;
 
 const HeaderSearchBarIcon = styled.img`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 30px;
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+  width: 17px;
+  height: 17px;
+  margin-top: 6px;
+  margin-left: 6px;
+  /* padding: 5px, 3px, 5px, 3px; */
 `;
 
 const HeaderSearchBarInput = styled.input`
@@ -92,15 +99,16 @@ const HeaderToolBarLoginContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 30px;
+  width: 58.2px;
+  height: 33px;
   background-color: #e1ecf4;
-  border: 1px solid rgb(122, 167, 199);
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
+  padding: 9px, 12px, 9px, 11px;
 `;
 
 const HeaderToolBarLogin = styled.div`
+  color: #39739d;
   font-size: 13px;
 `;
 
@@ -108,10 +116,12 @@ const HeaderToolBarSignUpContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 30px;
-  background-color: rgb(10, 149, 255);
-  border-radius: 5px;
+  width: 58.2px;
+  height: 33px;
+  background-color: #0a95ff;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 9px, 12px, 9px, 11px;
 `;
 
 const HeaderToolBarSignUp = styled.div`
@@ -135,16 +145,16 @@ const Header = () => {
       <HeaderContainer>
         <HeaderLogoA>
           <HeaderLogo
-            src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Stack_Overflow_icon.svg"
+            src="https://stackoverflow.design/assets/img/logos/so/logo-stackoverflow.svg"
             alt="Logo"
           />
         </HeaderLogoA>
-        <HeaderNavigator title1={"About"} href1={""} />
-        <HeaderNavigator title2={"Products"} href2={""} />
-        <HeaderNavigator title3={"For Teams"} href3={""} />
+        <HeaderNavigator title1={'About'} href1={''} />
+        <HeaderNavigator title2={'Products'} href2={''} />
+        <HeaderNavigator title3={'For Teams'} href3={''} />
         <HeaderSearchBar>
           <HeaderSearchBarIcon
-            src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Stack_Overflow_icon.svg"
+            src="https://www.freepnglogos.com/uploads/search-png/search-icon-transparent-images-vector-16.png"
             alt="Icon"
           />
           <HeaderSearchBarInput
