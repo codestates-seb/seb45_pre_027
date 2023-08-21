@@ -1,12 +1,12 @@
-import { styled } from "styled-components";
-import SocialButton from "../login-components/SocialButton";
-import { useForm } from "react-hook-form";
-import { useState } from "react";
-import { ErrorMessage } from "@hookform/error-message";
-import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { setIsLogin } from "../../store/loginSlice";
-import { setUserInfo } from "../../store/userInfoSlice";
+import { styled } from 'styled-components';
+import SocialButton from '../login-components/SocialButton';
+import { useForm } from 'react-hook-form';
+import { useEffect, useState } from 'react';
+import { ErrorMessage } from '@hookform/error-message';
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { setIsLogin } from '../../redux/loginSlice';
+import { setUserInfo } from '../../redux/userInfoSlice';
 
 const Container = styled.div`
   width: 100%;
@@ -106,44 +106,80 @@ function SignUpForm() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [errorMsg, setErrorMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState('');
+  // useEffect(() => {
+  //   const call = async () => {
+  //     await fetch(`${process.env.REACT_APP_SERVER_URL}/members`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         email: 'asd@naver.com',
+  //         password: 'asdf1234!A',
+  //         // name: data.name,
+  //       }),
+  //     })
+  //       .then(async (res) => {
+  //         console.log(res);
+  //         if (res.status === 201) {
+  //           alert('Sign-up is complete.');
+  //           navigate('/log-in');
+  //         } else if (res.status === 403) {
+  //           alert('Sign-up is failed.');
+  //           navigate('/log-in');
+  //         } else {
+  //           alert('Server error.');
+  //           navigate('/log-in');
+  //         }
+  //       })
+  //       .catch((e) => console.log(e));
+  //   };
+  //   call();
+  // }, []);
   const handleLogin = async (data) => {
     console.log(data);
-    await fetch(`${process.env.REACT_APP_SERVER_URL}/members/`, {
-      method: "POST",
+    await fetch(`${process.env.REACT_APP_SERVER_URL}/members`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
         email: data.email,
         password: data.password,
-        name: data.name,
+        // name: data.name,
       }),
-    }).then(async (res) => {
-      if (res.status === 200) {
-        alert("Sign-up is complete.");
-        navigate("/log-in");
-      } else if (res.status === 403) {
-        alert("Sign-up is failed.");
-        navigate("/log-in");
-      } else {
-        alert("Server error.");
-        navigate("/log-in");
-      }
-    });
+    })
+      .then(async (res) => {
+        console.log(res);
+        if (res.status === 201) {
+          alert('Sign-up is complete.');
+          navigate('/log-in');
+        } else if (res.status === 403) {
+          alert('Sign-up is failed.');
+          navigate('/log-in');
+        } else {
+          alert('Server error.');
+          navigate('/log-in');
+        }
+      })
+      .catch((e) => console.log(e));
   };
   return (
     <Container>
       <Form onSubmit={handleSubmit(handleLogin)}>
-        <div>
+        {/* <div>
           <label>Display name</label>
-          <input {...register("name")} />
-        </div>
+          <input {...register('name')} />
+        </div> */}
         <div>
           <label>Email</label>
           <input
-            {...register("email", {
-              required: "Email is required",
+            {...register('email', {
+              required: 'Email is required',
               pattern: {
                 value: /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm,
-                message: "Please input a valid email format",
+                message: 'Please input a valid email format',
               },
             })}
           />
@@ -158,12 +194,12 @@ function SignUpForm() {
         <div>
           <label>Password</label>
           <input
-            {...register("password", {
-              required: "Password is required",
+            {...register('password', {
+              required: 'Password is required',
               pattern: {
                 value:
                   /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,}$/gm,
-                message: "Please input a valid password format",
+                message: 'Please input a valid password format',
               },
             })}
             type="password"
@@ -194,9 +230,9 @@ function SignUpForm() {
           <ErrorContainer>
             <p>{errorMsg}</p>
           </ErrorContainer>
-          By clicking "Sign up", you agree to our{" "}
+          By clicking "Sign up", you agree to our{' '}
           <a href="#">terms of service</a> and acknowledge that you have read
-          and understand our <a href="#">privacy policy</a> and{" "}
+          and understand our <a href="#">privacy policy</a> and{' '}
           <a href="#">code of conduct</a> .
         </HelperContainer>
       </Form>
