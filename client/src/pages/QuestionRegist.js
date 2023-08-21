@@ -1,10 +1,10 @@
-import styled from "styled-components";
-import Qrsection from "../components/Cqsection/Qrsection";
+import styled from 'styled-components';
+import Qrsection from '../components/Cqsection/Qrsection';
 
 const colors = {
-  backgroundColor: "rgba(248, 249, 249, 1)",
-  borderColor: "rgba(166, 206, 237, 1)",
-  contentBackground: "rgba(235, 244, 251, 1)",
+  backgroundColor: 'rgba(248, 249, 249, 1)',
+  borderColor: 'rgba(166, 206, 237, 1)',
+  contentBackground: 'rgba(235, 244, 251, 1)',
 };
 
 const QCPage = styled.section`
