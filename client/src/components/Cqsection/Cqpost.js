@@ -1,4 +1,4 @@
-const PostUrl = "https://ba84-183-102-170-103.ngrok-free.app";
+const PostUrl = "https://bba2-183-102-170-103.ngrok-free.app";
 
 export const postQuestionToServer = async (questionData) => {
   try {

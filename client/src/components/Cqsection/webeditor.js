@@ -1,7 +1,7 @@
 import React from 'react';
 import { CKEditor } from 'ckeditor4-react';
 
-function TextEditor({ onChange }) {
+function TextEditor({ value = '', onChange }) {
   const handleEditorChange = (event) => {
     const editorData = event.editor.getData();
     onChange(editorData);
@@ -14,7 +14,7 @@ function TextEditor({ onChange }) {
   return (
     <div>
       <CKEditor
-        data="Initial content"
+        data={value}
         onChange={handleEditorChange}
         config={editorConfig}
       />

@@ -1,9 +1,11 @@
-import React from "react";
 import SideBar from "../components/SideBar";
 import { styled } from "styled-components";
 import TextEditor from "../components/Cqsection/webeditor";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import React, { useState, useEffect } from 'react';
+import { patchQuestionToServer } from "../components/Cqsection/Editpatch";
+import { useNavigate } from "react-router-dom";
 
 const SaveEditBtn = styled.button`
 width: 80px;
@@ -110,8 +112,62 @@ margin: 20px;
   }
 `;
 
+const QuestionEdit = ({ borderId }) => {
 
-const QuestionEdit = () => {
+  const navigate = useNavigate();
+
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+
+  const handleEditorChange = (newContent) => {
+    setContent(newContent);
+  };
+
+
+  useEffect(() => {
+    fetch(`https://bba2-183-102-170-103.ngrok-free.app/board/1`, {
+      method: 'get',
+      headers: new Headers({
+        'ngrok-skip-browser-warning': '69420',
+      }),
+    })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Error fetching data');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      setTitle(data?.data?.title);
+      setContent(data?.data?.content);
+    })
+    .catch((error) => {
+      console.error('Error fetching data:', error);
+    });
+  }, [borderId]);
+
+  const handlePatchRequest = async () => {
+    try {
+      const updatedData = {
+        title: title,
+        content: content,
+      };
+
+      const response = await patchQuestionToServer(borderId, updatedData);
+
+      if (response) {
+        navigate('/question-description');
+      } 
+      console.log('successful:', response);
+    } catch (error) {
+      console.error('Error', error);
+    }
+  };
+
+  const handleCancel = () => {
+    navigate('/question-description');
+  };
+
   return (
    <>
    <Header />
@@ -125,9 +181,9 @@ const QuestionEdit = () => {
     </div>
     <EditInputSection>
     <div>Title</div>
-    <input></input>
+    <input value={title} onChange={(e) => setTitle(e.target.value)} />
     <div>Body</div>
-    <TextEditor />
+    <TextEditor value={content} onChange={handleEditorChange} />
     <div>Tags</div>
     <input></input>
     <div>Edit Summary</div>
@@ -137,8 +193,8 @@ const QuestionEdit = () => {
     <input className="checkbox-size" type="checkbox"></input>
     <p>This edit resolves the original close reason and the question should be considered for reopening.</p>
     </div>
-    <SaveEditBtn>Save edits</SaveEditBtn>
-    <CancelBtn>Cancel</CancelBtn>
+    <SaveEditBtn onClick={handlePatchRequest}>Save edits</SaveEditBtn>
+    <CancelBtn onClick={handleCancel}>Cancel</CancelBtn>
     </EditInputSection>
     </main>
    </Maincontent>
