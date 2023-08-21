@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import SocialButton from "./SocialButton";
+import SocialButton from "../login-components/SocialButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { ErrorMessage } from "@hookform/error-message";
@@ -9,9 +9,9 @@ import { setIsLogin } from "../../store/loginSlice";
 import { setUserInfo } from "../../store/userInfoSlice";
 
 const Container = styled.div`
+  width: 100%;
+  padding: 24px 18px;
   display: inline-flex;
-  max-width: 290px;
-  padding: 18px 24px;
   align-items: flex-start;
   border-radius: 8px;
   background: #fff;
@@ -21,30 +21,36 @@ const Container = styled.div`
     0px 10px 24px 0px rgba(0, 0, 0, 0.05);
 `;
 const Form = styled.form`
-  display: flex;
   width: 100%;
-  padding: 6px 0px;
+
+  display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 6px;
+  gap: 15px;
   div {
     width: 100%;
+
+    .password-helper {
+      padding-top: 4px;
+      color: #6a737c;
+      font-family: Inter;
+      font-size: 11px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 15.692px; /* 142.657% */
+    }
   }
   label {
-    display: flex;
-    padding: 0px 226px 4px 2px;
-    align-items: flex-start;
-    color: rgba(12, 13, 14, 1);
     color: #0c0d0e;
     font-family: Inter;
-    font-size: 15px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 600;
+    line-height: 19.615px; /* 140.11% */
   }
   input {
     padding: 0.6em 0.7em;
-    width: 240px;
-    height: 32.59px;
+    width: 100%;
     border-radius: 6px;
     border: 1px solid #babfc4;
     background: #fff;
@@ -60,16 +66,37 @@ const Form = styled.form`
 const ErrorContainer = styled.div`
   width: 100%;
   padding-top: 0.5rem;
-  color: red;
-  text-align: center;
-  font-size: 0.7rem;
+  p {
+    color: red;
+    text-align: center;
+    font-size: 0.7rem;
+  }
 `;
 const LoginButton = styled(SocialButton)`
-  margin-top: 10px;
-  width: 240px;
+  width: 100%;
 `;
 
-function LoginForm() {
+const HelperContainer = styled.div`
+  color: #6a737c;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 17px; /* 141.667% */
+
+  a {
+    color: #0074cc;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 17px;
+    list-style: none;
+    text-decoration: none;
+  }
+`;
+
+function SignUpForm() {
   const isLogin = useSelector((state) => state.isLogin.value);
   const userInfo = useSelector((state) => state.userInfo.value);
   const dispatch = useDispatch();
@@ -81,34 +108,34 @@ function LoginForm() {
   } = useForm();
   const [errorMsg, setErrorMsg] = useState("");
   const handleLogin = async (data) => {
-    await fetch(`${process.env.REACT_APP_SERVER_URL}/members/log-in/`, {
+    console.log(data);
+    await fetch(`${process.env.REACT_APP_SERVER_URL}/members/`, {
       method: "POST",
       body: JSON.stringify({
         email: data.email,
         password: data.password,
+        name: data.name,
       }),
-    })
-      .then(async (res) => {
-        if (res.status === 200) {
-          sessionStorage.setItem("user_id", res.data);
-          dispatch(setIsLogin(res.data));
-          return await fetch(
-            `${process.env.REACT_APP_SERVER_URL}/members/${res.data}`
-          );
-        } else if (res.status === 403) {
-          setErrorMsg("Log-in is failed");
-        } else {
-          setErrorMsg("server error");
-        }
-      })
-      .then((res) => {
-        dispatch(setUserInfo(res.data));
-        navigate("/");
-      });
+    }).then(async (res) => {
+      if (res.status === 200) {
+        alert("Sign-up is complete.");
+        navigate("/log-in");
+      } else if (res.status === 403) {
+        alert("Sign-up is failed.");
+        navigate("/log-in");
+      } else {
+        alert("Server error.");
+        navigate("/log-in");
+      }
+    });
   };
   return (
     <Container>
       <Form onSubmit={handleSubmit(handleLogin)}>
+        <div>
+          <label>Display name</label>
+          <input {...register("name")} />
+        </div>
         <div>
           <label>Email</label>
           <input
@@ -133,9 +160,18 @@ function LoginForm() {
           <input
             {...register("password", {
               required: "Password is required",
+              pattern: {
+                value:
+                  /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,}$/gm,
+                message: "Please input a valid password format",
+              },
             })}
             type="password"
           />
+          <p className="password-helper">
+            Passwords must contain at least 8 characters, including at least 1
+            upper, 1 lower, 1 non-alpha and 1 number.
+          </p>
           <ErrorContainer>
             <ErrorMessage
               errors={errors}
@@ -144,7 +180,8 @@ function LoginForm() {
             />
           </ErrorContainer>
         </div>
-        <div>
+
+        <HelperContainer>
           <LoginButton
             color="#FFF"
             background="#0A95FF"
@@ -152,15 +189,19 @@ function LoginForm() {
             hovercolor="hsl(206,100%,40%)"
             activecolor="hsl(209,100%,37.5%)"
           >
-            Log In
+            Sign Up
           </LoginButton>
           <ErrorContainer>
             <p>{errorMsg}</p>
           </ErrorContainer>
-        </div>
+          By clicking "Sign up", you agree to our{" "}
+          <a href="#">terms of service</a> and acknowledge that you have read
+          and understand our <a href="#">privacy policy</a> and{" "}
+          <a href="#">code of conduct</a> .
+        </HelperContainer>
       </Form>
     </Container>
   );
 }
 
-export default LoginForm;
+export default SignUpForm;
