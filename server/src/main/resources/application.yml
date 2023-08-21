@@ -1,0 +1,28 @@
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+
+    properties:
+      hibernate:
+        format_sql: true
+
+jwt:
+  key: c5ngc5ngc5ngc5ngc5ngc5ngc5ngc5ngc5ngc5ngc5ngc5ngc5ng
+  access-token-expiration-minutes: 30
+  refresh-token-expiration-minutes: 420
+
+

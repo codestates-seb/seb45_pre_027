@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Footer from './components/Footer';
-import Header from './components/Header';
-import SideBar from './components/SideBar';
+// import Header from './components/Header';
+// import SideBar from './components/SideBar';
 import Login from './pages/Login';
 import LogOut from './pages/LogOut';
 import QuestionDescription from './pages/QuestionDescription';
@@ -13,8 +13,10 @@ import QuestionEdit from './pages/QuestionEdit';
 function App() {
   return (
     <>
-      {/* <Header /> */}
-      {/* <SideBar /> */}
+
+      {/* <Header />
+      <SideBar /> */}
+
       <Routes>
         <Route path="/log-in" element={<Login />} />
         <Route path="/log-out" element={<LogOut />} />
