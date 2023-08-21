@@ -315,82 +315,89 @@ const LayoutWithBlogList = () => {
         );
       });
   }, []); // 빈 의존성 배열을 사용하여 컴포넌트 마운트 시에만 실행
+  const isLogIn = localStorage.getItem('log-in');
   return (
     <div>
-      {/* <Header /> */}
+      {isLogIn ? (
+        <>
+          {/* <Header /> */}
 
-      <Layout>
-        {/* <SideBar /> */}
+          <Layout>
+            {/* <SideBar /> */}
 
-        <Container>
-          <TopContent>
-            <TitleSection>
-              <LayoutWithFetchTitle />
-              <AskButton />
-            </TitleSection>
-            <Information posts={samplePosts} />
-          </TopContent>
-          <MiddleContent>
-            <DescriptionBox>
-              <MainContent>
-                <AdBannerSection>
-                  <BannerImg />
-                </AdBannerSection>
-                <ContentSection>
-                  <ButtonGroup />
-                  <ContentDetail>
-                    <QuestionContent />
-                  </ContentDetail>
-                </ContentSection>
-                <S>
-                  <TagSection>
-                    <LinkButton>uikit</LinkButton>
-                    <LinkButton>sun do manager</LinkButton>
-                    <LinkButton>uikit</LinkButton>
-                    <LinkButton>uikit</LinkButton>
-                  </TagSection>
-                  <ButtonList />
-                </S>
+            <Container>
+              <TopContent>
+                <TitleSection>
+                  <LayoutWithFetchTitle />
+                  <AskButton />
+                </TitleSection>
+                <Information posts={samplePosts} />
+              </TopContent>
+              <MiddleContent>
+                <DescriptionBox>
+                  <MainContent>
+                    <AdBannerSection>
+                      <BannerImg />
+                    </AdBannerSection>
+                    <ContentSection>
+                      <ButtonGroup />
+                      <ContentDetail>
+                        <QuestionContent />
+                      </ContentDetail>
+                    </ContentSection>
+                    <S>
+                      <TagSection>
+                        <LinkButton>uikit</LinkButton>
+                        <LinkButton>sun do manager</LinkButton>
+                        <LinkButton>uikit</LinkButton>
+                        <LinkButton>uikit</LinkButton>
+                      </TagSection>
+                      <ButtonList />
+                    </S>
 
-                <UserInfoSection>
-                  <UserInfoBox />
-                </UserInfoSection>
-                <Comment>
-                  {data ? (
-                    <CommentGetListTest>
-                      {data?.data?.content}
-                    </CommentGetListTest>
-                  ) : (
-                    ''
-                  )}
-                  <CommentBUT />
-                </Comment>
-                <RelatedQuestionsSection>
-                  <AddRelatedQuestionItem />
-                </RelatedQuestionsSection>
-                <P>
-                  Know someone who can answer? Share a link to this question via
-                  email, Twitter, or Facebook.
-                </P>
-                <AnswerCountBox />
-                {data ? (
-                  <QuestionCommentGetList>
-                    {data?.data?.content}
-                  </QuestionCommentGetList>
-                ) : (
-                  ''
-                )}
-                {/* <P1>Your Answer</P1> */}
-                <QuestionComment />
-              </MainContent>
-              <SideBarBox>
-                <BlogList title="The Overflow Blog" posts={blogPosts} />
-                <BlogList title="Featured on Meta" posts={MetaPosts} />
-              </SideBarBox>
-            </DescriptionBox>
-          </MiddleContent>
-        </Container>
-      </Layout>
+                    <UserInfoSection>
+                      <UserInfoBox />
+                    </UserInfoSection>
+                    <Comment>
+                      {data ? (
+                        <CommentGetListTest>
+                          {data?.data?.content}
+                        </CommentGetListTest>
+                      ) : (
+                        ''
+                      )}
+                      <CommentBUT />
+                    </Comment>
+                    <RelatedQuestionsSection>
+                      <AddRelatedQuestionItem />
+                    </RelatedQuestionsSection>
+                    <P>
+                      Know someone who can answer? Share a link to this question
+                      via email, Twitter, or Facebook.
+                    </P>
+                    <AnswerCountBox />
+                    {data ? (
+                      <QuestionCommentGetList>
+                        {data?.data?.content}
+                      </QuestionCommentGetList>
+                    ) : (
+                      ''
+                    )}
+                    {/* <P1>Your Answer</P1> */}
+                    <QuestionComment />
+                  </MainContent>
+                  <SideBarBox>
+                    <BlogList title="The Overflow Blog" posts={blogPosts} />
+                    <BlogList title="Featured on Meta" posts={MetaPosts} />
+                  </SideBarBox>
+                </DescriptionBox>
+              </MiddleContent>
+            </Container>
+          </Layout>
+        </>
+      ) : (
+        <div>no log-in</div>
+      )}
     </div>
   );
 };

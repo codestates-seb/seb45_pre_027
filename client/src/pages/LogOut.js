@@ -43,12 +43,14 @@ function LogOut() {
     })
       .then((res) => res.json())
       .then((data) => {
-        //  redux에 저장된 access token 정보 삭제
-        dispatch(DELETE_TOKEN());
-        // cookie에 저장된 refresh token 정보 삭제
-        removeCookieToken();
-        // 자동 로그인 설정 해제
+        // 테스트용
         localStorage.clear();
+        // //  redux에 저장된 access token 정보 삭제
+        // dispatch(DELETE_TOKEN());
+        // // cookie에 저장된 refresh token 정보 삭제
+        // removeCookieToken();
+        // // 자동 로그인 설정 해제
+        // localStorage.clear();
         // 메인으로 페이지 이동
         return navigate('/');
       })
@@ -56,31 +58,38 @@ function LogOut() {
         window.location.reload();
       });
   };
+  const isLogIn = localStorage.getItem('log-in');
   return (
     <Container>
-      <h2>Are you sure you want to log-out?</h2>
-      <ButtonContainer>
-        <SocialButton
-          color="#FFF"
-          background="#0A95FF"
-          bordercolor="hsl(206,96%,90%)"
-          hovercolor="hsl(206,100%,40%)"
-          activecolor="hsl(209,100%,37.5%)"
-          onClick={() => handleLogOut()}
-        >
-          Log-out
-        </SocialButton>
-        <SocialButton
-          color="#FFF"
-          background="#303134"
-          bordercolor="hsl(210,8%,85%)"
-          hovercolor="#211134"
-          activecolor="hsl(210,8%,5%)"
-          onClick={() => navigate(-1)}
-        >
-          Cancel
-        </SocialButton>
-      </ButtonContainer>
+      {isLogIn ? (
+        <>
+          <h2>Are you sure you want to log-out?</h2>
+          <ButtonContainer>
+            <SocialButton
+              color="#FFF"
+              background="#0A95FF"
+              bordercolor="hsl(206,96%,90%)"
+              hovercolor="hsl(206,100%,40%)"
+              activecolor="hsl(209,100%,37.5%)"
+              onClick={() => handleLogOut()}
+            >
+              Log-out
+            </SocialButton>
+            <SocialButton
+              color="#FFF"
+              background="#303134"
+              bordercolor="hsl(210,8%,85%)"
+              hovercolor="#211134"
+              activecolor="hsl(210,8%,5%)"
+              onClick={() => navigate(-1)}
+            >
+              Cancel
+            </SocialButton>
+          </ButtonContainer>
+        </>
+      ) : (
+        'no log-in'
+      )}
     </Container>
   );
 }

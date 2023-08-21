@@ -120,15 +120,17 @@ function LoginForm() {
       }),
     })
       .then((res) => {
+        // 테스트용
+        localStorage.setItem('log-in', true);
         // 리프레쉬 토큰 쿠키에 저장
-        setRefreshToken(res.refresh_token);
-        // 액세스 토큰 저장
-        const access_token = res.headers.get('Authorization');
-        if (!access_token) return setErrorMsg('Log-in has failed');
-        dispatch(SET_TOKEN(access_token));
-        dispatch(setIsLogin(true));
-        // 자동 로그인 설정 시 로컬 스토리지에 저장
-        if (autoLogin) localStorage.setItem('autoLogIn', true);
+        // setRefreshToken(res.refresh_token);
+        // // 액세스 토큰 저장
+        // const access_token = res.headers.get('Authorization');
+        // if (!access_token) return setErrorMsg('Log-in has failed');
+        // dispatch(SET_TOKEN(access_token));
+        // dispatch(setIsLogin(true));
+        // // 자동 로그인 설정 시 로컬 스토리지에 저장
+        // if (autoLogin) localStorage.setItem('autoLogIn', true);
         return navigate('/');
       })
 

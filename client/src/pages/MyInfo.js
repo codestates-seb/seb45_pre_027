@@ -219,85 +219,92 @@ function MyInfo() {
   const handleCategory = (idx) => {
     setCategoryIdx(idx);
   };
+  const isLogIn = localStorage.getItem('log-in');
   return (
     <Container>
-      <Header>
-        <img src={userInfo.profile} alt="profile"></img>
-        <ProfileContent>
-          <h2>{userInfo.name}</h2>
-          <DateContent>
-            <li>
-              <FaBirthdayCake />
-              <span>Member for 12 days</span>
-            </li>
-            <li>
-              <FaRegClock />
-              <span>Last seen this week</span>
-            </li>
-            <li>
-              <FaRegCalendarAlt />
-              <span>Visited 6 days</span>
-            </li>
-          </DateContent>
-          <EditProfileButton onClick={() => handleCategory(2)}>
-            <FaPen />
-            Edit profile
-          </EditProfileButton>
-        </ProfileContent>
-      </Header>
-      <CategoryBox>
-        {category.map((ele, idx) =>
-          idx === categoryIdx ? (
-            <button
-              key={idx}
-              className="category-active"
-              onClick={() => handleCategory(idx)}
-            >
-              {ele}
-            </button>
-          ) : (
-            <button key={idx} onClick={() => handleCategory(idx)}>
-              {ele}
-            </button>
-          ),
-        )}
-      </CategoryBox>
-      <ContentBox>
-        <ContentLeft>
-          <h3>Stats</h3>
-          <StatBox>
-            <div className="reputation">
-              <div>1</div>
-              reputaion
-            </div>
-            <div className="reached">
-              <div>0</div>
-              reached
-            </div>
-            <div className="answers">
-              <div>0</div>
-              answers
-            </div>
-            <div className="questions">
-              <div>0</div>
-              questions
-            </div>
-          </StatBox>
-        </ContentLeft>
-        <ContentRight>
-          {categoryIdx === 0 ? (
-            <>
-              <About handleCategory={handleCategory} />
-              <Badges />
-              <Posts />
-            </>
-          ) : categoryIdx === 2 ? (
-            <Setting handleCategory={handleCategory} />
-          ) : (
-            <ToBe />
-          )}
-        </ContentRight>
-      </ContentBox>
+      {isLogIn ? (
+        <>
+          <Header>
+            <img src={userInfo.profile} alt="profile"></img>
+            <ProfileContent>
+              <h2>{userInfo.name}</h2>
+              <DateContent>
+                <li>
+                  <FaBirthdayCake />
+                  <span>Member for 12 days</span>
+                </li>
+                <li>
+                  <FaRegClock />
+                  <span>Last seen this week</span>
+                </li>
+                <li>
+                  <FaRegCalendarAlt />
+                  <span>Visited 6 days</span>
+                </li>
+              </DateContent>
+              <EditProfileButton onClick={() => handleCategory(2)}>
+                <FaPen />
+                Edit profile
+              </EditProfileButton>
+            </ProfileContent>
+          </Header>
+          <CategoryBox>
+            {category.map((ele, idx) =>
+              idx === categoryIdx ? (
+                <button
+                  key={idx}
+                  className="category-active"
+                  onClick={() => handleCategory(idx)}
+                >
+                  {ele}
+                </button>
+              ) : (
+                <button key={idx} onClick={() => handleCategory(idx)}>
+                  {ele}
+                </button>
+              ),
+            )}
+          </CategoryBox>
+          <ContentBox>
+            <ContentLeft>
+              <h3>Stats</h3>
+              <StatBox>
+                <div className="reputation">
+                  <div>1</div>
+                  reputaion
+                </div>
+                <div className="reached">
+                  <div>0</div>
+                  reached
+                </div>
+                <div className="answers">
+                  <div>0</div>
+                  answers
+                </div>
+                <div className="questions">
+                  <div>0</div>
+                  questions
+                </div>
+              </StatBox>
+            </ContentLeft>
+            <ContentRight>
+              {categoryIdx === 0 ? (
+                <>
+                  <About handleCategory={handleCategory} />
+                  <Badges />
+                  <Posts />
+                </>
+              ) : categoryIdx === 2 ? (
+                <Setting handleCategory={handleCategory} />
+              ) : (
+                <ToBe />
+              )}
+            </ContentRight>
+          </ContentBox>
+        </>
+      ) : (
+        'no log-in'
+      )}
     </Container>
   );
 }
