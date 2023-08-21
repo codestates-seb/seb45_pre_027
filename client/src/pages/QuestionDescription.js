@@ -18,8 +18,8 @@ import QuestionComment from '../components/DescriptionComponents/Answers/Questio
 import { useState, useEffect } from 'react';
 import CounterButton from '../components/DescriptionComponents/ButtonCNP/UpDownButtonCounter';
 import { CommentBUT } from '../components/DescriptionComponents/ButtonComponents/AddComment';
-import { QuestionCommentGetList } from '../components/DescriptionComponents/ListTest/QuestionCommentGetList';
-import { CommentGetList } from '../components/DescriptionComponents/ListTest/CommentList';
+import { QuestionCommentGetListTest } from '../components/DescriptionComponents/ListTest/QuestionCommentGetList';
+import { CommentGetListTest } from '../components/DescriptionComponents/ListTest/CommentList';
 
 // 질문 상세 페이지를 위한 주 컨테이너 스타일링.
 
@@ -357,7 +357,9 @@ const LayoutWithBlogList = () => {
                 </UserInfoSection>
                 <Comment>
                   {data ? (
-                    <CommentGetList>{data?.data?.content}</CommentGetList>
+                    <CommentGetListTest>
+                      {data?.data?.content}
+                    </CommentGetListTest>
                   ) : (
                     ''
                   )}
@@ -372,9 +374,9 @@ const LayoutWithBlogList = () => {
                 </P>
                 <AnswerCountBox />
                 {data ? (
-                  <QuestionCommentGetList>
+                  <QuestionCommentGetListTest>
                     {data?.data?.content}
-                  </QuestionCommentGetList>
+                  </QuestionCommentGetListTest>
                 ) : (
                   ''
                 )}

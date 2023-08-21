@@ -20,7 +20,7 @@ const LayoutWithFetchTitle = () => {
 
   useEffect(() => {
     // 백엔드에서 타이틀을 가져오기 위해 fetch API 사용
-    fetch(`${process.env.REACT_APP_SERVER_URL}board/2`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}board/4`, {
       method: 'get',
       headers: new Headers({
         'ngrok-skip-browser-warning': '69420',
@@ -36,8 +36,9 @@ const LayoutWithFetchTitle = () => {
       })
       .then((data) => {
         // 백엔드에서 가져온 타이틀로 상태 업데이트
-        setTitle(data?.data?.title); // 데이터에 'title' 필드가 있다고 가정
-        console.log(data);
+        setTitle(data?.board?.title); // 데이터에 'title' 필드가 있다고 가정
+        // console.log(data);
+        console.log(data?.board.title);
       })
       .catch((error) => {
         // 오류가 발생하면 오류를 로그에 출력하고 타이틀을 오류 메시지로 설정

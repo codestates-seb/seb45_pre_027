@@ -65,7 +65,7 @@ const Time = styled.text`
   line-height: 17px; /* 141.667% */
 `;
 
-export const CommentGetList = () => {
+export const CommentGetListTest = () => {
   const [data, setData] = useState([]);
 
   // 더미 데이터 선언

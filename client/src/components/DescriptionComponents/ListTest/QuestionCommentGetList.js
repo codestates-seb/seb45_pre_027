@@ -6,7 +6,7 @@ import CounterButton from '../ButtonCNP/UpDownButtonCounter';
 import ButtonList from '../ButtonComponents/TextButton';
 import { CommentBUT } from '../ButtonComponents/AddComment';
 import { UserInfoTop } from '../user_info/UserInfo';
-import { CommentGetList } from './CommentList';
+import { CommentGetListTest } from './CommentList';
 
 // 전체 박스
 const Container = styled.div`
@@ -87,7 +87,7 @@ const UserInfoSection = styled.div`
   justify-content: flex-end;
 `;
 
-export const QuestionCommentGetList = () => {
+export const QuestionCommentGetListTest = () => {
   const [data, setData] = useState([]);
 
   // 더미 데이터 선언
@@ -158,7 +158,7 @@ export const QuestionCommentGetList = () => {
                 </UserInfoSection>
 
                 {/* {댓글 영역} */}
-                <CommentGetList />
+                <CommentGetListTest />
 
                 <CommentBUT />
               </ButtonContentBox>
