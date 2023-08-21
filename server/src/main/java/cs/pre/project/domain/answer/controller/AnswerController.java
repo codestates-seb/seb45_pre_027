@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/answer")
 @RequiredArgsConstructor
 @Slf4j
+@CrossOrigin("*")
 public class AnswerController {
 
     private final AnswerService answerService;
 
     private final BoardService boardService;
+
     private final AnswerMapper answerMapper;
 
     @GetMapping("/{board-id}")
@@ -33,6 +35,7 @@ public class AnswerController {
                        @RequestBody AnswerDto.Post requestBody) {
 
         Answer answer = answerMapper.answerPostToAnswer(requestBody);
+
         answer.setBoard(boardService.findVerifiedBoard(boardId));
 
 

@@ -45,7 +45,6 @@ public class BoardService {
 
         Optional.ofNullable(board.getTitle()).ifPresent(title -> findBoard.get().setTitle(title));
         Optional.ofNullable(board.getContent()).ifPresent(content -> findBoard.get().setContent(content));
-        Optional.ofNullable(board.getExpecting()).ifPresent(expecting -> findBoard.get().setExpecting(expecting));
 
         return boardRepository.save(findBoard.get());
     }
@@ -73,6 +72,18 @@ public class BoardService {
         Board board = findVerifiedBoard(boardId);
         board.incrementView();
         boardRepository.save(board);
+    }
+
+    public Board likeBoard(long boardId) {
+        Board board = findVerifiedBoard(boardId);
+        board.setLikes(board.getLikes() +  1);
+        return boardRepository.save(board);
+    }
+
+    public Board dislikeBoard(long boardId) {
+        Board board = findVerifiedBoard(boardId);
+        board.setDislikes(board.getDislikes() + 1);
+        return boardRepository.save(board);
     }
 
     @Transactional(readOnly = true)

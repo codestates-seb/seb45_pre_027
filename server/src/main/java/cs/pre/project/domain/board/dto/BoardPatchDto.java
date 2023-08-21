@@ -18,13 +18,10 @@ public class BoardPatchDto {
     private String title;
     @NotBlank(message = "content은 비어 있으면 안됩니다")
     private String content;
-    @NotBlank(message = "expecting는 비어 있으면 안됩니다")
-    private String expecting;
 
     private LocalDateTime updateAt;
 
     public void setBroadId(long boardId) {
         this.boardId = boardId;
     }
-
 }
