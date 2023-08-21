@@ -10,8 +10,8 @@ const Main = styled.div`
 
 const Section = styled.div`
   display: flex;
-  width: 1100px;
-  height: 2275.45px;
+  width: 751px;
+  height: 2219.45px;
   flex-direction: column;
   padding-top: 30px;
   /* justify-content: space-between; */
@@ -226,6 +226,26 @@ const QuestionList = () => {
               <div>{} answers</div>
               <div>{} views</div>
             </QuestionVoteAnswerView>
+            <Question>
+              <QuestionTitle>{}This is title</QuestionTitle>
+              <QuestionContent>{}Content is long</QuestionContent>
+              <QuestionTagsAndPostTime>
+                <UserInfo>username</UserInfo>
+                <QuestionPostTime>asked {} ago</QuestionPostTime>
+              </QuestionTagsAndPostTime>
+            </Question>
+          </QuestionsContainer>
+          {/* </QuestionListBar> */}
+        </List>
+
+        <List>
+          {/* <QuestionListBar> */}
+          <QuestionsContainer>
+            <QuestionVoteAnswerView>
+              <div>{} votes</div>
+              <div>{} answers</div>
+              <div>{} views</div>
+            </QuestionVoteAnswerView>
 
             <Question>
               <QuestionTitle>{}This is title</QuestionTitle>
@@ -240,49 +260,27 @@ const QuestionList = () => {
           {/* </QuestionListBar> */}
         </List>
 
-        {/* <List> */}
-        {/* <QuestionListBar> */}
-        <QuestionsContainer>
-          <QuestionVoteAnswerView>
-            <div>{} votes</div>
-            <div>{} answers</div>
-            <div>{} views</div>
-          </QuestionVoteAnswerView>
+        <List>
+          {/* <QuestionListBar> */}
+          <QuestionsContainer>
+            <QuestionVoteAnswerView>
+              <div>{} votes</div>
+              <div>{} answers</div>
+              <div>{} views</div>
+            </QuestionVoteAnswerView>
 
-          <Question>
-            <QuestionTitle>{}This is title</QuestionTitle>
-            <QuestionContent>{}Content is long</QuestionContent>
+            <Question>
+              <QuestionTitle>{}This is title</QuestionTitle>
+              <QuestionContent>{}Content is long</QuestionContent>
 
-            <QuestionTagsAndPostTime>
-              <UserInfo>username</UserInfo>
-              <QuestionPostTime>asked {} ago</QuestionPostTime>
-            </QuestionTagsAndPostTime>
-          </Question>
-        </QuestionsContainer>
-        {/* </QuestionListBar> */}
-        {/* </List> */}
-
-        {/* <List> */}
-        {/* <QuestionListBar> */}
-        <QuestionsContainer>
-          <QuestionVoteAnswerView>
-            <div>{} votes</div>
-            <div>{} answers</div>
-            <div>{} views</div>
-          </QuestionVoteAnswerView>
-
-          <Question>
-            <QuestionTitle>{}This is title</QuestionTitle>
-            <QuestionContent>{}Content is long</QuestionContent>
-
-            <QuestionTagsAndPostTime>
-              <UserInfo>username</UserInfo>
-              <QuestionPostTime>asked {} ago</QuestionPostTime>
-            </QuestionTagsAndPostTime>
-          </Question>
-        </QuestionsContainer>
-        {/* </QuestionListBar> */}
-        {/* </List> */}
+              <QuestionTagsAndPostTime>
+                <UserInfo>username</UserInfo>
+                <QuestionPostTime>asked {} ago</QuestionPostTime>
+              </QuestionTagsAndPostTime>
+            </Question>
+          </QuestionsContainer>
+          {/* </QuestionListBar> */}
+        </List>
       </Section>
       <Pagination page={page} totalPages={totalPages} />
     </Main>
