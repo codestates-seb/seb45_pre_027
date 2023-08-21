@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import React, { useState } from "react";
+import TextEditor from "./webeditor";
 
 const Modal = styled.div`
   position: fixed;
@@ -240,6 +241,7 @@ const SectionForm = styled.div`
         height: 80%;
         vertical-align: top;
         line-height: 100%;
+        padding: 10px;
       }
 
       .section-tags {
@@ -262,12 +264,20 @@ const SectionForm = styled.div`
     }
 
     .section-body {
-      height: 250px;
+      height: 300px;
     }
   }
 `;
 
-const Qrsection = () => {
+const Qrsection = ({
+  expecting,
+  setExpecting,
+  content,
+  setContent,
+  title,
+  setTitle,
+  handlesubmit
+}) => {
   const [activeSection, setActiveSection] = useState(null);
   const [showNextButton, setShowNextButton] = useState([
     true,
@@ -336,6 +346,7 @@ const Qrsection = () => {
               type="text"
               className="section-input"
               placeholder="e.g is there an R function for finding the index of an element in a vector?"
+              onChange={(e) => setTitle(e.target.value)}
             ></input>
             <button
               className={`section-btn ${showNextButton[0] ? "" : "hidden"}`}
@@ -375,12 +386,11 @@ const Qrsection = () => {
               </label>
             </div>
             <div className="section-body">
-              <img src="layout.png" alt="test" />
-              <input
-                className="section-body-input"
-                onClick={() => handleInputClick(1)}
-                type="text"
-              />
+              <TextEditor 
+                  className="section-body-input"
+                  onClick={() => handleInputClick(1)}
+                  type="text"
+                  onChange={(editorData) => setContent(editorData)}/>
             </div>
             <button
               className={`section-btn ${showNextButton[1] ? "" : "hidden"}`}
@@ -419,12 +429,11 @@ const Qrsection = () => {
               </label>
             </div>
             <div className="section-body">
-              <img src="layout.png" alt="test" />
-              <input
-                className="section-body-input"
-                onClick={() => handleInputClick(2)}
-                type="text"
-              />
+              <TextEditor 
+                  className="section-body-input"
+                  onClick={() => handleInputClick(2)}
+                  type="text"
+                  onChange={(editorData) => setExpecting(editorData)}/>
             </div>
             <button
               className={`section-btn ${showNextButton[2] ? "" : "hidden"}`}
@@ -524,9 +533,9 @@ const Qrsection = () => {
             </div>
             <button
               className={`review-btn ${showNextButton[4] ? "" : "hidden"}`}
-              onClick={handleNextClick}
+              onClick={() => handlesubmit(title, content, expecting)}
             >
-              Review your question
+              Post your question
             </button>
           </div>
         </div>

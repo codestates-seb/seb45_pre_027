@@ -6,18 +6,24 @@ import BannerImg from '../components/DescriptionComponents/Banner/BannerComponen
 import QuestionContent from '../components/DescriptionComponents/QuestionContent/QuestionContentBox';
 import UserInfoBox from '../components/DescriptionComponents/user_info/UserInfoBox';
 import AddRelatedQuestionItem from '../components/DescriptionComponents/RelatedQuestions/RelatedQuestionItem';
-import TextEditor from '../components/DescriptionComponents/TextEditor/TextEditorComponent';
-import UpButton from '../components/DescriptionComponents/ButtonComponents/UpButton';
 import { LinkButton } from '../components/DescriptionComponents/ButtonComponents/TagButton';
-import DownButton from '../components/DescriptionComponents/ButtonComponents/DownButton';
 import BookButton from '../components/DescriptionComponents/ButtonComponents/BookButton';
 import AskButton from '../components/DescriptionComponents/ButtonComponents/AskButton';
 import TheOverflowBlogList from '../components/DescriptionComponents/BlogItemList/BlogItem';
 import Information from '../components/DescriptionComponents/TitleComponents/AskedModifideViewed';
 import ResetButton from '../components/DescriptionComponents/ButtonComponents/Reset';
 import ButtonList from '../components/DescriptionComponents/ButtonComponents/TextButton';
+import AnswerCountBox from '../components/DescriptionComponents/Answers/AnswersCountBox';
+import QuestionComment from '../components/DescriptionComponents/Answers/QuestionCommentPost';
+import { useState, useEffect } from 'react';
+import CounterButton from '../components/DescriptionComponents/ButtonCNP/UpDownButtonCounter';
+import { CommentBUT } from '../components/DescriptionComponents/ButtonComponents/AddComment';
+import { QuestionCommentGetListTest } from '../components/DescriptionComponents/ListTest/QuestionCommentGetList';
+import { CommentGetListTest } from '../components/DescriptionComponents/ListTest/CommentList';
+import { QuestionCommentGetList } from '../components/DescriptionComponents/Answers/QuestionCommentGet';
 
 // 질문 상세 페이지를 위한 주 컨테이너 스타일링.
+
 const Container = styled.div`
   font-family: Arial, sans-serif;
   padding: 20px;
@@ -27,6 +33,7 @@ const Container = styled.div`
   display: flex;
   width: 1100px;
   max-width: 1100px;
+  margin-bottom: 2rem;
 `;
 
 // 메인 컨텐츠와 사이드바를 위한 컨테이너.
@@ -50,7 +57,7 @@ const MainContent = styled.div`
 `;
 
 // 블로그 리스트와 같은 추가 컨텐츠를 위한 사이드바.
-const SideBar = styled.div`
+const SideBarBox = styled.div`
   flex: 1;
   width: 300px;
 `;
@@ -116,12 +123,12 @@ const RelatedQuestionsSection = styled.div`
 `;
 
 // 댓글이나 답변을 추가하기 위한 폼.
-const CommentSectionFrom = styled.div`
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 1rem;
-  margin-top: 1rem;
-`;
+// const CommentSectionFrom = styled.div`
+//   border: 2px solid #e0e0e0;
+//   border-radius: 8px;
+//   padding: 1rem;
+//   margin-top: 1rem;
+// `;
 
 // 문단 스타일 컴포넌트.
 const P = styled.div`
@@ -206,6 +213,17 @@ const P1 = styled.div`
   margin-bottom: 1rem;
 `;
 
+// 레이아웃 헤더,사이드바
+const Layout = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const Comment = styled.div`
+  margin-left: 82px;
+  margin-bottom: 2rem;
+`;
+
 // 블로그 게시물의 샘플 데이터.
 const blogPosts = [
   {
@@ -263,70 +281,120 @@ const BlogList = ({ title, posts }) => (
 // 동작 버튼 그룹.
 const ButtonGroup = () => (
   <ButtonSection>
-    <UpButton />
-    <p>0</p>
-    <DownButton />
+    <CounterButton />
     <BookButton />
     <ResetButton />
   </ButtonSection>
 );
 
 // 질문 상세 페이지를 렌더링하기 위한 메인 컴포넌트.
-const LayoutWithBlogList = () => (
-  <Container>
-    <TopContent>
-      <TitleSection>
-        <LayoutWithFetchTitle />
-        <AskButton />
-      </TitleSection>
-      <Information posts={samplePosts} />
-    </TopContent>
-    <MiddleContent>
-      <DescriptionBox>
-        <MainContent>
-          <AdBannerSection>
-            <BannerImg />
-          </AdBannerSection>
-          <ContentSection>
-            <ButtonGroup />
-            <ContentDetail>
-              <QuestionContent />
-            </ContentDetail>
-          </ContentSection>
-          <S>
-            <TagSection>
-              <LinkButton>uikit</LinkButton>
-              <LinkButton>sun do manager</LinkButton>
-              <LinkButton>uikit</LinkButton>
-              <LinkButton>uikit</LinkButton>
-            </TagSection>
-            <ButtonList />
-          </S>
-          <UserInfoSection>
-            <UserInfoBox />
-          </UserInfoSection>
-          <RelatedQuestionsSection>
-            <AddRelatedQuestionItem />
-          </RelatedQuestionsSection>
-          <P>
-            Know someone who can answer? Share a link to this question via
-            email, Twitter, or Facebook.
-          </P>
-          <P1>Your Answer</P1>
-          <TextEditor>
-            <CommentSectionFrom>
-              <QuestionContent />
-            </CommentSectionFrom>
-          </TextEditor>
-        </MainContent>
-        <SideBar>
-          <BlogList title="The Overflow Blog" posts={blogPosts} />
-          <BlogList title="Featured on Meta" posts={MetaPosts} />
-        </SideBar>
-      </DescriptionBox>
-    </MiddleContent>
-  </Container>
-);
+const LayoutWithBlogList = () => {
+  const [data, setData] = useState('Loading...');
+  useEffect(() => {
+    // 백엔드 API 주소를 아래 URL에 설정합니다.
+
+    fetch(`${process.env.REACT_APP_SERVER_URL}board/1`, {
+      method: 'get',
+      headers: new Headers({
+        'ngrok-skip-browser-warning': '69420',
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setData(data); // API 응답으로 받은 데이터를 상태에 저장
+      })
+      .catch((error) => {
+        console.error(
+          'There was a problem with the fetch operation:',
+          error.message,
+        );
+      });
+  }, []); // 빈 의존성 배열을 사용하여 컴포넌트 마운트 시에만 실행
+
+  return (
+    <div>
+      {/* <Header /> */}
+
+      <Layout>
+        {/* <SideBar /> */}
+
+        <Container>
+          <TopContent>
+            <TitleSection>
+              <LayoutWithFetchTitle />
+              <AskButton />
+            </TitleSection>
+            <Information posts={samplePosts} />
+          </TopContent>
+          <MiddleContent>
+            <DescriptionBox>
+              <MainContent>
+                <AdBannerSection>
+                  <BannerImg />
+                </AdBannerSection>
+                <ContentSection>
+                  <ButtonGroup />
+                  <ContentDetail>
+                    <QuestionContent />
+                  </ContentDetail>
+                </ContentSection>
+                <S>
+                  <TagSection>
+                    <LinkButton>uikit</LinkButton>
+                    <LinkButton>sun do manager</LinkButton>
+                    <LinkButton>uikit</LinkButton>
+                    <LinkButton>uikit</LinkButton>
+                  </TagSection>
+                  <ButtonList />
+                </S>
+
+                <UserInfoSection>
+                  <UserInfoBox />
+                </UserInfoSection>
+                <Comment>
+                  {data ? (
+                    <CommentGetListTest>
+                      {data?.data?.content}
+                    </CommentGetListTest>
+                  ) : (
+                    ''
+                  )}
+                  <CommentBUT />
+                </Comment>
+                <RelatedQuestionsSection>
+                  <AddRelatedQuestionItem />
+                </RelatedQuestionsSection>
+                <P>
+                  Know someone who can answer? Share a link to this question via
+                  email, Twitter, or Facebook.
+                </P>
+                <AnswerCountBox />
+                {data ? (
+                  <QuestionCommentGetList>
+                    {data?.data?.content}
+                  </QuestionCommentGetList>
+                ) : (
+                  ''
+                )}
+                {/* <P1>Your Answer</P1> */}
+                <QuestionComment />
+              </MainContent>
+              <SideBarBox>
+                <BlogList title="The Overflow Blog" posts={blogPosts} />
+                <BlogList title="Featured on Meta" posts={MetaPosts} />
+              </SideBarBox>
+            </DescriptionBox>
+          </MiddleContent>
+        </Container>
+      </Layout>
+    </div>
+  );
+};
 
 // 메인 컴포넌트를 내보냅니다.
 export default LayoutWithBlogList;

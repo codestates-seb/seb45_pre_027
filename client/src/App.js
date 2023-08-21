@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Footer from './components/Footer';
-import Header from './components/Header';
-import SideBar from './components/SideBar';
+// import Header from './components/Header';
+// import SideBar from './components/SideBar';
 import Login from './pages/Login';
 import LogOut from './pages/LogOut';
 import QuestionDescription from './pages/QuestionDescription';
@@ -15,6 +15,8 @@ import { getCookieToken, setRefreshToken } from './storage/Cookie';
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_TOKEN } from './redux/tokenSlice';
 import { setIsLogin } from './redux/loginSlice';
+import QuestionEdit from './pages/QuestionEdit';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -58,8 +60,10 @@ function App() {
   }, []);
   return (
     <>
+
       {/* <Header />
       <SideBar /> */}
+
       <Routes>
         <Route path="/log-in" element={<Login />} />
         <Route path="/log-out" element={<LogOut />} />
@@ -69,6 +73,7 @@ function App() {
         <Route path="/question-regist" element={<QuestionRegist />} />
         <Route path="/my-info" element={<MyInfo />} />
         <Route path="/oauth/github/callback" element={<GithabCallback />} />
+        <Route path="/question-edit" element={<QuestionEdit />} />
       </Routes>
       {/* <Footer /> */}
     </>

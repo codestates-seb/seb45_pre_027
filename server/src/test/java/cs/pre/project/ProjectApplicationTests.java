@@ -1,10 +1,10 @@
-package com.example.tset;
+package cs.pre.project;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TsetApplicationTests {
+class ProjectApplicationTests {
 
 	@Test
 	void contextLoads() {
