@@ -82,12 +82,13 @@ const CloseButton = styled.button`
 const QuestionComment = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const { id } = useParams();
   // const [expecting, setExpecting] = useState('');
   const [showModal, setShowModal] = useState(false); // 모달 표시 여부를 관리하는 상태
 
   const handleSubmit = () => {
     console.log(handleSubmit);
-    fetch(`${process.env.REACT_APP_SERVER_URL}answer/1`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}answer/${id}`, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
@@ -109,6 +110,9 @@ const QuestionComment = () => {
         setTitle(''); // 텍스트 에디터 리셋
         setContent(''); // 텍스트 에디터 리셋
         setShowModal(true); // 모달 표시
+
+        // 방법 1: 페이지 전체를 새로고침
+        window.location.reload();
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -162,8 +166,6 @@ const QuestionComment = () => {
     <Container>
       <Title>Your Answer</Title>
       <StyledQuill value={content} onChange={setContent} />
-      {/* <StyledQuill value={content} onChange={setContent} />
-      <StyledQuill value={expecting} onChange={setExpecting} /> */}
 
       <SubmitButton onClick={handleSubmit}>Post Your Answer</SubmitButton>
 

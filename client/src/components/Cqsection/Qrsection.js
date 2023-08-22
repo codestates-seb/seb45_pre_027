@@ -1,5 +1,6 @@
-import styled from "styled-components";
-import React, { useState } from "react";
+import styled from 'styled-components';
+import React, { useState } from 'react';
+import TextEditor from './webeditor';
 
 const Modal = styled.div`
   position: fixed;
@@ -240,6 +241,7 @@ const SectionForm = styled.div`
         height: 80%;
         vertical-align: top;
         line-height: 100%;
+        padding: 10px;
       }
 
       .section-tags {
@@ -262,12 +264,20 @@ const SectionForm = styled.div`
     }
 
     .section-body {
-      height: 250px;
+      height: 300px;
     }
   }
 `;
 
-const Qrsection = () => {
+const Qrsection = ({
+  expecting,
+  setExpecting,
+  content,
+  setContent,
+  title,
+  setTitle,
+  handlesubmit,
+}) => {
   const [activeSection, setActiveSection] = useState(null);
   const [showNextButton, setShowNextButton] = useState([
     true,
@@ -336,16 +346,17 @@ const Qrsection = () => {
               type="text"
               className="section-input"
               placeholder="e.g is there an R function for finding the index of an element in a vector?"
+              onChange={(e) => setTitle(e.target.value)}
             ></input>
             <button
-              className={`section-btn ${showNextButton[0] ? "" : "hidden"}`}
+              className={`section-btn ${showNextButton[0] ? '' : 'hidden'}`}
               onClick={handleNextClick}
             >
               Next
             </button>
           </div>
           <div
-            className={`side-section ${activeSection === 0 ? "active" : ""}`}
+            className={`side-section ${activeSection === 0 ? 'active' : ''}`}
           >
             <div className="side-title">Writing a good title</div>
             <div className="side-form">
@@ -375,22 +386,22 @@ const Qrsection = () => {
               </label>
             </div>
             <div className="section-body">
-              <img src="layout.png" alt="test" />
-              <input
+              <TextEditor
                 className="section-body-input"
                 onClick={() => handleInputClick(1)}
                 type="text"
+                onChange={(editorData) => setContent(editorData)}
               />
             </div>
             <button
-              className={`section-btn ${showNextButton[1] ? "" : "hidden"}`}
+              className={`section-btn ${showNextButton[1] ? '' : 'hidden'}`}
               onClick={handleNextClick}
             >
               Next
             </button>
           </div>
           <div
-            className={`side-section ${activeSection === 1 ? "active" : ""}`}
+            className={`side-section ${activeSection === 1 ? 'active' : ''}`}
           >
             <div className="side-title">Introduce the problem</div>
             <div className="side-form">
@@ -419,22 +430,22 @@ const Qrsection = () => {
               </label>
             </div>
             <div className="section-body">
-              <img src="layout.png" alt="test" />
-              <input
+              <TextEditor
                 className="section-body-input"
                 onClick={() => handleInputClick(2)}
                 type="text"
+                onChange={(editorData) => setExpecting(editorData)}
               />
             </div>
             <button
-              className={`section-btn ${showNextButton[2] ? "" : "hidden"}`}
+              className={`section-btn ${showNextButton[2] ? '' : 'hidden'}`}
               onClick={handleNextClick}
             >
               Next
             </button>
           </div>
           <div
-            className={`side-section3 ${activeSection === 2 ? "active" : ""}`}
+            className={`side-section3 ${activeSection === 2 ? 'active' : ''}`}
           >
             <div className="side-title">Expand on the problem</div>
             <div className="side-form">
@@ -477,14 +488,14 @@ const Qrsection = () => {
               onClick={() => handleInputClick(3)}
             ></input>
             <button
-              className={`section-btn ${showNextButton[3] ? "" : "hidden"}`}
+              className={`section-btn ${showNextButton[3] ? '' : 'hidden'}`}
               onClick={handleNextClick}
             >
               Next
             </button>
           </div>
           <div
-            className={`side-section4 ${activeSection === 3 ? "active" : ""}`}
+            className={`side-section4 ${activeSection === 3 ? 'active' : ''}`}
           >
             <div className="side-title">Adding tags</div>
             <div className="side-form">
@@ -523,16 +534,16 @@ const Qrsection = () => {
               <input className="review-body" type="text" />
             </div>
             <button
-              className={`review-btn ${showNextButton[4] ? "" : "hidden"}`}
-              onClick={handleNextClick}
+              className={`review-btn ${showNextButton[4] ? '' : 'hidden'}`}
+              onClick={() => handlesubmit(title, content, expecting)}
             >
-              Review your question
+              Post your question
             </button>
           </div>
         </div>
       </SectionForm>
       <LastBtn
-        className={`last-btn ${showNextButton[5] ? "" : "hidden"}`}
+        className={`last-btn ${showNextButton[5] ? '' : 'hidden'}`}
         onClick={handleDiscardDraft}
       >
         Discard draft
