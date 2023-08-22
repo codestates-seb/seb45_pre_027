@@ -1,18 +1,26 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
+import QuestionList from '../pages/QuestionList';
 
 // CSS 코드입니다.
 
 // Sidebar에 전체적으로 적용할 CSS
 const StyledSidebar = styled.div`
-  font-size: 13px;
-  padding: 3rem 12rem;
-  width: 50px;
+  font-size: 14px;
+  color: gray;
+  /* padding: 2rem, 4rem; */
+  width: 164px;
+
   border-right: 1px solid gray;
+  margin-left: 20px;
+  /* margin-top: 30px; */
+  /* padding: 0px, 0px, 1643px, 0px; */
 `;
 
 const SidebarContianer = styled.div`
-  gap: 10px;
+  /* width: 164px; */
+  padding: 0;
+  margin-top: 30px;
 `;
 
 const SidebarNavi = styled.div``;
@@ -20,12 +28,14 @@ const SidebarNavi = styled.div``;
 const SidebarTitles = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 25px;
 `;
 
 const Title1 = styled.div``;
 
-const Title2 = styled.div``;
+const Title2 = styled.div`
+  cursor: pointer;
+`;
 
 const Title2Contents = styled.div`
   display: flex;
@@ -34,10 +44,6 @@ const Title2Contents = styled.div`
   margin: 10px 30px;
   font-size: 14px;
 `;
-
-const Title3 = styled.div``;
-
-const Title4 = styled.div``;
 
 const SideBar = () => {
   return (
@@ -55,8 +61,6 @@ const SideBar = () => {
                 <div href="/companies">Companies</div>
               </Title2Contents>
             </Title2>
-            <Title3>COLLECTIVES</Title3>
-            <Title4>TEAMS</Title4>
           </SidebarTitles>
         </SidebarNavi>
       </SidebarContianer>
