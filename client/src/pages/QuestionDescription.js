@@ -18,7 +18,9 @@ import CounterButton from '../components/DescriptionComponents/ButtonCNP/UpDownB
 import { CommentBUT } from '../components/DescriptionComponents/ButtonComponents/AddComment';
 import { CommentGetListTest } from '../components/DescriptionComponents/ListTest/CommentList';
 import { QuestionCommentGetList } from '../components/DescriptionComponents/Answers/QuestionCommentGet';
+
 import { useNavigate, useParams } from 'react-router';
+
 import {
   BlogListBox,
   BlogListContainer,
@@ -114,9 +116,11 @@ const LayoutWithBlogList = () => {
   const [title, setTitle] = useState('Loading...');
   console.log(title);
   const { id } = useParams();
+
   const navigate = useNavigate();
 
   const isLogIn = localStorage.getItem('log-in');
+
   useEffect(() => {
     if (!isLogIn) navigate('/log-in');
     // 백엔드 API 주소를 아래 URL에 설정합니다.
