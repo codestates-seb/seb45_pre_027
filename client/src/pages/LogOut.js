@@ -32,31 +32,36 @@ function LogOut() {
   // Cookie에 저장된 Refresh Token 정보를 받아 온다.
   const refreshToken = getCookieToken();
   const handleLogOut = async () => {
-    await fetch(`${process.env.REACT_APP_SERVER_URL}/logout`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        refresh_token: refreshToken,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        // 테스트용
-        localStorage.clear();
-        // //  redux에 저장된 access token 정보 삭제
-        // dispatch(DELETE_TOKEN());
-        // // cookie에 저장된 refresh token 정보 삭제
-        // removeCookieToken();
-        // // 자동 로그인 설정 해제
-        // localStorage.clear();
-        // 메인으로 페이지 이동
-        return navigate('/');
-      })
-      .catch((e) => {
-        window.location.reload();
-      });
+    // await fetch(`${process.env.REACT_APP_SERVER_URL}/logout`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     refresh_token: refreshToken,
+    //   }),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     // 테스트용
+    //     localStorage.clear();
+    //     // //  redux에 저장된 access token 정보 삭제
+    //     // dispatch(DELETE_TOKEN());
+    //     // // cookie에 저장된 refresh token 정보 삭제
+    //     // removeCookieToken();
+    //     // // 자동 로그인 설정 해제
+    //     // localStorage.clear();
+    //     // 메인으로 페이지 이동
+    //     return navigate('/');
+    //   })
+    //   .catch((e) => {
+    //     localStorage.clear();
+    //     window.location.reload();
+    //     navigate('/');
+    //   });
+
+    localStorage.clear();
+    navigate('/');
   };
   const isLogIn = localStorage.getItem('log-in');
   return (

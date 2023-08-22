@@ -328,10 +328,13 @@ const Qrsection = ({
     }
   };
   const isLogIn = localStorage.getItem('log-in');
+  const TestContainer = styled.div`
+    width: 100%;
+  `;
   return (
     <>
       {isLogIn ? (
-        <>
+        <TestContainer>
           <SectionForm>
             <div className="section-form">
               <div>
@@ -578,7 +581,7 @@ const Qrsection = ({
               </div>
             </Modal>
           )}
-        </>
+        </TestContainer>
       ) : (
         'no log-in'
       )}
