@@ -110,6 +110,9 @@ const QuestionComment = () => {
         setTitle(''); // 텍스트 에디터 리셋
         setContent(''); // 텍스트 에디터 리셋
         setShowModal(true); // 모달 표시
+
+        // 방법 1: 페이지 전체를 새로고침
+        window.location.reload();
       })
       .catch((error) => {
         console.error('Error:', error);
