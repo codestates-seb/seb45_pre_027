@@ -21,6 +21,7 @@ import { CommentBUT } from '../components/DescriptionComponents/ButtonComponents
 import { QuestionCommentGetListTest } from '../components/DescriptionComponents/ListTest/QuestionCommentGetList';
 import { CommentGetListTest } from '../components/DescriptionComponents/ListTest/CommentList';
 import { QuestionCommentGetList } from '../components/DescriptionComponents/Answers/QuestionCommentGet';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 // 질문 상세 페이지를 위한 주 컨테이너 스타일링.
 
@@ -290,10 +291,12 @@ const ButtonGroup = () => (
 // 질문 상세 페이지를 렌더링하기 위한 메인 컴포넌트.
 const LayoutWithBlogList = () => {
   const [data, setData] = useState('Loading...');
-  useEffect(() => {
-    // 백엔드 API 주소를 아래 URL에 설정합니다.
+  const { id } = useParams();
 
-    fetch(`${process.env.REACT_APP_SERVER_URL}board/1`, {
+  useEffect(() => {
+    //   // 백엔드 API 주소를 아래 URL에 설정합니다.
+
+    fetch(`${process.env.REACT_APP_SERVER_URL}board/${id}`, {
       method: 'get',
       headers: new Headers({
         'ngrok-skip-browser-warning': '69420',
@@ -315,9 +318,12 @@ const LayoutWithBlogList = () => {
         );
       });
   }, []); // 빈 의존성 배열을 사용하여 컴포넌트 마운트 시에만 실행
+
   const isLogIn = localStorage.getItem('log-in');
+
   return (
     <div>
+      <div>{id}</div>
       {isLogIn ? (
         <>
           {/* <Header /> */}
@@ -344,7 +350,7 @@ const LayoutWithBlogList = () => {
                       <ContentDetail>
                         <QuestionContent />
                       </ContentDetail>
-                    </ContentSection>
+                    </ContentSection>{' '}
                     <S>
                       <TagSection>
                         <LinkButton>uikit</LinkButton>
@@ -354,7 +360,6 @@ const LayoutWithBlogList = () => {
                       </TagSection>
                       <ButtonList />
                     </S>
-
                     <UserInfoSection>
                       <UserInfoBox />
                     </UserInfoSection>

@@ -22,7 +22,7 @@ const QuestionContent = () => {
   const loadMore = () => {
     console.log('loadMore');
     fetch(`${process.env.REACT_APP_SERVER_URL}board/4`, {
-      method: 'get',
+      method: 'GET',
       headers: new Headers({
         'ngrok-skip-browser-warning': '69420',
       }),

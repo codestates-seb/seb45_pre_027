@@ -76,7 +76,7 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/questions" element={<QuestionList />} />
           <Route
-            path="/question-description"
+            path="/question-description/:id" // -> /q-d/1 ->1을 id라는 변수로 받겠다.
             element={<QuestionDescription />}
           />
           <Route path="/question-regist" element={<QuestionRegist />} />

@@ -139,7 +139,7 @@ function SignUpForm() {
   // }, []);
   const handleLogin = async (data) => {
     console.log(data);
-    await fetch(`${process.env.REACT_APP_SERVER_URL}/members`, {
+    await fetch(`${process.env.REACT_APP_SERVER_URL}members`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
