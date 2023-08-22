@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Pagination from './pagenation';
+import { navigate, useNavigate } from 'react-router';
+
 // import UserInfo from './UserInfo';
 import Tag from './Tag';
 import { Link, useParams } from 'react-router-dom';
+import QuestionRegist from './QuestionRegist';
 
 const Main = styled.div`
   color: black;
@@ -54,6 +57,7 @@ const AskQuestionbt = styled.div`
   &:hover {
     filter: brightness(120%);
   }
+  cursor: pointer;
 `;
 
 const ViewAndFilterbt = styled.div`
@@ -119,7 +123,7 @@ const QuestionVoteAnswerView = styled.div`
 
 const Question = styled.div`
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
 `;
 
 const QuestionTitle = styled.div`
@@ -290,13 +294,54 @@ const QuestionPostTime = styled.div`
 
 // export default QuestionList;
 const QuestionList = () => {
+  const navigate = useNavigate();
+
+  const titlebtclick = () => {
+    navigate('/question-description');
+  };
+  const askbtclick = () => {
+    navigate('/question-regist');
+  };
+
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const [totalElements, setTotalElements] = useState(0);
-  const [data, setData] = useState([]);
+  const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
-    // 백엔드 API 주소를 아래 URL에 설정합니다.
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          'https://4134-183-102-170-103.ngrok-free.app/',
+          {
+            method: 'get',
+            headers: new Headers({
+              'ngrok-skip-browser-warning': '69420',
+            }),
+          },
+        );
+
+        const data = await response.json();
+        console.log(data);
+        setTotalPages(data.pageInfo.totalPages);
+        setQuestions(data.data);
+      } catch (error) {
+        console.error('실패함.', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // const geturl = 'https://bba2-183-102-170-103.ngrok-free.app/board?page=1&size=10';
+
+  // useEffect(()=>{
+  //   fetch(geturl);
+  // });
+
+  //   // 페이지네이션;
+  //   const [page, setPage] = useState(0);
+  //   const [totalPages, setTotalPages] = useState(0);
+  //   const [totalElements, setTotalElements] = useState(0);
 
     fetch(`${process.env.REACT_APP_SERVER_URL}board?page=1&size=10`, {
       method: 'get',
@@ -327,13 +372,34 @@ const QuestionList = () => {
       <Section>
         <Header>
           <HeaderTitle>All Questions</HeaderTitle>
-          <AskQuestionbt>Ask Question</AskQuestionbt>
+          <AskQuestionbt onClick={askbtclick}>Ask Question</AskQuestionbt>
         </Header>
 
         <ViewAndFilterbt>
           <ViewCount>{data?.data?.length} questions</ViewCount>
           {/* ... */}
         </ViewAndFilterbt>
+        <List>
+          {questions.map((question) => (
+            <QuestionsContainer key={question.boardId}>
+              <QuestionVoteAnswerView>
+                <div>votes</div>
+                <div>answers</div>
+                <div>{question.view} views</div>
+              </QuestionVoteAnswerView>
+              <Question>
+                <QuestionTitle onClick={titlebtclick}>
+                  {question.title}
+                </QuestionTitle>
+                <QuestionContent>{question.content}</QuestionContent>
+                <QuestionTagsAndPostTime>
+                  <UserInfo>username</UserInfo>
+                  <QuestionPostTime>{question.createdAt}</QuestionPostTime>
+                </QuestionTagsAndPostTime>
+              </Question>
+            </QuestionsContainer>
+          ))}
+        </List>
 
         {data?.map((ele) => (
           <List key={ele.boardId}>
