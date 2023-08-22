@@ -18,7 +18,7 @@ import CounterButton from '../components/DescriptionComponents/ButtonCNP/UpDownB
 import { CommentBUT } from '../components/DescriptionComponents/ButtonComponents/AddComment';
 import { CommentGetListTest } from '../components/DescriptionComponents/ListTest/CommentList';
 import { QuestionCommentGetList } from '../components/DescriptionComponents/Answers/QuestionCommentGet';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import {
   BlogListBox,
   BlogListContainer,
@@ -114,8 +114,11 @@ const LayoutWithBlogList = () => {
   const [title, setTitle] = useState('Loading...');
   console.log(title);
   const { id } = useParams();
+  const navigate = useNavigate();
 
+  const isLogIn = localStorage.getItem('log-in');
   useEffect(() => {
+    if (!isLogIn) navigate('/log-in');
     // 백엔드 API 주소를 아래 URL에 설정합니다.
 
     fetch(`${process.env.REACT_APP_SERVER_URL}board/${id}`, {
@@ -144,7 +147,7 @@ const LayoutWithBlogList = () => {
       });
   }, []); // 빈 의존성 배열을 사용하여 컴포넌트 마운트 시에만 실행
 
-  const isLogIn = localStorage.getItem('log-in');
+  // const isLogIn = true;
 
   return (
     <div>
