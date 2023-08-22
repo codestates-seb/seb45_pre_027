@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Pagination from './pagenation';
 import { navigate, useNavigate } from 'react-router';
-
 // import UserInfo from './UserInfo';
 import Tag from './Tag';
 import QuestionRegist from './QuestionRegist';
+import { Link, useParams } from 'react-router-dom';
 
 const Main = styled.div`
   color: black;
@@ -187,24 +187,23 @@ const QuestionList = () => {
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [questions, setQuestions] = useState([]);
-
+  const [data, setData] = useState();
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          'https://4134-183-102-170-103.ngrok-free.app/',
-          {
-            method: 'get',
-            headers: new Headers({
-              'ngrok-skip-browser-warning': '69420',
-            }),
-          },
-        );
-
-        const data = await response.json();
-        console.log(data);
-        setTotalPages(data.pageInfo.totalPages);
-        setQuestions(data.data);
+        await fetch(`${process.env.REACT_APP_SERVER_URL}board?page=1&size=10`, {
+          method: 'get',
+          headers: new Headers({
+            'ngrok-skip-browser-warning': '69420',
+            'Content-Type': 'application/json',
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            setData(data);
+            setTotalPages(data.pageInfo.totalPages);
+            setQuestions(data.data);
+          });
       } catch (error) {
         console.error('실패함.', error);
       }
@@ -212,20 +211,7 @@ const QuestionList = () => {
 
     fetchData();
   }, []);
-
-  // const geturl = 'https://bba2-183-102-170-103.ngrok-free.app/board?page=1&size=10';
-
-  // useEffect(()=>{
-  //   fetch(geturl);
-  // });
-
-  //   // 페이지네이션;
-  //   const [page, setPage] = useState(0);
-  //   const [totalPages, setTotalPages] = useState(0);
-  //   const [totalElements, setTotalElements] = useState(0);
-
-  // const [searchParams, setSearchParams] = useSearchParams();
-
+  console.log(data);
   return (
     <Main>
       <Section>
@@ -235,40 +221,35 @@ const QuestionList = () => {
         </Header>
 
         <ViewAndFilterbt>
-          <ViewCount>{} questions</ViewCount>
-
-          <FilterContainer>
-            <NewestFilter>
-              <div>Newest</div>
-            </NewestFilter>
-            <ActiveFilter>
-              <div>Active</div>
-            </ActiveFilter>
-          </FilterContainer>
+          <ViewCount>{data?.data?.length} questions</ViewCount>
+          {/* ... */}
         </ViewAndFilterbt>
-        <List>
-          {questions.map((question) => (
-            <QuestionsContainer key={question.boardId}>
+
+        {data?.data?.map((ele) => (
+          <List key={ele.boardId}>
+            <QuestionsContainer>
               <QuestionVoteAnswerView>
-                <div>votes</div>
-                <div>answers</div>
-                <div>{question.view} views</div>
+                <div>{ele.votes} votes</div>
+                <div>{ele.answers} answers</div>
+                <div>{ele.views} views</div>
               </QuestionVoteAnswerView>
+
               <Question>
-                <QuestionTitle onClick={titlebtclick}>
-                  {question.title}
-                </QuestionTitle>
-                <QuestionContent>{question.content}</QuestionContent>
+                <Link to={`/question-description/${ele.boardId}`}>
+                  <QuestionTitle>{ele.title}</QuestionTitle>
+                </Link>
+                <QuestionContent>{ele.content}</QuestionContent>
+
                 <QuestionTagsAndPostTime>
-                  <UserInfo>username</UserInfo>
-                  <QuestionPostTime>{question.createdAt}</QuestionPostTime>
+                  <UserInfo>{ele.username}</UserInfo>
+                  <QuestionPostTime>asked {ele.time} ago</QuestionPostTime>
                 </QuestionTagsAndPostTime>
               </Question>
             </QuestionsContainer>
-          ))}
-        </List>
+          </List>
+        ))}
       </Section>
-      <Pagination page={page} totalPages={totalPages} />
+      <Pagination page={data?.pageInfo.page} totalPages={totalPages} />
     </Main>
   );
 };
