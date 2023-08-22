@@ -1,243 +1,240 @@
+import styled from 'styled-components';
+import React, { useState } from 'react';
+import TextEditor from './webeditor';
 
-import styled from "styled-components";
-import React, { useState } from "react";
-import TextEditor from "./webeditor";
+const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  .modal-text {
+    margin-left: 22px;
+  }
+  .modal-content {
+    background-color: white;
+    border: none;
+    width: 470px;
+    border-radius: 7px;
+    height: 170px;
+    font-size: 14px;
+  }
+  .modal-title {
+    color: #d0393e;
+    font-size: 30px;
+    margin: 22px;
+  }
+  .modal-btn {
+    margin: 22px;
+  }
+  .redbtn {
+    background-color: red;
+    border: none;
+    width: 120px;
+    height: 35px;
+    border-radius: 7px;
+    color: white;
+    &:hover {
+      background-color: #d0393e;
+    }
+  }
+  .whtiebtn {
+    background-color: white;
+    border: none;
+    margin-left: 10px;
+    height: 35px;
+    border-radius: 7px;
+    width: 60px;
+    &:hover {
+      background-color: #f8f9f9;
+    }
+  }
+`;
 
+const LastBtn = styled.button`
+  color: #d0394e;
+  background-color: rgba(248, 249, 249, 1);
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  border: none;
+  height: 35px;
+  display: flex;
+  margin: 10px;
+  width: 90px;
+  &:hover {
+    background-color: pink;
+  }
+`;
 
-// const Modal = styled.div`
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100%;
-//   background-color: rgba(0, 0, 0, 0.5);
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   z-index: 999;
-//   .modal-text {
-//     margin-left: 22px;
-//   }
-//   .modal-content {
-//     background-color: white;
-//     border: none;
-//     width: 470px;
-//     border-radius: 7px;
-//     height: 170px;
-//     font-size: 14px;
-//   }
-//   .modal-title {
-//     color: #d0393e;
-//     font-size: 30px;
-//     margin: 22px;
-//   }
-//   .modal-btn {
-//     margin: 22px;
-//   }
-//   .redbtn {
-//     background-color: red;
-//     border: none;
-//     width: 120px;
-//     height: 35px;
-//     border-radius: 7px;
-//     color: white;
-//     &:hover {
-//       background-color: #d0393e;
-//     }
-//   }
-//   .whtiebtn {
-//     background-color: white;
-//     border: none;
-//     margin-left: 10px;
-//     height: 35px;
-//     border-radius: 7px;
-//     width: 60px;
-//     &:hover {
-//       background-color: #f8f9f9;
-//     }
-//   }
-// `;
+const SectionForm = styled.div`
+  .side-section {
+    border: 1px solid rgba(214, 217, 220, 1);
+    background-color: rgba(255, 255, 255, 1);
+    height: 160px;
+    margin-top: 10px;
+    margin-left: 10px;
+    border-radius: 6px;
+    box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.2);
+    display: none;
+  }
+  .side-section3 {
+    border: 1px solid rgba(214, 217, 220, 1);
+    background-color: rgba(255, 255, 255, 1);
+    height: 300px;
+    margin-top: 10px;
+    margin-left: 10px;
+    border-radius: 6px;
+    box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.2);
+    display: none;
+  }
+  .side-section4 {
+    border: 1px solid rgba(214, 217, 220, 1);
+    background-color: rgba(255, 255, 255, 1);
+    height: 200px;
+    margin-top: 10px;
+    margin-left: 10px;
+    border-radius: 6px;
+    box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.2);
+    display: none;
+  }
+  .hidden {
+    display: none;
+  }
+  .active {
+    display: block;
+  }
+  .side-title {
+    background-color: #f8f9f9;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    font-size: 16px;
+    border-bottom: 1px solid #d6d9dc;
+  }
+  .side-form {
+    display: flex;
+    flex-direction: row;
+  }
+  .side-text {
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+    margin-left: 5px;
+    margin-top: 10px;
+    > p {
+      margin: 10px 20px 5px 1px;
+    }
+  }
+  .side-image {
+    width: 50px;
+    height: 90px;
+    margin: 20px;
+  }
+  .side-image4 {
+    width: 60px;
+    height: 100px;
+    margin: 14px;
+  }
 
-// const LastBtn = styled.button`
-//   color: #d0394e;
-//   background-color: rgba(248, 249, 249, 1);
-//   border-radius: 7px;
-//   display: flex;
-//   align-items: center;
-//   border: none;
-//   height: 35px;
-//   display: flex;
-//   margin: 10px;
-//   width: 90px;
-//   &:hover {
-//     background-color: pink;
-//   }
-// `;
+  .form-tags {
+    height: 180px;
+  }
+  .form-review {
+    height: 200px;
+  }
+  .review-btn {
+    width: 150px;
+    height: 37px;
+    background-color: rgba(10, 149, 255, 1);
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    color: white;
+    margin: 7px 0px;
+    padding: 10px;
+    &:hover {
+      background-color: rgba(0, 109, 205, 1);
+    }
+  }
+  .tags-btn {
+    width: 50px;
+    height: 37px;
+    background-color: rgba(10, 149, 255, 1);
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    color: white;
+    margin-top: 1px;
+    &:hover {
+      background-color: rgba(0, 109, 205, 1);
+    }
+  }
+  .form-review {
+    height: 200px;
+  }
+  .section-form {
+    display: flex;
+    > div:first-child {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 70%;
+      margin: 8px 8px 8px 0;
+      padding: 24px;
+      flex-shrink: 0;
+      background-color: #fff;
+      border: 1px solid rgba(227, 230, 232, 1);
+      border-radius: 7px;
 
-// const SectionForm = styled.div`
-//   .side-section {
-//     border: 1px solid rgba(214, 217, 220, 1);
-//     background-color: rgba(255, 255, 255, 1);
-//     height: 160px;
-//     margin-top: 10px;
-//     margin-left: 10px;
-//     border-radius: 6px;
-//     box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.2);
-//     display: none;
-//   }
-//   .side-section3 {
-//     border: 1px solid rgba(214, 217, 220, 1);
-//     background-color: rgba(255, 255, 255, 1);
-//     height: 300px;
-//     margin-top: 10px;
-//     margin-left: 10px;
-//     border-radius: 6px;
-//     box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.2);
-//     display: none;
-//   }
-//   .side-section4 {
-//     border: 1px solid rgba(214, 217, 220, 1);
-//     background-color: rgba(255, 255, 255, 1);
-//     height: 200px;
-//     margin-top: 10px;
-//     margin-left: 10px;
-//     border-radius: 6px;
-//     box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.2);
-//     display: none;
-//   }
-//   .hidden {
-//     display: none;
-//   }
-//   .active {
-//     display: block;
-//   }
-//   .side-title {
-//     background-color: #f8f9f9;
-//     height: 45px;
-//     display: flex;
-//     align-items: center;
-//     padding-left: 10px;
-//     font-size: 16px;
-//     border-bottom: 1px solid #d6d9dc;
-//   }
-//   .side-form {
-//     display: flex;
-//     flex-direction: row;
-//   }
-//   .side-text {
-//     display: flex;
-//     flex-direction: column;
-//     font-size: 13px;
-//     margin-left: 5px;
-//     margin-top: 10px;
-//     > p {
-//       margin: 10px 20px 5px 1px;
-//     }
-//   }
-//   .side-image {
-//     width: 50px;
-//     height: 90px;
-//     margin: 20px;
-//   }
-//   .side-image4 {
-//     width: 60px;
-//     height: 100px;
-//     margin: 14px;
-//   }
+      .section-input {
+        margin: 7px 0px 0px 0px;
+        height: 30px;
+        font-size: 13px;
+      }
+      .review-body {
+        width: 100%;
+        height: 50px;
+      }
+      .review-label {
+        margin-bottom: 10px;
+      }
+      label {
+        font-size: 13px;
+        margin: 3px 0px;
+      }
+      .label-title {
+        font-weight: bold;
+        font-size: 16px;
+      }
+      .review-title {
+        margin: 20px 0px 5px 0px;
+      }
 
-//   .form-tags {
-//     height: 180px;
-//   }
-//   .form-review {
-//     height: 200px;
-//   }
-//   .review-btn {
-//     width: 150px;
-//     height: 37px;
-//     background-color: rgba(10, 149, 255, 1);
-//     border: none;
-//     border-radius: 6px;
-//     font-size: 13px;
-//     color: white;
-//     margin: 7px 0px;
-//     padding: 10px;
-//     &:hover {
-//       background-color: rgba(0, 109, 205, 1);
-//     }
-//   }
-//   .tags-btn {
-//     width: 50px;
-//     height: 37px;
-//     background-color: rgba(10, 149, 255, 1);
-//     border: none;
-//     border-radius: 6px;
-//     font-size: 13px;
-//     color: white;
-//     margin-top: 1px;
-//     &:hover {
-//       background-color: rgba(0, 109, 205, 1);
-//     }
-//   }
-//   .form-review {
-//     height: 200px;
-//   }
-//   .section-form {
-//     display: flex;
-//     > div:first-child {
-//       display: flex;
-//       flex-direction: column;
-//       justify-content: space-around;
-//       width: 70%;
-//       margin: 8px 8px 8px 0;
-//       padding: 24px;
-//       flex-shrink: 0;
-//       background-color: #fff;
-//       border: 1px solid rgba(227, 230, 232, 1);
-//       border-radius: 7px;
+      .section-btn {
+        width: 50px;
+        height: 37px;
+        background-color: rgba(10, 149, 255, 1);
+        border-radius: 6px;
+        font-size: 13px;
+        color: white;
+        margin-top: 7px;
+        border: none;
+        &:hover {
+          background-color: rgba(0, 109, 205, 1);
+        }
+      }
 
-//       .section-input {
-//         margin: 7px 0px 0px 0px;
-//         height: 30px;
-//         font-size: 13px;
-//       }
-//       .review-body {
-//         width: 100%;
-//         height: 50px;
-//       }
-//       .review-label {
-//         margin-bottom: 10px;
-//       }
-//       label {
-//         font-size: 13px;
-//         margin: 3px 0px;
-//       }
-//       .label-title {
-//         font-weight: bold;
-//         font-size: 16px;
-//       }
-//       .review-title {
-//         margin: 20px 0px 5px 0px;
-//       }
-
-//       .section-btn {
-//         width: 50px;
-//         height: 37px;
-//         background-color: rgba(10, 149, 255, 1);
-//         border-radius: 6px;
-//         font-size: 13px;
-//         color: white;
-//         margin-top: 7px;
-//         border: none;
-//         &:hover {
-//           background-color: rgba(0, 109, 205, 1);
-//         }
-//       }
-
-//       .section-title {
-//         display: flex;
-//         flex-direction: column;
-//       }
-
+      .section-title {
+        display: flex;
+        flex-direction: column;
+      }
 
       .section-body-input {
         width: 100%;
@@ -247,26 +244,24 @@ import TextEditor from "./webeditor";
         padding: 10px;
       }
 
+      .section-tags {
+        width: 100%;
+        height: 30px;
+      }
 
-//       .section-tags {
-//         width: 100%;
-//         height: 30px;
-//       }
+      > label {
+        color: hsl(210, 8%, 5%);
+        font-weight: 600;
+        font-size: 16px;
+        font-weight: bold;
+        padding-top: 5px;
 
-//       > label {
-//         color: hsl(210, 8%, 5%);
-//         font-weight: 600;
-//         font-size: 16px;
-//         font-weight: bold;
-//         padding-top: 5px;
-
-//         &:last-child {
-//           font-weight: normal;
-//           font-size: 13px;
-//         }
-//       }
-//     }
-
+        &:last-child {
+          font-weight: normal;
+          font-size: 13px;
+        }
+      }
+    }
 
     .section-body {
       height: 300px;
@@ -281,7 +276,7 @@ const Qrsection = ({
   setContent,
   title,
   setTitle,
-  handlesubmit
+  handlesubmit,
 }) => {
   const [activeSection, setActiveSection] = useState(null);
   const [showNextButton, setShowNextButton] = useState([
@@ -293,35 +288,33 @@ const Qrsection = ({
   ]);
   const [showDiscardModal, setShowDiscardModal] = useState(false);
 
+  const handleDiscardDraft = () => {
+    setShowDiscardModal(true);
+  };
+  const handleConfirmDiscard = () => {
+    window.location.reload();
+    window.scrollTo(0, 0);
+    setActiveSection(null);
+    setShowNextButton([true, false, false, false, false]);
+    setShowDiscardModal(false);
+  };
 
-//   const handleDiscardDraft = () => {
-//     setShowDiscardModal(true);
-//   };
-//   const handleConfirmDiscard = () => {
-//     window.location.reload();
-//     window.scrollTo(0, 0);
-//     setActiveSection(null);
-//     setShowNextButton([true, false, false, false, false]);
-//     setShowDiscardModal(false);
-//   };
+  const handleCancelDiscard = () => {
+    setShowDiscardModal(false);
+  };
 
-//   const handleCancelDiscard = () => {
-//     setShowDiscardModal(false);
-//   };
+  const handleInputClick = (index) => {
+    if (!showNextButton[index]) {
+      return;
+    }
 
-//   const handleInputClick = (index) => {
-//     if (!showNextButton[index]) {
-//       return;
-//     }
-
-//     setActiveSection(index);
-//     setShowNextButton((prev) => {
-//       const newState = [...prev];
-//       newState[index] = true;
-//       return newState;
-//     });
-//   };
-
+    setActiveSection(index);
+    setShowNextButton((prev) => {
+      const newState = [...prev];
+      newState[index] = true;
+      return newState;
+    });
+  };
 
   const handleNextClick = () => {
     if (activeSection < 4) {
@@ -356,14 +349,14 @@ const Qrsection = ({
               onChange={(e) => setTitle(e.target.value)}
             ></input>
             <button
-              className={`section-btn ${showNextButton[0] ? "" : "hidden"}`}
+              className={`section-btn ${showNextButton[0] ? '' : 'hidden'}`}
               onClick={handleNextClick}
             >
               Next
             </button>
           </div>
           <div
-            className={`side-section ${activeSection === 0 ? "active" : ""}`}
+            className={`side-section ${activeSection === 0 ? 'active' : ''}`}
           >
             <div className="side-title">Writing a good title</div>
             <div className="side-form">
@@ -393,21 +386,22 @@ const Qrsection = ({
               </label>
             </div>
             <div className="section-body">
-              <TextEditor 
-                  className="section-body-input"
-                  onClick={() => handleInputClick(1)}
-                  type="text"
-                  onChange={(editorData) => setContent(editorData)}/>
+              <TextEditor
+                className="section-body-input"
+                onClick={() => handleInputClick(1)}
+                type="text"
+                onChange={(editorData) => setContent(editorData)}
+              />
             </div>
             <button
-              className={`section-btn ${showNextButton[1] ? "" : "hidden"}`}
+              className={`section-btn ${showNextButton[1] ? '' : 'hidden'}`}
               onClick={handleNextClick}
             >
               Next
             </button>
           </div>
           <div
-            className={`side-section ${activeSection === 1 ? "active" : ""}`}
+            className={`side-section ${activeSection === 1 ? 'active' : ''}`}
           >
             <div className="side-title">Introduce the problem</div>
             <div className="side-form">
@@ -436,21 +430,22 @@ const Qrsection = ({
               </label>
             </div>
             <div className="section-body">
-              <TextEditor 
-                  className="section-body-input"
-                  onClick={() => handleInputClick(2)}
-                  type="text"
-                  onChange={(editorData) => setExpecting(editorData)}/>
+              <TextEditor
+                className="section-body-input"
+                onClick={() => handleInputClick(2)}
+                type="text"
+                onChange={(editorData) => setExpecting(editorData)}
+              />
             </div>
             <button
-              className={`section-btn ${showNextButton[2] ? "" : "hidden"}`}
+              className={`section-btn ${showNextButton[2] ? '' : 'hidden'}`}
               onClick={handleNextClick}
             >
               Next
             </button>
           </div>
           <div
-            className={`side-section3 ${activeSection === 2 ? "active" : ""}`}
+            className={`side-section3 ${activeSection === 2 ? 'active' : ''}`}
           >
             <div className="side-title">Expand on the problem</div>
             <div className="side-form">
@@ -493,14 +488,14 @@ const Qrsection = ({
               onClick={() => handleInputClick(3)}
             ></input>
             <button
-              className={`section-btn ${showNextButton[3] ? "" : "hidden"}`}
+              className={`section-btn ${showNextButton[3] ? '' : 'hidden'}`}
               onClick={handleNextClick}
             >
               Next
             </button>
           </div>
           <div
-            className={`side-section4 ${activeSection === 3 ? "active" : ""}`}
+            className={`side-section4 ${activeSection === 3 ? 'active' : ''}`}
           >
             <div className="side-title">Adding tags</div>
             <div className="side-form">
@@ -539,7 +534,7 @@ const Qrsection = ({
               <input className="review-body" type="text" />
             </div>
             <button
-              className={`review-btn ${showNextButton[4] ? "" : "hidden"}`}
+              className={`review-btn ${showNextButton[4] ? '' : 'hidden'}`}
               onClick={() => handlesubmit(title, content, expecting)}
             >
               Post your question
@@ -548,7 +543,7 @@ const Qrsection = ({
         </div>
       </SectionForm>
       <LastBtn
-        className={`last-btn ${showNextButton[5] ? "" : "hidden"}`}
+        className={`last-btn ${showNextButton[5] ? '' : 'hidden'}`}
         onClick={handleDiscardDraft}
       >
         Discard draft
@@ -576,5 +571,4 @@ const Qrsection = ({
   );
 };
 
-
-// export default Qrsection;
+export default Qrsection;
