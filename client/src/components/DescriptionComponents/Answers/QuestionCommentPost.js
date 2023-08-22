@@ -88,6 +88,7 @@ const QuestionComment = () => {
 
   const handleSubmit = () => {
     console.log(handleSubmit);
+
     fetch(`${process.env.REACT_APP_SERVER_URL}answer/${id}`, {
       method: 'post',
       headers: {

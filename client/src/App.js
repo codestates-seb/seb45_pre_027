@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-
 import { Routes, Route } from 'react-router-dom';
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -77,7 +76,7 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/questions" element={<QuestionList />} />
           <Route
-            path="/question-description/:id" // -> /q-d/1 ->1을 id라는 변수로 받겠다.
+            path="/question-description/:id"
             element={<QuestionDescription />}
           />
           <Route path="/question-regist" element={<QuestionRegist />} />

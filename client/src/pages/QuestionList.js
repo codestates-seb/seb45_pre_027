@@ -2,11 +2,10 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Pagination from './pagenation';
 import { navigate, useNavigate } from 'react-router';
-
 // import UserInfo from './UserInfo';
 import Tag from './Tag';
-import { Link, useParams } from 'react-router-dom';
 import QuestionRegist from './QuestionRegist';
+import { Link, useParams } from 'react-router-dom';
 
 const Main = styled.div`
   color: black;
@@ -174,125 +173,7 @@ const QuestionPostTime = styled.div`
   /* text-align: right; */
 `;
 
-// const dummyData = {
-//   data: [
-//     {
-//       borderId: 3,
-//       title: 'Title 1',
-//       content: 'Content 1',
-//     },
-//     {
-//       borderId: 4,
-//       title: 'Title 2',
-//       content: 'Content 2',
-//     },
-//     {
-//       borderId: 5,
-//       title: 'Title 3',
-//       content: 'Content 3',
-//     },
-//   ],
-// };
-
-// // 질문 리스트 페이지
-// const QuestionList = () => {
-//   // 페이지네이션
-//   const [page, setPage] = useState(0);
-//   const [totalPages, setTotalPages] = useState(0);
-//   const [totalElements, setTotalElements] = useState(0);
-
-//   // const [searchParams, setSearchParams] = useSearchParams();
-
-//   return (
-//     <Main>
-//       <Section>
-//         <Header>
-//           <HeaderTitle>All Questions</HeaderTitle>
-//           <AskQuestionbt>Ask Question</AskQuestionbt>
-//         </Header>
-
-//         <ViewAndFilterbt>
-//           <ViewCount>{} questions</ViewCount>
-
-//           <FilterContainer>
-//             <NewestFilter>
-//               <div>Newest</div>
-//             </NewestFilter>
-//             <ActiveFilter>
-//               <div>Active</div>
-//             </ActiveFilter>
-//           </FilterContainer>
-//         </ViewAndFilterbt>
-//         <List>
-//           {/* <QuestionListBar> */}
-//           <QuestionsContainer>
-//             <QuestionVoteAnswerView>
-//               <div>{} votes</div>
-//               <div>{} answers</div>
-//               <div>{} views</div>
-//             </QuestionVoteAnswerView>
-//             <Question>
-//               <QuestionTitle>{}This is title</QuestionTitle>
-//               <QuestionContent>{}Content is long</QuestionContent>
-//               <QuestionTagsAndPostTime>
-//                 <UserInfo>username</UserInfo>
-//                 <QuestionPostTime>asked {} ago</QuestionPostTime>
-//               </QuestionTagsAndPostTime>
-//             </Question>
-//           </QuestionsContainer>
-//           {/* </QuestionListBar> */}
-//         </List>
-
-//         <List>
-//           {/* <QuestionListBar> */}
-//           <QuestionsContainer>
-//             <QuestionVoteAnswerView>
-//               <div>{} votes</div>
-//               <div>{} answers</div>
-//               <div>{} views</div>
-//             </QuestionVoteAnswerView>
-
-//             <Question>
-//               <QuestionTitle>{}This is title</QuestionTitle>
-//               <QuestionContent>{}Content is long</QuestionContent>
-
-//               <QuestionTagsAndPostTime>
-//                 <UserInfo>username</UserInfo>
-//                 <QuestionPostTime>asked {} ago</QuestionPostTime>
-//               </QuestionTagsAndPostTime>
-//             </Question>
-//           </QuestionsContainer>
-//           {/* </QuestionListBar> */}
-//         </List>
-
-//         <List>
-//           {/* <QuestionListBar> */}
-//           <QuestionsContainer>
-//             <QuestionVoteAnswerView>
-//               <div>{} votes</div>
-//               <div>{} answers</div>
-//               <div>{} views</div>
-//             </QuestionVoteAnswerView>
-
-//             <Question>
-//               <QuestionTitle>{}This is title</QuestionTitle>
-//               <QuestionContent>{}Content is long</QuestionContent>
-
-//               <QuestionTagsAndPostTime>
-//                 <UserInfo>username</UserInfo>
-//                 <QuestionPostTime>asked {} ago</QuestionPostTime>
-//               </QuestionTagsAndPostTime>
-//             </Question>
-//           </QuestionsContainer>
-//           {/* </QuestionListBar> */}
-//         </List>
-//       </Section>
-//       <Pagination page={page} totalPages={totalPages} />
-//     </Main>
-//   );
-// };
-
-// export default QuestionList;
+// 질문 리스트 페이지
 const QuestionList = () => {
   const navigate = useNavigate();
 
@@ -306,26 +187,23 @@ const QuestionList = () => {
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [questions, setQuestions] = useState([]);
-  const [data, setData] = useState([]);
-
+  const [data, setData] = useState();
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          'https://4134-183-102-170-103.ngrok-free.app/',
-          {
-            method: 'get',
-            headers: new Headers({
-              'ngrok-skip-browser-warning': '69420',
-            }),
-          },
-        );
-
-        const d = await response.json();
-        setData(d);
-        console.log(data);
-        setTotalPages(data.pageInfo.totalPages);
-        setQuestions(data.data);
+        await fetch(`${process.env.REACT_APP_SERVER_URL}board?page=1&size=10`, {
+          method: 'get',
+          headers: new Headers({
+            'ngrok-skip-browser-warning': '69420',
+            'Content-Type': 'application/json',
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            setData(data);
+            setTotalPages(data.pageInfo.totalPages);
+            setQuestions(data.data);
+          });
       } catch (error) {
         console.error('실패함.', error);
       }
@@ -333,42 +211,7 @@ const QuestionList = () => {
 
     fetchData();
   }, []);
-
-  // const geturl = 'https://bba2-183-102-170-103.ngrok-free.app/board?page=1&size=10';
-
-  // useEffect(()=>{
-  //   fetch(geturl);
-  // });
-
-  //   // 페이지네이션;
-  //   const [page, setPage] = useState(0);
-  //   const [totalPages, setTotalPages] = useState(0);
-  //   const [totalElements, setTotalElements] = useState(0);
-
-  //   fetch(`${process.env.REACT_APP_SERVER_URL}board?page=1&size=10`, {
-  //     method: 'get',
-  //     headers: new Headers({
-  //       'ngrok-skip-browser-warning': '69420',
-  //       'Content-Type': 'application/json',
-  //     }),
-  //   })
-  //     .then((response) => {
-  //       if (!response.ok) {
-  //         throw new Error('Network response was not ok');
-  //       }
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       setData(data?.data); // API 응답으로 받은 데이터를 상태에 저장
-  //     })
-  //     .catch((error) => {
-  //       console.error(
-  //         'There was a problem with the fetch operation:',
-  //         error.message,
-  //       );
-  //     });
-  // }, []); // 빈 의존성 배열을 사용하여 컴포넌트 마운트 시에만 실행
-
+  console.log(data);
   return (
     <Main>
       <Section>
@@ -381,29 +224,8 @@ const QuestionList = () => {
           <ViewCount>{data?.data?.length} questions</ViewCount>
           {/* ... */}
         </ViewAndFilterbt>
-        <List>
-          {questions.map((question) => (
-            <QuestionsContainer key={question.boardId}>
-              <QuestionVoteAnswerView>
-                <div>votes</div>
-                <div>answers</div>
-                <div>{question.view} views</div>
-              </QuestionVoteAnswerView>
-              <Question>
-                <QuestionTitle onClick={titlebtclick}>
-                  {question.title}
-                </QuestionTitle>
-                <QuestionContent>{question.content}</QuestionContent>
-                <QuestionTagsAndPostTime>
-                  <UserInfo>username</UserInfo>
-                  <QuestionPostTime>{question.createdAt}</QuestionPostTime>
-                </QuestionTagsAndPostTime>
-              </Question>
-            </QuestionsContainer>
-          ))}
-        </List>
 
-        {data?.map((ele) => (
+        {data?.data?.map((ele) => (
           <List key={ele.boardId}>
             <QuestionsContainer>
               <QuestionVoteAnswerView>
@@ -427,7 +249,7 @@ const QuestionList = () => {
           </List>
         ))}
       </Section>
-      <Pagination page={page} totalPages={totalPages} />
+      <Pagination page={data?.pageInfo.page} totalPages={totalPages} />
     </Main>
   );
 };

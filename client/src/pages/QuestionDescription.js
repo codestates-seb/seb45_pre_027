@@ -18,7 +18,8 @@ import CounterButton from '../components/DescriptionComponents/ButtonCNP/UpDownB
 import { CommentBUT } from '../components/DescriptionComponents/ButtonComponents/AddComment';
 import { CommentGetListTest } from '../components/DescriptionComponents/ListTest/CommentList';
 import { QuestionCommentGetList } from '../components/DescriptionComponents/Answers/QuestionCommentGet';
-import { useParams, useSearchParams } from 'react-router-dom';
+
+import { useParams } from 'react-router';
 import {
   BlogListBox,
   BlogListContainer,
@@ -110,11 +111,12 @@ const ButtonGroup = () => (
 // 질문 상세 페이지를 렌더링하기 위한 메인 컴포넌트.
 const LayoutWithBlogList = () => {
   const [data, setData] = useState('Loading...');
+
   const [title, setTitle] = useState('Loading...');
   console.log(title);
   const { id } = useParams();
   useEffect(() => {
-    //   // 백엔드 API 주소를 아래 URL에 설정합니다.
+    // 백엔드 API 주소를 아래 URL에 설정합니다.
 
     fetch(`${process.env.REACT_APP_SERVER_URL}board/${id}`, {
       method: 'get',
@@ -146,14 +148,9 @@ const LayoutWithBlogList = () => {
 
   return (
     <div>
-      <div>{id}</div>
       {isLogIn ? (
         <>
-          {/* <Header /> */}
-
           <Layout>
-            {/* <SideBar /> */}
-
             <Container>
               <TopContent>
                 <TitleSection>
@@ -184,7 +181,7 @@ const LayoutWithBlogList = () => {
                           />
                         </QuestionContent>
                       </ContentDetail>
-                    </ContentSection>{' '}
+                    </ContentSection>
                     <S>
                       <TagSection>
                         <LinkButton>uikit</LinkButton>
@@ -194,6 +191,7 @@ const LayoutWithBlogList = () => {
                       </TagSection>
                       <ButtonList />
                     </S>
+
                     <UserInfoSection>
                       <UserInfoBox />
                     </UserInfoSection>
@@ -234,9 +232,7 @@ const LayoutWithBlogList = () => {
             </Container>
           </Layout>
         </>
-      ) : (
-        <div>no log-in</div>
-      )}
+      ) : null}
     </div>
   );
 };
