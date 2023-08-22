@@ -5,6 +5,7 @@ import { navigate, useNavigate } from 'react-router';
 
 // import UserInfo from './UserInfo';
 import Tag from './Tag';
+import { Link, useParams } from 'react-router-dom';
 import QuestionRegist from './QuestionRegist';
 
 const Main = styled.div`
@@ -173,7 +174,125 @@ const QuestionPostTime = styled.div`
   /* text-align: right; */
 `;
 
-// 질문 리스트 페이지
+// const dummyData = {
+//   data: [
+//     {
+//       borderId: 3,
+//       title: 'Title 1',
+//       content: 'Content 1',
+//     },
+//     {
+//       borderId: 4,
+//       title: 'Title 2',
+//       content: 'Content 2',
+//     },
+//     {
+//       borderId: 5,
+//       title: 'Title 3',
+//       content: 'Content 3',
+//     },
+//   ],
+// };
+
+// // 질문 리스트 페이지
+// const QuestionList = () => {
+//   // 페이지네이션
+//   const [page, setPage] = useState(0);
+//   const [totalPages, setTotalPages] = useState(0);
+//   const [totalElements, setTotalElements] = useState(0);
+
+//   // const [searchParams, setSearchParams] = useSearchParams();
+
+//   return (
+//     <Main>
+//       <Section>
+//         <Header>
+//           <HeaderTitle>All Questions</HeaderTitle>
+//           <AskQuestionbt>Ask Question</AskQuestionbt>
+//         </Header>
+
+//         <ViewAndFilterbt>
+//           <ViewCount>{} questions</ViewCount>
+
+//           <FilterContainer>
+//             <NewestFilter>
+//               <div>Newest</div>
+//             </NewestFilter>
+//             <ActiveFilter>
+//               <div>Active</div>
+//             </ActiveFilter>
+//           </FilterContainer>
+//         </ViewAndFilterbt>
+//         <List>
+//           {/* <QuestionListBar> */}
+//           <QuestionsContainer>
+//             <QuestionVoteAnswerView>
+//               <div>{} votes</div>
+//               <div>{} answers</div>
+//               <div>{} views</div>
+//             </QuestionVoteAnswerView>
+//             <Question>
+//               <QuestionTitle>{}This is title</QuestionTitle>
+//               <QuestionContent>{}Content is long</QuestionContent>
+//               <QuestionTagsAndPostTime>
+//                 <UserInfo>username</UserInfo>
+//                 <QuestionPostTime>asked {} ago</QuestionPostTime>
+//               </QuestionTagsAndPostTime>
+//             </Question>
+//           </QuestionsContainer>
+//           {/* </QuestionListBar> */}
+//         </List>
+
+//         <List>
+//           {/* <QuestionListBar> */}
+//           <QuestionsContainer>
+//             <QuestionVoteAnswerView>
+//               <div>{} votes</div>
+//               <div>{} answers</div>
+//               <div>{} views</div>
+//             </QuestionVoteAnswerView>
+
+//             <Question>
+//               <QuestionTitle>{}This is title</QuestionTitle>
+//               <QuestionContent>{}Content is long</QuestionContent>
+
+//               <QuestionTagsAndPostTime>
+//                 <UserInfo>username</UserInfo>
+//                 <QuestionPostTime>asked {} ago</QuestionPostTime>
+//               </QuestionTagsAndPostTime>
+//             </Question>
+//           </QuestionsContainer>
+//           {/* </QuestionListBar> */}
+//         </List>
+
+//         <List>
+//           {/* <QuestionListBar> */}
+//           <QuestionsContainer>
+//             <QuestionVoteAnswerView>
+//               <div>{} votes</div>
+//               <div>{} answers</div>
+//               <div>{} views</div>
+//             </QuestionVoteAnswerView>
+
+//             <Question>
+//               <QuestionTitle>{}This is title</QuestionTitle>
+//               <QuestionContent>{}Content is long</QuestionContent>
+
+//               <QuestionTagsAndPostTime>
+//                 <UserInfo>username</UserInfo>
+//                 <QuestionPostTime>asked {} ago</QuestionPostTime>
+//               </QuestionTagsAndPostTime>
+//             </Question>
+//           </QuestionsContainer>
+//           {/* </QuestionListBar> */}
+//         </List>
+//       </Section>
+//       <Pagination page={page} totalPages={totalPages} />
+//     </Main>
+//   );
+// };
+
+// export default QuestionList;
 const QuestionList = () => {
   const navigate = useNavigate();
 
@@ -187,6 +306,7 @@ const QuestionList = () => {
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [questions, setQuestions] = useState([]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -201,7 +321,8 @@ const QuestionList = () => {
           },
         );
 
-        const data = await response.json();
+        const d = await response.json();
+        setData(d);
         console.log(data);
         setTotalPages(data.pageInfo.totalPages);
         setQuestions(data.data);
@@ -224,7 +345,29 @@ const QuestionList = () => {
   //   const [totalPages, setTotalPages] = useState(0);
   //   const [totalElements, setTotalElements] = useState(0);
 
-  // const [searchParams, setSearchParams] = useSearchParams();
+  //   fetch(`${process.env.REACT_APP_SERVER_URL}board?page=1&size=10`, {
+  //     method: 'get',
+  //     headers: new Headers({
+  //       'ngrok-skip-browser-warning': '69420',
+  //       'Content-Type': 'application/json',
+  //     }),
+  //   })
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error('Network response was not ok');
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       setData(data?.data); // API 응답으로 받은 데이터를 상태에 저장
+  //     })
+  //     .catch((error) => {
+  //       console.error(
+  //         'There was a problem with the fetch operation:',
+  //         error.message,
+  //       );
+  //     });
+  // }, []); // 빈 의존성 배열을 사용하여 컴포넌트 마운트 시에만 실행
 
   return (
     <Main>
@@ -235,16 +378,8 @@ const QuestionList = () => {
         </Header>
 
         <ViewAndFilterbt>
-          <ViewCount>{} questions</ViewCount>
-
-          <FilterContainer>
-            <NewestFilter>
-              <div>Newest</div>
-            </NewestFilter>
-            <ActiveFilter>
-              <div>Active</div>
-            </ActiveFilter>
-          </FilterContainer>
+          <ViewCount>{data?.data?.length} questions</ViewCount>
+          {/* ... */}
         </ViewAndFilterbt>
         <List>
           {questions.map((question) => (
@@ -267,6 +402,30 @@ const QuestionList = () => {
             </QuestionsContainer>
           ))}
         </List>
+
+        {data?.map((ele) => (
+          <List key={ele.boardId}>
+            <QuestionsContainer>
+              <QuestionVoteAnswerView>
+                <div>{ele.votes} votes</div>
+                <div>{ele.answers} answers</div>
+                <div>{ele.views} views</div>
+              </QuestionVoteAnswerView>
+
+              <Question>
+                <Link to={`/question-description/${ele.boardId}`}>
+                  <QuestionTitle>{ele.title}</QuestionTitle>
+                </Link>
+                <QuestionContent>{ele.content}</QuestionContent>
+
+                <QuestionTagsAndPostTime>
+                  <UserInfo>{ele.username}</UserInfo>
+                  <QuestionPostTime>asked {ele.time} ago</QuestionPostTime>
+                </QuestionTagsAndPostTime>
+              </Question>
+            </QuestionsContainer>
+          </List>
+        ))}
       </Section>
       <Pagination page={page} totalPages={totalPages} />
     </Main>
