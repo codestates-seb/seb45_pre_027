@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 import { Routes, Route } from 'react-router-dom';
 import Footer from './components/Footer';
-// import Header from './components/Header';
-// import SideBar from './components/SideBar';
+import Header from './components/Header';
+import SideBar from './components/SideBar';
 import Login from './pages/Login';
 import LogOut from './pages/LogOut';
 import QuestionDescription from './pages/QuestionDescription';
@@ -19,7 +19,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SET_TOKEN } from './redux/tokenSlice';
 import { setIsLogin } from './redux/loginSlice';
 import QuestionEdit from './pages/QuestionEdit';
-
 
 const Test = styled.div`
   display: flex;
@@ -68,25 +67,26 @@ function App() {
   }, []);
   return (
     <>
-
       <Header />
       <Test>
         <SideBar />
-<Routes>
-        <Route path="/log-in" element={<Login />} />
-        <Route path="/log-out" element={<LogOut />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/questions" element={<QuestionList />} />
-        <Route path="/question-description" element={<QuestionDescription />} />
-        <Route path="/question-regist" element={<QuestionRegist />} />
-        <Route path="/my-info" element={<MyInfo />} />
-        <Route path="/oauth/github/callback" element={<GithabCallback />} />
-        <Route path="/question-edit" element={<QuestionEdit />} />
-      </Routes>
+        <Routes>
+          <Route path="/log-in" element={<Login />} />
+          <Route path="/log-out" element={<LogOut />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/questions" element={<QuestionList />} />
+          <Route
+            path="/question-description/:id" // -> /q-d/1 ->1을 id라는 변수로 받겠다.
+            element={<QuestionDescription />}
+          />
+          <Route path="/question-regist" element={<QuestionRegist />} />
+          <Route path="/my-info" element={<MyInfo />} />
+          <Route path="/oauth/github/callback" element={<GithabCallback />} />
+          <Route path="/question-edit" element={<QuestionEdit />} />
+        </Routes>
       </Test>
       <Footer />
-
-
+    </>
   );
 }
 

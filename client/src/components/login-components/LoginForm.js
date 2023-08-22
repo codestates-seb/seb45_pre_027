@@ -109,7 +109,7 @@ function LoginForm() {
       Access Token: 실질적인 인증을 위한 JWT, 유효기간이 짧다.
       Refresh Token: Access Token의 짧은 유효기간을 보완하기 위해 사용되며, 본 토큰을 사용해 access token 만료 시 재발급
     */
-    await fetch(`${process.env.REACT_APP_SERVER_URL}/login`, {
+    await fetch(`${process.env.REACT_APP_SERVER_URL}login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -120,6 +120,8 @@ function LoginForm() {
       }),
     })
       .then((res) => {
+        // 테스트용
+        localStorage.setItem('log-in', true);
         // 리프레쉬 토큰 쿠키에 저장
         setRefreshToken(res.refresh_token);
         // 액세스 토큰 저장
@@ -127,8 +129,8 @@ function LoginForm() {
         if (!access_token) return setErrorMsg('Log-in has failed');
         dispatch(SET_TOKEN(access_token));
         dispatch(setIsLogin(true));
-        // 자동 로그인 설정 시 로컬 스토리지에 저장
-        if (autoLogin) localStorage.setItem('autoLogIn', true);
+        // // 자동 로그인 설정 시 로컬 스토리지에 저장
+        // if (autoLogin) localStorage.setItem('autoLogIn', true);
         return navigate('/');
       })
 

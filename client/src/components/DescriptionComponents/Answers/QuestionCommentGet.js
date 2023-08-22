@@ -7,6 +7,7 @@ import ButtonList from '../ButtonComponents/TextButton';
 import { CommentBUT } from '../ButtonComponents/AddComment';
 import { UserInfoTop } from '../user_info/UserInfo';
 import { CommentGetListTest } from '../ListTest/CommentList';
+import { useParams } from 'react-router';
 
 // 전체 박스
 const Container = styled.div`
@@ -93,9 +94,10 @@ export const QuestionCommentGetList = () => {
   // const [title, setTitle] = useState('Loading...');
   console.log(data);
 
+  const { id } = useParams();
   useEffect(() => {
     // 백엔드에서 타이틀을 가져오기 위해 fetch API 사용
-    fetch(`${process.env.REACT_APP_SERVER_URL}answer/1`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}answer/${id}`, {
       method: 'get',
       headers: new Headers({
         'ngrok-skip-browser-warning': '69420',
