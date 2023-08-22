@@ -45,6 +45,7 @@ const ViewText = styled.text`
   line-height: 17px; /* 141.667% */
   margin-left: 2px;
 `;
+
 const Information = ({ posts }) => (
   <QuestionInformation>
     {posts.map((post) => (

@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Pagination from './pagenation';
+import { navigate, useNavigate } from 'react-router';
 // import UserInfo from './UserInfo';
 import Tag from './Tag';
+import QuestionRegist from './QuestionRegist';
+import { Link, useParams } from 'react-router-dom';
 
 const Main = styled.div`
   color: black;
@@ -53,6 +56,7 @@ const AskQuestionbt = styled.div`
   &:hover {
     filter: brightness(120%);
   }
+  cursor: pointer;
 `;
 
 const ViewAndFilterbt = styled.div`
@@ -118,7 +122,7 @@ const QuestionVoteAnswerView = styled.div`
 
 const Question = styled.div`
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
 `;
 
 const QuestionTitle = styled.div`
@@ -169,120 +173,83 @@ const QuestionPostTime = styled.div`
   /* text-align: right; */
 `;
 
-const dummyData = {
-  data: [
-    {
-      borderId: 3,
-      title: 'Title 1',
-      content: 'Content 1',
-    },
-    {
-      borderId: 4,
-      title: 'Title 2',
-      content: 'Content 2',
-    },
-    {
-      borderId: 5,
-      title: 'Title 3',
-      content: 'Content 3',
-    },
-  ],
-};
-
 // 질문 리스트 페이지
 const QuestionList = () => {
-  // 페이지네이션
+  const navigate = useNavigate();
+
+  const titlebtclick = () => {
+    navigate('/question-description');
+  };
+  const askbtclick = () => {
+    navigate('/question-regist');
+  };
+
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const [totalElements, setTotalElements] = useState(0);
+  const [questions, setQuestions] = useState([]);
+  const [data, setData] = useState();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await fetch(`${process.env.REACT_APP_SERVER_URL}board?page=1&size=10`, {
+          method: 'get',
+          headers: new Headers({
+            'ngrok-skip-browser-warning': '69420',
+            'Content-Type': 'application/json',
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            setData(data);
+            setTotalPages(data.pageInfo.totalPages);
+            setQuestions(data.data);
+          });
+      } catch (error) {
+        console.error('실패함.', error);
+      }
+    };
 
-  // const [searchParams, setSearchParams] = useSearchParams();
-
+    fetchData();
+  }, []);
+  console.log(data);
   return (
     <Main>
       <Section>
         <Header>
           <HeaderTitle>All Questions</HeaderTitle>
-          <AskQuestionbt>Ask Question</AskQuestionbt>
+          <AskQuestionbt onClick={askbtclick}>Ask Question</AskQuestionbt>
         </Header>
 
         <ViewAndFilterbt>
-          <ViewCount>{} questions</ViewCount>
-
-          <FilterContainer>
-            <NewestFilter>
-              <div>Newest</div>
-            </NewestFilter>
-            <ActiveFilter>
-              <div>Active</div>
-            </ActiveFilter>
-          </FilterContainer>
+          <ViewCount>{data?.data?.length} questions</ViewCount>
+          {/* ... */}
         </ViewAndFilterbt>
-        <List>
-          {/* <QuestionListBar> */}
-          <QuestionsContainer>
-            <QuestionVoteAnswerView>
-              <div>{} votes</div>
-              <div>{} answers</div>
-              <div>{} views</div>
-            </QuestionVoteAnswerView>
-            <Question>
-              <QuestionTitle>{}This is title</QuestionTitle>
-              <QuestionContent>{}Content is long</QuestionContent>
-              <QuestionTagsAndPostTime>
-                <UserInfo>username</UserInfo>
-                <QuestionPostTime>asked {} ago</QuestionPostTime>
-              </QuestionTagsAndPostTime>
-            </Question>
-          </QuestionsContainer>
-          {/* </QuestionListBar> */}
-        </List>
 
-        <List>
-          {/* <QuestionListBar> */}
-          <QuestionsContainer>
-            <QuestionVoteAnswerView>
-              <div>{} votes</div>
-              <div>{} answers</div>
-              <div>{} views</div>
-            </QuestionVoteAnswerView>
+        {data?.data?.map((ele) => (
+          <List key={ele.boardId}>
+            <QuestionsContainer>
+              <QuestionVoteAnswerView>
+                <div>{ele.votes} votes</div>
+                <div>{ele.answers} answers</div>
+                <div>{ele.views} views</div>
+              </QuestionVoteAnswerView>
 
-            <Question>
-              <QuestionTitle>{}This is title</QuestionTitle>
-              <QuestionContent>{}Content is long</QuestionContent>
+              <Question>
+                <Link to={`/question-description/${ele.boardId}`}>
+                  <QuestionTitle>{ele.title}</QuestionTitle>
+                </Link>
+                <QuestionContent>{ele.content}</QuestionContent>
 
-              <QuestionTagsAndPostTime>
-                <UserInfo>username</UserInfo>
-                <QuestionPostTime>asked {} ago</QuestionPostTime>
-              </QuestionTagsAndPostTime>
-            </Question>
-          </QuestionsContainer>
-          {/* </QuestionListBar> */}
-        </List>
-
-        <List>
-          {/* <QuestionListBar> */}
-          <QuestionsContainer>
-            <QuestionVoteAnswerView>
-              <div>{} votes</div>
-              <div>{} answers</div>
-              <div>{} views</div>
-            </QuestionVoteAnswerView>
-
-            <Question>
-              <QuestionTitle>{}This is title</QuestionTitle>
-              <QuestionContent>{}Content is long</QuestionContent>
-
-              <QuestionTagsAndPostTime>
-                <UserInfo>username</UserInfo>
-                <QuestionPostTime>asked {} ago</QuestionPostTime>
-              </QuestionTagsAndPostTime>
-            </Question>
-          </QuestionsContainer>
-          {/* </QuestionListBar> */}
-        </List>
+                <QuestionTagsAndPostTime>
+                  <UserInfo>{ele.username}</UserInfo>
+                  <QuestionPostTime>asked {ele.time} ago</QuestionPostTime>
+                </QuestionTagsAndPostTime>
+              </Question>
+            </QuestionsContainer>
+          </List>
+        ))}
       </Section>
-      <Pagination page={page} totalPages={totalPages} />
+      <Pagination page={data?.pageInfo.page} totalPages={totalPages} />
     </Main>
   );
 };
