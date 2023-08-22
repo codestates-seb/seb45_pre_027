@@ -95,7 +95,6 @@ export const QuestionCommentGetList = () => {
   // const [title, setTitle] = useState('Loading...');
   console.log(data);
 
-  const { id } = useParams();
   useEffect(() => {
     // 백엔드에서 타이틀을 가져오기 위해 fetch API 사용
     fetch(`${process.env.REACT_APP_SERVER_URL}answer/${id}`, {

@@ -306,6 +306,7 @@ const QuestionList = () => {
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [questions, setQuestions] = useState([]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -320,7 +321,8 @@ const QuestionList = () => {
           },
         );
 
-        const data = await response.json();
+        const d = await response.json();
+        setData(d);
         console.log(data);
         setTotalPages(data.pageInfo.totalPages);
         setQuestions(data.data);
@@ -343,29 +345,29 @@ const QuestionList = () => {
   //   const [totalPages, setTotalPages] = useState(0);
   //   const [totalElements, setTotalElements] = useState(0);
 
-    fetch(`${process.env.REACT_APP_SERVER_URL}board?page=1&size=10`, {
-      method: 'get',
-      headers: new Headers({
-        'ngrok-skip-browser-warning': '69420',
-        'Content-Type': 'application/json',
-      }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setData(data?.data); // API 응답으로 받은 데이터를 상태에 저장
-      })
-      .catch((error) => {
-        console.error(
-          'There was a problem with the fetch operation:',
-          error.message,
-        );
-      });
-  }, []); // 빈 의존성 배열을 사용하여 컴포넌트 마운트 시에만 실행
+  //   fetch(`${process.env.REACT_APP_SERVER_URL}board?page=1&size=10`, {
+  //     method: 'get',
+  //     headers: new Headers({
+  //       'ngrok-skip-browser-warning': '69420',
+  //       'Content-Type': 'application/json',
+  //     }),
+  //   })
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error('Network response was not ok');
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       setData(data?.data); // API 응답으로 받은 데이터를 상태에 저장
+  //     })
+  //     .catch((error) => {
+  //       console.error(
+  //         'There was a problem with the fetch operation:',
+  //         error.message,
+  //       );
+  //     });
+  // }, []); // 빈 의존성 배열을 사용하여 컴포넌트 마운트 시에만 실행
 
   return (
     <Main>
