@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 const Container = styled.div`
   display: flex;
   height: 100vh;
+  width: 100%;
   justify-content: center;
   align-items: center;
   background: #f1f2f3;

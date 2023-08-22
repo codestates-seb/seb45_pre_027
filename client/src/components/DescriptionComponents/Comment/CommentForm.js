@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router';
 import styled from 'styled-components';
 
 const Form = styled.form`
@@ -71,9 +72,9 @@ const CommentForm = () => {
   const [content, setContent] = useState('');
   const [expecting, setExpecting] = useState('');
   // const [boardId, setboardId] = useState('');
-
+  const { id } = useParams();
   const handleSubmit = () => {
-    fetch(`${process.env.REACT_APP_SERVER_URL}board`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}board/${id}`, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
